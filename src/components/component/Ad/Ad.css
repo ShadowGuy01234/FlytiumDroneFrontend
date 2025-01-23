@@ -1,0 +1,9 @@
+
+.droneImage {
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .droneImage:hover {
+    transform: rotate(15deg) scale(1.05);
+  }
+  

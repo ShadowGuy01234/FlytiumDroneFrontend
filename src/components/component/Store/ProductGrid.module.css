@@ -1,0 +1,17 @@
+.productGrid {
+    flex: 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .loading,
+  .error,
+  .empty {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    color: #555;
+  }
+  

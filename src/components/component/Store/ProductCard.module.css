@@ -1,0 +1,150 @@
+.productCard {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  max-width: 250px;
+  text-align: center;
+  position: relative;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+}
+
+.newBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #007BFF;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+}
+
+.productImage {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.quickLook {
+  color: #000000;
+    font-size: 0.9em;
+    border: 1px solid #040404;
+    /* align-items: center; */
+    width: 50%;
+    /* justify-content: center; */
+    /* margin-top: 10px 0 0 10px; */
+    cursor: pointer;
+    border-radius: 16px;
+    margin: 10px 0 0 48px;
+}
+
+.productName {
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.colorOptions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.colorCircle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.priceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.9em;
+}
+
+.discountedPrice {
+  font-size: 1.5em;
+  color: #FF5722;
+}
+
+.discountAmount {
+  color: green;
+  font-size: 0.9em;
+}
+
+.rating {
+  font-size: 0.9em;
+  color: #555;
+  margin: 10px 0;
+}
+
+.features {
+  text-align: left;
+  font-size: 0.85em;
+  color: #555;
+  margin: 10px 0;
+}
+
+.feature {
+  margin-bottom: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.buyButton {
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 0.9em;
+  flex: 1;
+  margin: 4px 5px;
+}
+
+.learnMoreButton{
+  background: transparent;
+  color: #000000;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 0.9em;
+  flex: 1;
+  margin: 4px 5px;
+}
+
+.buyButton:hover {
+  background: #555;
+}
+
+.learnMoreButton {
+  background: transparent;
+}
+
+.learnMoreButton:hover {
+  color: #555;
+  border: 2px solid #555;
+}

@@ -1,0 +1,217 @@
+.ct-main-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  height: 100vh;
+}
+
+.ct-form {
+  margin-left: 840px;
+  margin-top: -18px;
+  height: 498px;
+  width: 390px;
+  padding: 20px;
+  border-radius: 8px;
+  background: transparent url('/Image/droneimg.jpg') center / auto no-repeat;
+  background-color: #fcf6f6;
+  box-shadow: 0 4px 8px black;
+  animation: uptodown 1s ease-in-out;
+}
+
+.ct-form h2 {
+  margin-top: -5px;
+  text-align: center;
+}
+
+.ct-input-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.ct-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #030303;
+}
+
+.ct-input-group input {
+  width: 310px;
+  height: 40px;
+  padding-left: 30px;
+  background: transparent;
+  color: black;
+  border: 1px solid #050505;
+  border-radius: 4px;
+}
+
+.ct-input-group input::placeholder {
+  color: black;
+}
+
+.ct-input-group textarea {
+  width: 324px;
+  height: 100px;
+  padding: 10px;
+  resize: vertical;
+  background: transparent;
+  color: black;
+  border: 1px solid #050505;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: serif;
+}
+
+.ct-maps-section {
+  width: 433px;
+  height: 540px;
+  float: left;
+  animation: uptodown 1s ease-in-out;
+}
+
+.ct-black-section {
+  margin-left: 415px;
+  margin-top: -594px;
+  height: 540px;
+  width: 410px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: #040404;
+  animation: downtoup 1s ease-in-out;
+}
+
+.ct-black-section h4,
+.ct-black-section h5 {
+  color: white;
+  text-align: center;
+  text-decoration: underline rgb(242, 162, 1) 2px;
+  font-weight: bold;
+}
+
+.ct-black-section h5 {
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+}
+
+.ct-benefits {
+  color: white;
+  padding: 10px;
+  margin-top: -20px;
+}
+
+.ct-benefit-text {
+  margin-top: -15px;
+}
+
+.ct-social-icons {
+  margin-top: -43px;
+  margin-left: 298px;
+  display: flex;
+  width: 200px;
+}
+
+.ct-icon-instagram,
+.ct-icon-twitter,
+.ct-icon-facebook {
+  color: #fcfafa;
+  padding: 3px;
+  font-size: 18px;
+}
+
+.ct-icon-instagram:hover,
+.ct-icon-twitter:hover,
+.ct-icon-facebook:hover {
+  position: relative;
+  font-size: 25px;
+  color: #ff9d00;
+  text-shadow: 0 0 5px #ff9d00, 0 0 10px #ff9d00, 0 0 20px #ff9d00, 0 0 40px #ff9d00, 0 0 80px #ff9d00;
+}
+
+.ct-connect-heading {
+  margin-top: 95px;
+  margin-left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.ct-button-container {
+  margin-top: 30px;
+  width: 340px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid rgb(250, 248, 248);
+  border-radius: 10px;
+  box-shadow: 0 0 3px #000;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.ct-button-container button {
+  width: 100%;
+  height: 100%;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  background-color: rgb(12, 12, 12);
+  color: rgb(255, 248, 248);
+  border: none;
+  cursor: pointer;
+  mask: url('/Image/mask.png') no-repeat;
+  mask-size: 3000% 100%;
+  animation: anim_reverse 0.7s steps(29) forwards;
+}
+
+.ct-button-container button:hover {
+  animation: anim_forward 0.7s steps(29) forwards;
+}
+
+.ct-button-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: rgb(255, 254, 254);
+  overflow: hidden;
+}
+
+@keyframes uptodown {
+  from {
+    transform: translateY(-330px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes downtoup {
+  from {
+    transform: translateY(300px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes anim_forward {
+  from {
+    mask-position: 0 0;
+  }
+  to {
+    mask-position: 100% 0;
+  }
+}
+
+@keyframes anim_reverse {
+  from {
+    mask-position: 100% 0;
+  }
+  to {
+    mask-position: 0 0;
+  }
+}

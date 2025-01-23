@@ -1,0 +1,262 @@
+/* Service.css */
+
+/* Hero Section */
+.service-hero {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 4rem 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .service-hero h1 {
+    font-family: Bebas Neue;;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+  }
+  
+  .service-hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    font-family: "Titillium Web", serif;
+    
+  }
+  
+  /* Services Section */
+  .services-section {
+    padding: 4rem 1rem;
+    background-color: #fff;
+  }
+
+  .services-section p{
+    font-family: "Titillium Web", serif;
+  }
+  
+  .services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .services-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .services-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 1rem;
+  }
+  
+  .services-description {
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .service-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .icon-wrapper {
+    background-color: #000;
+    border-radius: 50%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .icon-wrapper svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: white;
+  }
+  
+  .service-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0.5rem;
+  }
+  
+  .service-description {
+    text-align: center;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* Training Section */
+  .training-section {
+    background-color: #f9f9f9;
+    padding: 4rem 1rem;
+  }
+  
+  .training-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .training-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .training-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 1rem;
+    font-family: "Titillium Web", serif;
+  }
+  
+  .training-description {
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-family: "Titillium Web", serif;
+  }
+  
+  .training-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .training-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .training-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .training-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .icon-container {
+    background-color: #000;
+    border-radius: 50%;
+    padding: 0.75rem;
+    margin-right: 1rem;
+  }
+  
+  .icon-container svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: white;
+  }
+  
+  .course-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000;
+  }
+  
+  .course-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .duration, .level {
+    background-color: #f0f0f0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #666;
+  }
+  
+  .course-description {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  
+  .topics-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .topics-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #000;
+  }
+  
+  .topics-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .topics-list li {
+    color: #666;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  
+  .topics-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0.5rem;
+    color: #000;
+  }
+  
+  .enroll-button {
+    width: 100%;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .enroll-button:hover {
+    background-color: #333;
+  }
+  
+  /* Media Queries */
+  @media (min-width: 768px) {
+    .services-grid,
+    .training-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .services-grid,
+    .training-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }

@@ -1,0 +1,267 @@
+/* Back Button Styles */
+.back-button {
+  position: fixed;
+  top: 30px;
+  left: 20px;
+  z-index: 1000;
+  cursor: pointer;
+  background-color: #000000;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+}
+
+.back-button:active {
+  transform: translateY(0);
+}
+
+/* Cart Styles */
+.cart-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.cart-icon:hover {
+  transform: scale(1.1);
+}
+
+.cart-counter {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  min-width: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Cards Container Styles */
+.cards-container {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 30px;
+}
+
+h2 {
+  margin-top: -35px;
+  font-size: 30px;
+  font-family: fantasy;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+/* Card Styles */
+.card {
+  background-color: black;
+  width: 220px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.image-container {
+  overflow: hidden;
+  width: 100%;
+  height: 80%;
+  background-color: white;
+  perspective: 1000px;
+  position: relative;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  backface-visibility: hidden;
+  transition: transform 0.8s ease;
+}
+
+.description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  opacity: 0;
+  backface-visibility: hidden;
+  transition: opacity 0.5s ease;
+  padding: 10px;
+  text-align: center;
+}
+
+.image-container:hover .card-image {
+  transform: rotateY(180deg);
+}
+
+.image-container:hover .description {
+  opacity: 1;
+}
+
+/* Card Content Styles */
+.name-container {
+  width: 100%;
+  height: 40%;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.name-container h3 {
+  margin-top: -2px;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.price-rating {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.price {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gold;
+  font-size: 14px;
+}
+
+.rating span {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* Card Buttons Styles */
+.card-buttons {
+  width: 170px;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  margin-top: 4px;
+}
+
+.card-buttons button {
+  width: 45%;
+  padding: 6px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.card-buttons button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.card-buttons button:last-child {
+  background-color: #28a745;
+  color: white;
+}
+
+.card-buttons button:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+/* Cart Counter Override */
+.cart-counter {
+  color: rgb(1, 1, 1);
+  background-color: transparent;
+  margin-top: 20px;
+  margin-right: 14px;
+  border: 1px solid transparent;
+  font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .back-button {
+    top: 10px;
+    left: 10px;
+    padding: 6px 15px;
+    font-size: 14px;
+  }
+
+  .row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .card {
+    margin: 10px;
+  }
+  
+  .cart-container {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+  }
+}

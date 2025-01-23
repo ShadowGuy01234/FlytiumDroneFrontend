@@ -1,0 +1,139 @@
+.carousel-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 90vh;
+    padding: 20px;
+    overflow: hidden; 
+  }
+  
+  
+  .image-stack {
+    position: relative;
+    width: 50%;
+    height: 60%;
+    perspective: 1000px; 
+  }
+  
+  .image-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transform-origin: left;
+    transform: rotateY(5deg); 
+    opacity: 0;
+  }
+  
+  .image-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .active {
+    opacity: 1;
+    transform: rotateY(0deg); 
+  }
+  
+  .inactive {
+    transform: rotateY(-90deg); 
+    opacity: 0;
+  }
+  
+  
+  .carousel-controls {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .carousel-controls .head {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .book-btn {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-bottom: 30px;
+  }
+  
+  .book-btn:hover {
+    background-color: #333;
+  }
+/*   
+  .arrow-controls {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .arrow-btn {
+    background-color: #ddd;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .arrow-btn:hover {
+    background-color: #bbb;
+  } */
+  .arrow-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .arrow-btn {
+    background: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+    border: none;
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  }
+  
+  .arrow-btn:hover {
+    background: rgba(255, 255, 255, 0.9); /* Slightly lighter on hover */
+    transform: scale(1.1); /* Slight zoom-in effect */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+  }
+  
+  .arrow-btn:focus {
+    outline: none; /* Remove focus outline */
+  }
+  
+  .arrow-btn.left {
+    margin-right: auto;
+  }
+  
+  .arrow-btn.right {
+    margin-left: auto;
+  }
+
+  @media (max-width: 768px) {
+    .carousel-container {
+      display: none;
+    }
+  }

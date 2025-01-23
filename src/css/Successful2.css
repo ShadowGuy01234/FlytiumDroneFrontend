@@ -1,0 +1,129 @@
+/* Style the body to apply the background image for the entire page */
+
+  
+  /* Container to center the card */
+  .su-card-container {
+    background: url('/Image/droneimg.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  /* Success Card Styles */
+  .su-success-card {
+    position: relative;
+    width: 300px;
+    padding: 20px;
+    background:transparent; /* Transparent background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px); /* Optional blur */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Checkmark icon styles */
+  .su-checkmark-icon {
+    color: #4CAF50; /* Green color similar to the image */
+    font-size: 80px; /* Size of the tick */
+    animation: pop-iN 0.6s ease-in-out forwards, pulsE 1.5s infinite;
+  }
+  
+  /* Heading text inside the card */
+  .su-heading {
+    font-weight: bold;
+    margin-top: 20px;
+    color: black;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  /* Animations */
+  @keyframes pop-iN {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulsE {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  .su-button-wrapper {
+    position: relative;
+    width: 320px;
+    height: 45px;
+    overflow: hidden;
+    border: 2px solid rgb(5, 5, 5);
+    transition: 0.5s;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 80px #000;
+  }
+  
+  .su-button-wrapper button {
+    width: 320px;
+    height: 200px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
+    background-color: rgb(6, 6, 6);
+    -webkit-mask: url("/Image/mask.png");
+    mask: url("/Image/mask.png");
+    color: rgb(254, 250, 250);
+    font-weight: 900;
+    -webkit-mask-size: 3000% 100%;
+    mask-size: 3000% 100%;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    mask-position: 50% 0;
+    animation: anim_reversE 0.7s steps(29) forwards;
+  }
+  
+  .su-button-wrapper button:hover {
+    animation: anim_forwarD 0.7s steps(29) forwards;
+  }
+  
+  .su-btn-text {
+    position: absolute;
+    font-weight: 900;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    width: 100%;
+    font-size: 15px;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+  }
+  
+  @keyframes anim_forwarD {
+    from {
+      -webkit-mask-position: 0% 0%;
+    }
+    to {
+      -webkit-mask-position: 100% 0;
+    }
+  }
+  
+  @keyframes anim_reversE {
+    from {
+      -webkit-mask-position: 100% 0;
+    }
+    to {
+      -webkit-mask-position: 0 0;
+    }
+  }
