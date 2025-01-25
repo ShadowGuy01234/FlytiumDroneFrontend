@@ -1,134 +1,132 @@
-.vb-login-container {
+/* Modern Login Page Styles */
+.modern-login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('/Image/droneimg.jpg') no-repeat center center/cover;
-  font-family: 'Fantasy', sans-serif;
+  background: linear-gradient(135deg, #f0f8ff, #dbeafe);
+  font-family: 'Poppins', sans-serif;
 }
 
-.vb-login-form {
-  background-color: transparent;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(2px);
-  width: 300px;
+.modern-login-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 }
 
 h2 {
-  text-align: center;
-  font-family: fantasy;
-  letter-spacing: 1px;
-  margin-top: -13px;
+  font-size: 1.8rem;
+  color: #1a202c;
+  margin-bottom: 10px;
 }
 
-.vb-input-container {
+.modern-subtitle {
+  font-size: 0.9rem;
+  color: #718096;
+  margin-bottom: 30px;
+}
+
+.modern-input-container {
   margin-bottom: 20px;
+  text-align: left;
 }
 
-.vb-label {
-  font-size: 1.2rem;
-  color: black;
-  display: block;
+.modern-input-container label {
+  font-size: 0.9rem;
+  color: #4a5568;
   margin-bottom: 8px;
+  display: block;
 }
 
-.vb-input-wrapper {
+.modern-input-wrapper {
   display: flex;
   align-items: center;
   position: relative;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  padding: 10px;
 }
 
-.vb-input-wrapper .vb-icon {
-  position: absolute;
-  left: 10px;
-  margin-top: -6px;
-  color: black;
+.modern-input-wrapper input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding-left: 10px;
+  font-size: 0.9rem;
+  color: #2d3748;
 }
 
-.vb-input-wrapper .vb-icon-eye {
+.modern-input-wrapper input::placeholder {
+  color: #a0aec0;
+}
+
+.modern-icon {
+  color: #4a5568;
+}
+
+.modern-icon-eye {
   position: absolute;
   right: 10px;
   cursor: pointer;
-  color: black;
+  color: #4a5568;
 }
 
-.vb-input-wrapper input {
+.modern-submit-button {
   width: 100%;
-  height: 25px;
-  padding: 10px 10px 10px 30px;
-  border-radius: 5px;
-  border: 1px solid #070707;
-  background-color: transparent;
-  color: black;
+  background: linear-gradient(90deg, #4f46e5, #3b82f6);
+  color: #ffffff;
+  padding: 12px;
   font-size: 1rem;
-}
-
-.vb-input-wrapper input::placeholder {
-  color: black;
-  font-family: 'Fantasy', sans-serif;
-}
-
-.vb-button-container {
-  position: relative;
-  /* width: 300px; */
-  height: 45px;
-  overflow: hidden;
-  border: 2px solid rgb(2, 2, 2);
-  transition: 0.5s;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 0 80px #000;
-}
-
-.vb-button-container button {
-  width:300px ;
-  height:200px;
-  font-family: 'Lato', sans-serif;
-  letter-spacing: 1px;
-  background-color: rgb(6, 6, 6);
-  -webkit-mask: url("/Image/mask.png");
-  mask: url("/Image/mask.png");
-  color: rgb(254, 250, 250);
-  font-weight: 900;
-  -webkit-mask-size: 3000% 100%;
-  mask-size: 3000% 100%;
+  font-weight: 600;
   border: none;
-  font-size: 15px;
+  border-radius: 8px;
   cursor: pointer;
-  mask-position: 50% 0;
-  animation: anim_reverse 0.7s steps(29) forwards;
+  transition: background 0.3s ease;
 }
 
-.vb-button-container button:hover {
-  animation: anim_forward 0.7s steps(29) forwards;
+.modern-submit-button:hover {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
 }
 
-.vb-text {
-  position: absolute;
-  font-weight: 900;
-  font-family: 'Lato', sans-serif;
-  text-align: center;
-  width: 100%;
-  font-size: 15px;
-  overflow: hidden;
-  color: rgb(255, 255, 255);
+.modern-footer-text {
+  font-size: 0.8rem;
+  color: #4a5568;
+  margin-top: 20px;
 }
 
-/* .vb {
-  margin-left: 165px;
-  margin-top:-980px;
-} */
-.vb-p1 {
-  margin-left: 10px;
-  margin-top: 2px;
-  width:155px;
+.modern-link {
+  color: #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.Vijit{
-  float:right;
-  margin-right:-78px;
-  color:white;
+.modern-link:hover {
+  text-decoration: underline;
+}
+
+.modern-message {
+  color: #e53e3e;
+  font-size: 0.9rem;
+  margin-top: 15px;
+}
+
+.password-advice {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  color: #718096;
+  list-style: none;
+  padding: 0;
+}
+
+.password-advice li {
+  margin-bottom: 5px;
+}
+
+.password-advice li.valid {
+  color: #38a169; /* Green for valid criteria */
+  font-weight: 600;
 }
