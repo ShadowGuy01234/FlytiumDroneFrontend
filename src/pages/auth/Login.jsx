@@ -39,9 +39,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return; // Stop if pre-backend validations fail
-    }
+    
 
     try {
       const res = await axios.post(`${API_URL}/api/auth/login`, formData);
