@@ -24,9 +24,9 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    if (name === "password") {
-      validatePassword(value); // Validate password in real time
-    }
+    // if (name === "password") {
+    //   validatePassword(value); // Validate password in real time
+    // }
   };
 
   // Validate password strength
