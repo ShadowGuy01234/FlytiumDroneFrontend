@@ -80,16 +80,16 @@ input:checked + label .description1 {
 }
 
 .card1[for="c1"] {
-  background-image: url('./003.jpg');
+  background-image: url('/assets/003.jpg');
 }
 .card1[for="c2"] {
-  background-image: url('./001.jpg');
+  background-image: url('/assets/001.jpg');
 }
 .card1[for="c3"] {
-  background-image: url('./002.jpg');
+  background-image: url('/assets/002.jpg');
 }
 .card1[for="c4"] {
-  background-image: url('./003.jpg');
+  background-image: url('/assets/003.jpg');
 }
 .card1[for="c5"] {
   background-image: url('./003.jpg');
