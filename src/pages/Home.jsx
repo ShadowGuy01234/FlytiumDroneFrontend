@@ -22,8 +22,6 @@ const Home = () => {
       <GalleryCard />
 
       <QnA />
-
-      
     </div>
   );
 };

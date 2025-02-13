@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { API_URL } from "../../api";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
+import { Upload, X } from "lucide-react";
 
 const CreateCategory = () => {
   const [categories, setCategories] = useState([]);
@@ -13,6 +14,9 @@ const CreateCategory = () => {
   const [updateId, setUpdateId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [image, setImage] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   const getallCategory = async () => {
     try {
@@ -26,48 +30,66 @@ const CreateCategory = () => {
     }
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "flytium");
+      formData.append("cloud_name", "dhkpwi9ga");
+
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dhkpwi9ga/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      setImage(data.secure_url);
+      setImagePreview(data.secure_url);
+      toast.success("Image uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!image) {
+        toast.error("Please upload an image");
+        return;
+      }
+
       if (updateId) {
         const { data } = await axios.put(
           `${API_URL}/api/category/update-category/${updateId}`,
-          { name }
+          { name, image }
         );
         if (data.success) {
-          toast.success("Category updated successfully", {
-            style: {
-              border: '1px solid #713200',
-              padding: '16px',
-              color: '#713200',
-            },
-            iconTheme: {
-              primary: '#713200',
-              secondary: '#FFFAEE',
-            },
-          });
+          toast.success("Category updated successfully");
           setUpdateId(null);
         }
       } else {
         const { data } = await axios.post(
           `${API_URL}/api/category/create-category`,
-          { name }
+          { name, image }
         );
         if (data.success) {
-          toast.success("Category created successfully", {
-            style: {
-              border: '1px solid #713200',
-              padding: '16px',
-              color: '#713200',
-            },
-            iconTheme: {
-              primary: '#713200',
-              secondary: '#FFFAEE',
-            },
-          });
+          toast.success("Category created successfully");
         }
       }
       setName("");
+      setImage("");
+      setImagePreview("");
       setIsModalOpen(false);
       getallCategory();
     } catch (error) {
@@ -91,13 +113,13 @@ const CreateCategory = () => {
       if (data.success) {
         toast.success("Category deleted successfully", {
           style: {
-            border: '1px solid #713200',
-            padding: '16px',
-            color: '#713200',
+            border: "1px solid #713200",
+            padding: "16px",
+            color: "#713200",
           },
           iconTheme: {
-            primary: '#713200',
-            secondary: '#FFFAEE',
+            primary: "#713200",
+            secondary: "#FFFAEE",
           },
         });
         getallCategory();
@@ -110,6 +132,8 @@ const CreateCategory = () => {
 
   const handleEditClick = (cat) => {
     setName(cat.name);
+    setImage(cat.image);
+    setImagePreview(cat.image);
     setUpdateId(cat._id);
     setIsModalOpen(true);
   };
@@ -165,6 +189,9 @@ const CreateCategory = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Image
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Category Name
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -178,6 +205,13 @@ const CreateCategory = () => {
                       key={cat._id}
                       className="hover:bg-gray-50 transition-colors duration-200"
                     >
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <img
+                          src={cat.image}
+                          alt={cat.name}
+                          className="h-12 w-12 object-cover rounded-lg"
+                        />
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {cat.name}
                       </td>
@@ -220,6 +254,51 @@ const CreateCategory = () => {
             </h2>
 
             <form onSubmit={handleSubmit}>
+              <div className="mb-6">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Category Image
+                </label>
+                <div className="space-y-4">
+                  {imagePreview && (
+                    <div className="w-full h-48 rounded-lg overflow-hidden bg-gray-100">
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  )}
+                  <div className="flex items-center space-x-4">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                      id="image-upload"
+                    />
+                    <label
+                      htmlFor="image-upload"
+                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg cursor-pointer hover:bg-gray-200 transition-colors duration-200 flex items-center gap-2"
+                    >
+                      <Upload className="w-5 h-5" />
+                      {image ? "Change Image" : "Upload Image"}
+                    </label>
+                    {imagePreview && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setImagePreview("");
+                          setImage("");
+                        }}
+                        className="px-4 py-2 text-red-600 hover:text-red-700 transition-colors duration-200"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               <div className="mb-6">
                 <label
                   htmlFor="categoryName"

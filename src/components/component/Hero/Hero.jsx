@@ -1,132 +1,34 @@
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "./Hero.css";
-
-// const Hero = () => {
-//   const images = [
-//     { src: '/001.jpg', learnMoreUrl: '/learn-more-1', orderNowUrl: '/order-now-1' },
-//     { src: '/002.jpg', learnMoreUrl: '/learn-more-2', orderNowUrl: '/order-now-2' },
-//     { src: '/003.jpg', learnMoreUrl: '/learn-more-3', orderNowUrl: '/order-now-3' },
-//   ];
-
-//   const [currentIndex, setCurrentIndex] = useState(0);
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-//     }, 5000);
-//     return () => clearInterval(interval);
-//   }, [images.length]);
-
-//   const prevSlide = () => {
-//     const index = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
-//     setCurrentIndex(index);
-//   };
-
-//   const nextSlide = () => {
-//     const index = (currentIndex + 1) % images.length;
-//     setCurrentIndex(index);
-//   };
-
-//   const goToSlide = (index) => {
-//     setCurrentIndex(index);
-//   };
-
-//   return (
-//     <section className="chk">
-//       <div className="relative overflow-hidden h-full">
-//         {images.map((image, index) => (
-//           <div
-//             key={index}
-//             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-//               index === currentIndex ? 'opacity-100' : 'opacity-0'
-//             }`}
-//           >
-//             <img src={image.src} alt={`Slide ${index}`} className="w-full h-full object-cover" />
-//           </div>
-//         ))}
-//       </div>
-
-//       <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex space-x-4 z-20">
-//         <a href={images[currentIndex].learnMoreUrl}>
-//           <button className="border border-white text-white bg-transparent rounded-full px-6 py-2 hover:bg-white hover:text-black transition duration-300 ease-in-out">
-//             Learn More
-//           </button>
-//         </a>
-//         <a href={images[currentIndex].orderNowUrl}>
-//           <button className="bg-black text-white rounded-full px-6 py-2 font-bold transition duration-300 ease-in-out hover:bg-gray-700">
-//             Order Now
-//           </button>
-//         </a>
-//       </div>
-
-//       <button
-//         onClick={prevSlide}
-//         className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 z-20"
-//       >
-//         &#10094;
-//       </button>
-//       <button
-//         onClick={nextSlide}
-//         className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 z-20"
-//       >
-//         &#10095;
-//       </button>
-
-//       <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-//         {images.map((_, index) => (
-//           <button
-//             key={index}
-//             onClick={() => goToSlide(index)}
-//             className={`w-3 h-3 rounded-full ${
-//               currentIndex === index ? 'bg-white' : 'bg-gray-400'
-//             }`}
-//           />
-//         ))}
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Hero;
-
-import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image1 from "../../../assets/ser.png";
-import Image2 from "../../../assets/sensors.png";
-import Image3 from "../../../assets/001.png";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-
-const ImageList = [
-  {
-    id: 1,
-    img: Image1,
-    title: "Upto 50% off on all Drone Components",
-    description:
-      "Discover our premium selection of drone parts and components at unbeatable prices. Limited time offer!",
-    buttonText: "Shop Now",
-  },
-  {
-    id: 2,
-    img: Image2,
-    title: "30% off on all IoT Items",
-    description:
-      "Explore our cutting-edge IoT devices and sensors. Transform your ideas into smart solutions.",
-    buttonText: "Explore IoT",
-  },
-  {
-    id: 3,
-    img: Image3,
-    title: "70% off on all Products",
-    description:
-      "Don't miss out on our biggest sale of the year. Premium quality at amazing prices.",
-    buttonText: "View Deals",
-  },
-];
+import axios from "axios";
+import { API_URL } from "../../../api";
 
 const Hero = ({ handleOrderPopup }) => {
+  const [heroSlides, setHeroSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchHeroSlides();
+  }, []);
+
+  const fetchHeroSlides = async () => {
+    try {
+      const { data } = await axios.get(`${API_URL}/api/hero`);
+      if (data.success) {
+        setHeroSlides(data.heros);
+      }
+    } catch (error) {
+      console.error("Error fetching hero slides:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const settings = {
     dots: true,
     arrows: false,
@@ -143,14 +45,18 @@ const Hero = ({ handleOrderPopup }) => {
     ),
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="relative overflow-hidden min-h-[650px] bg-gradient-to-b from-gray-50 to-white">
       <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
 
       <div className="container mx-auto px-4">
         <Slider {...settings}>
-          {ImageList.map((data) => (
-            <div key={data.id} className="outline-none">
+          {heroSlides.map((data) => (
+            <div key={data._id} className="outline-none">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-12">
                 {/* Content Section */}
                 <motion.div
@@ -194,7 +100,7 @@ const Hero = ({ handleOrderPopup }) => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur-3xl"></div>
                   <img
-                    src={data.img}
+                    src={data.image}
                     alt={data.title}
                     className="relative w-full h-[400px] object-contain transform hover:scale-105 transition-transform duration-500"
                   />

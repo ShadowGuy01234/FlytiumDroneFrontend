@@ -12,6 +12,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const navbarRef = useRef(null);
+  const dropdownRef = useRef(null);
   const { auth, setAuth } = useAuth();
   const { cart } = useCart();
 
@@ -23,13 +24,13 @@ const Navbar = () => {
     localStorage.removeItem("auth");
     toast.success("Logged out successfully", {
       style: {
-        border: '1px solid #713200',
-        padding: '16px',
-        color: '#713200',
+        border: "1px solid #713200",
+        padding: "16px",
+        color: "#713200",
       },
       iconTheme: {
-        primary: '#713200',
-        secondary: '#FFFAEE',
+        primary: "#713200",
+        secondary: "#FFFAEE",
       },
     });
   };
@@ -53,6 +54,19 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav
@@ -158,7 +172,7 @@ const Navbar = () => {
               </NavLink>
             </li>
           ) : (
-            <li className="relative">
+            <li className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
                 className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
@@ -173,6 +187,7 @@ const Navbar = () => {
                       <NavLink
                         to="/dashboard/admin"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setShowDropdown(false)}
                       >
                         {auth?.user?.name}
                       </NavLink>
@@ -182,12 +197,14 @@ const Navbar = () => {
                       <NavLink
                         to="/dashboard/user/profile"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setShowDropdown(false)}
                       >
                         {auth?.user?.name}
                       </NavLink>
                       <NavLink
                         to="/dashboard/user/orders"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setShowDropdown(false)}
                       >
                         Orders
                       </NavLink>
@@ -195,7 +212,10 @@ const Navbar = () => {
                   )}
                   <div className="border-t border-gray-100">
                     <button
-                      onClick={handleLogout}
+                      onClick={() => {
+                        handleLogout();
+                        setShowDropdown(false);
+                      }}
                       className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
                     >
                       Logout
@@ -312,7 +332,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               ) : (
-                <li className="relative">
+                <li className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setShowDropdown(!showDropdown)}
                     className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
@@ -327,6 +347,7 @@ const Navbar = () => {
                           <NavLink
                             to="/dashboard/admin"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                            onClick={() => setShowDropdown(false)}
                           >
                             {auth?.user?.name}
                           </NavLink>
@@ -336,12 +357,14 @@ const Navbar = () => {
                           <NavLink
                             to="/dashboard/user/profile"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                            onClick={() => setShowDropdown(false)}
                           >
                             {auth?.user?.name}
                           </NavLink>
                           <NavLink
                             to="/dashboard/user/orders"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                            onClick={() => setShowDropdown(false)}
                           >
                             Orders
                           </NavLink>
@@ -349,7 +372,10 @@ const Navbar = () => {
                       )}
                       <div className="border-t border-gray-100">
                         <button
-                          onClick={handleLogout}
+                          onClick={() => {
+                            handleLogout();
+                            setShowDropdown(false);
+                          }}
                           className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
                         >
                           Logout

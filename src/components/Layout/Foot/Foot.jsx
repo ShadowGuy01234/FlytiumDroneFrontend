@@ -1,4 +1,6 @@
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { Facebook, Instagram, Twitter, Github, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -8,11 +10,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
           {/* Logo and Name */}
           <div className="flex items-center mb-4 md:mb-0">
-            <img
-              src="/logo.png" // Replace this with your logo
-              alt="Logo"
-              className="h-10 w-10 mr-3"
-            />
+            <img src="/logo.png" alt="Logo" className="h-10 w-10 mr-3" />
             <span className="text-xl font-bold">Flytium</span>
           </div>
 
@@ -21,16 +19,22 @@ const Footer = () => {
             {/* About Section */}
             <div>
               <h3 className="font-bold mb-2">ABOUT</h3>
-              <ul>
+              <ul className="space-y-2">
                 <li>
-                  <a href="#flowbite" className="text-gray-600 hover:underline">
-                    Flowbite
-                  </a>
+                  <Link
+                    to="/about"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    About Us
+                  </Link>
                 </li>
                 <li>
-                  <a href="#tailwind" className="text-gray-600 hover:underline">
-                    Tailwind CSS
-                  </a>
+                  <Link
+                    to="/contact"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    Contact
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -38,15 +42,25 @@ const Footer = () => {
             {/* Follow Us Section */}
             <div>
               <h3 className="font-bold mb-2">FOLLOW US</h3>
-              <ul>
+              <ul className="space-y-2">
                 <li>
-                  <a href="#github" className="text-gray-600 hover:underline">
+                  <a
+                    href="https://github.com/flytium"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
                     Github
                   </a>
                 </li>
                 <li>
-                  <a href="#discord" className="text-gray-600 hover:underline">
-                    Discord
+                  <a
+                    href="https://linkedin.com/company/flytium"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    LinkedIn
                   </a>
                 </li>
               </ul>
@@ -55,16 +69,30 @@ const Footer = () => {
             {/* Legal Section */}
             <div>
               <h3 className="font-bold mb-2">LEGAL</h3>
-              <ul>
+              <ul className="space-y-2">
                 <li>
-                  <a href="#privacy" className="text-gray-600 hover:underline">
+                  <Link
+                    to="/privacy-policy"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#terms" className="text-gray-600 hover:underline">
+                  <Link
+                    to="/terms-conditions"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
                     Terms & Conditions
-                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/shipping-policy"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    Shipping Policy
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -73,24 +101,49 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="mt-6 border-t pt-4 flex flex-col md:flex-row justify-between items-center text-gray-500">
-          <p>© 2024 YourBrand™</p>
+          <p>© {new Date().getFullYear()} Flytium™. All rights reserved.</p>
 
           {/* Social Media Icons */}
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#facebook" className="hover:text-gray-700">
-              <i className="fab fa-facebook-f"></i>
+          <div className="flex items-center space-x-4 mt-4 md:mt-0">
+            <a
+              href="https://facebook.com/flytium"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors"
+            >
+              <Facebook className="w-5 h-5" />
             </a>
-            <a href="#instagram" className="hover:text-gray-700">
-              <i className="fab fa-instagram"></i>
+            <a
+              href="https://instagram.com/flytium"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors"
+            >
+              <Instagram className="w-5 h-5" />
             </a>
-            <a href="#twitter" className="hover:text-gray-700">
-              <i className="fab fa-twitter"></i>
+            <a
+              href="https://twitter.com/flytium"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors"
+            >
+              <Twitter className="w-5 h-5" />
             </a>
-            <a href="#github" className="hover:text-gray-700">
-              <i className="fab fa-github"></i>
+            <a
+              href="https://github.com/flytium"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors"
+            >
+              <Github className="w-5 h-5" />
             </a>
-            <a href="#dribbble" className="hover:text-gray-700">
-              <i className="fab fa-dribbble"></i>
+            <a
+              href="https://linkedin.com/company/flytium"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors"
+            >
+              <Linkedin className="w-5 h-5" />
             </a>
           </div>
         </div>

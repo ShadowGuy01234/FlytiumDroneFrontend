@@ -1,0 +1,79 @@
+/* Terms & Conditions V4 - Responsive Design */
+.terms-containerV4 {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
+    text-align: center;
+  }
+  
+  /* Title Styling */
+  .terms-titleV4 {
+    color: #007BFF;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: bold;
+  }
+  
+  /* Content Styling */
+  .terms-contentV4 {
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  /* Each Item Styling */
+  .terms-itemV4 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    transition: transform 0.3s ease;
+  }
+  
+  .terms-itemV4:last-child {
+    border-bottom: none;
+  }
+  
+  .terms-itemV4:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Text Styling */
+  p {
+    font-size: 16px;
+    color: #004080;
+    margin: 0;
+  }
+  
+  strong {
+    color: #007BFF;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .terms-containerV4 {
+      max-width: 90%;
+      padding: 20px;
+    }
+  
+    .terms-titleV4 {
+      font-size: 24px;
+    }
+  
+    .terms-itemV4 {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px;
+    }
+  
+    p {
+      font-size: 14px;
+    }
+  }
+  

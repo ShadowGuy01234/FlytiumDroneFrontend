@@ -1,63 +1,83 @@
-import React from "react";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
-import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
-import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
-import InsertChartOutlinedSharpIcon from "@mui/icons-material/InsertChartOutlinedSharp";
-import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
-import DnsOutlinedIcon from "@mui/icons-material/DnsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
-import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
-import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import {
+  FiGrid,
+  FiUsers,
+  FiShoppingBag,
+  FiCreditCard,
+  FiLayers,
+  FiMonitor,
+} from "react-icons/fi";
+import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 import "./sidebar.css";
-import { Link } from "react-router-dom";
+
+const menuItems = [
+  {
+    title: "MAIN",
+    items: [{ path: "/dashboard/admin", icon: <FiGrid />, label: "Dashboard" }],
+  },
+  {
+    title: "LISTS",
+    items: [
+      { path: "/dashboard/admin/users", icon: <FiUsers />, label: "Users" },
+      {
+        path: "/dashboard/admin/category",
+        icon: <FiLayers />,
+        label: "Category",
+      },
+      {
+        path: "/dashboard/admin/products",
+        icon: <FiShoppingBag />,
+        label: "Products",
+      },
+      {
+        path: "/dashboard/admin/orders",
+        icon: <FiCreditCard />,
+        label: "Orders",
+      },
+      {
+        path: "/dashboard/admin/hero",
+        icon: <FiMonitor />,
+        label: "Hero Slides",
+      },
+    ],
+  },
+];
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
-      
-      <hr />
-      <div className="bottom">
-        <ul>
-          <p className="title">MAIN</p>
-          <Link to="/dashboard/admin" style={{ textDecoration: "none" }}>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
-          </li>
-          </Link>
-
-          <p className="title">LISTS</p>
-          <Link to="/dashboard/admin/users" style={{ textDecoration: "none" }}>
-            <li>
-              <Person3OutlinedIcon className="icon" />
-              <span>Users</span>
-            </li>
-          </Link>
-          <Link to="/dashboard/admin/category" style={{ textDecoration: "none" }}>
-            <li>
-              <Person3OutlinedIcon className="icon" />
-              <span>Category</span>
-            </li>
-          </Link>
-
-          <Link to="/dashboard/admin/products" style={{ textDecoration: "none" }}>
-            <li>
-              <LocalGroceryStoreOutlinedIcon className="icon" />
-              <span>Products</span>
-            </li>
-          </Link>
-          <Link to="/dashboard/admin/orders" style={{ textDecoration: "none" }}>
-            <li>
-              <CreditCardOutlinedIcon className="icon" />
-              <span>Orders</span>
-            </li>
-          </Link>
-        </ul>
+    <motion.div
+      className="sidebar"
+      initial={{ x: -300 }}
+      animate={{ x: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <hr className="sidebar-divider" />
+      <div className="sidebar-content">
+        {menuItems.map((section, idx) => (
+          <div key={idx} className="menu-section">
+            <h3 className="section-title">{section.title}</h3>
+            {section.items.map((item, index) => (
+              <NavLink
+                key={index}
+                to={item.path}
+                className={({ isActive }) =>
+                  `menu-item ${isActive ? "active" : ""}`
+                }
+              >
+                <motion.div
+                  className="menu-item-content"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <span className="icon">{item.icon}</span>
+                  <span className="label">{item.label}</span>
+                </motion.div>
+              </NavLink>
+            ))}
+          </div>
+        ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -37,7 +37,7 @@ const About = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/about-hero.jpg"
+                src="/ad.png"
                 alt="Drone Technology"
                 className="w-full h-[400px] object-cover transform transition duration-500 group-hover:scale-105"
               />
@@ -179,7 +179,7 @@ const About = () => {
       </motion.div>
 
       {/* Call to Action Section */}
-      <motion.div variants={fadeIn} className="bg-blue-600 py-24">
+      <motion.div variants={fadeIn} className="py-24 border border-blue-300">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white space-y-8">
             <h2 className="text-4xl font-bold">Ready to Take Flight?</h2>

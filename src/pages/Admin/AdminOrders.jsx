@@ -7,7 +7,18 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { API_URL } from "../../api";
 import { Select } from "antd";
-import { FaBox, FaSearch, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import {
+  FaBox,
+  FaSearch,
+  FaChevronDown,
+  FaChevronUp,
+  FaShoppingBag,
+  FaUser,
+  FaCalendar,
+  FaCreditCard,
+  FaBoxOpen,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const AdminOrders = () => {
   const [status] = useState([
@@ -55,13 +66,13 @@ const AdminOrders = () => {
       if (data.success) {
         toast.success(data.message, {
           style: {
-            border: '1px solid #713200',
-            padding: '16px',
-            color: '#713200',
+            border: "1px solid #713200",
+            padding: "16px",
+            color: "#713200",
           },
           iconTheme: {
-            primary: '#713200',
-            secondary: '#FFFAEE',
+            primary: "#713200",
+            secondary: "#FFFAEE",
           },
         });
         getOrders();
@@ -100,29 +111,45 @@ const AdminOrders = () => {
     }));
   };
 
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.4 },
+  };
+
   return (
     <Layout title={"Admin Orders"} description={"Manage Orders"}>
       <div className="min-h-screen bg-gray-50">
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/4 bg-white shadow-md">
+          <div className="md:w-1/4 bg-white shadow-lg">
             <AdminMenu />
           </div>
 
-          <div className="md:w-3/4 p-6">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex justify-between items-center mb-6">
-                <div className="flex items-center gap-3">
-                  <FaBox className="text-blue-500 text-2xl" />
-                  <h1 className="text-2xl font-bold text-gray-800">
-                    Orders Management
-                  </h1>
+          <motion.div
+            className="md:w-3/4 p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <div className="flex justify-between items-center mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <FaShoppingBag className="text-blue-500 text-2xl" />
+                  </div>
+                  <div>
+                    <h1 className="text-2xl font-bold text-gray-800">
+                      Orders Management
+                    </h1>
+                    <p className="text-gray-500">Manage and track all orders</p>
+                  </div>
                 </div>
                 <div className="relative">
                   <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Search orders..."
-                    className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
@@ -132,57 +159,72 @@ const AdminOrders = () => {
               {filteredOrders.length > 0 ? (
                 <div className="space-y-6">
                   {filteredOrders.map((order) => (
-                    <div
+                    <motion.div
                       key={order._id}
-                      className="bg-white border border-gray-200 rounded-lg overflow-hidden transition-shadow duration-300 hover:shadow-lg"
+                      {...fadeIn}
+                      className="bg-white border border-gray-100 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg"
                     >
-                      <div className="p-4 bg-gray-50 border-b">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div>
-                            <p className="text-sm text-gray-600">Order ID</p>
-                            <p className="font-medium">
-                              #{order._id.slice(-6)}
-                            </p>
+                      <div className="p-6 bg-gradient-to-r from-blue-50 to-transparent border-b">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-white rounded-lg">
+                              <FaBoxOpen className="text-blue-500" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-500">Order ID</p>
+                              <p className="font-semibold text-gray-800">
+                                #{order._id.slice(-6)}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="text-sm text-gray-600">
-                              Customer Name
-                            </p>
-                            <p className="font-medium">{order.buyer?.name}</p>
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-white rounded-lg">
+                              <FaUser className="text-green-500" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-500">Customer</p>
+                              <p className="font-semibold text-gray-800">
+                                {order.buyer?.name}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="text-sm text-gray-600">Order Date</p>
-                            <p className="font-medium">
-                              {moment(order.createdAt).format("MMM DD, YYYY")}
-                            </p>
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-white rounded-lg">
+                              <FaCalendar className="text-purple-500" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-500">
+                                Order Date
+                              </p>
+                              <p className="font-semibold text-gray-800">
+                                {moment(order.createdAt).format("MMM DD, YYYY")}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="p-4">
-                        <div className="flex flex-wrap gap-4 items-center justify-between mb-4">
-                          <div className="flex items-center gap-4">
-                            <div>
-                              <p className="text-sm text-gray-600">
-                                Payment Status
-                              </p>
-                              <span
-                                className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                  order?.payment?.razorpay_payment_id
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-red-100 text-red-800"
-                                }`}
-                              >
-                                {order?.payment?.razorpay_payment_id
-                                  ? "Paid"
-                                  : "Pending"}
-                              </span>
-                            </div>
-                            <div>
-                              <p className="text-sm text-gray-600">Items</p>
-                              <p className="font-medium">
-                                {order.products?.length}
-                              </p>
+                      <div className="p-6">
+                        <div className="flex flex-wrap gap-6 items-center justify-between mb-6">
+                          <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 bg-gray-50 rounded-lg">
+                                <FaCreditCard className="text-orange-500" />
+                              </div>
+                              <div>
+                                <p className="text-sm text-gray-500">Payment</p>
+                                <span
+                                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                    order?.payment?.razorpay_payment_id
+                                      ? "bg-green-100 text-green-700"
+                                      : "bg-red-100 text-red-700"
+                                  }`}
+                                >
+                                  {order?.payment?.razorpay_payment_id
+                                    ? "Paid"
+                                    : "Pending"}
+                                </span>
+                              </div>
                             </div>
                           </div>
 
@@ -271,7 +313,7 @@ const AdminOrders = () => {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               ) : (
@@ -284,7 +326,7 @@ const AdminOrders = () => {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </Layout>

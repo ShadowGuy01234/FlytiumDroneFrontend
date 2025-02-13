@@ -25,6 +25,12 @@ import ProductDetails from "./pages/ProductDetails";
 import About from "./pages/About";
 import Service from "./pages/Service";
 import { Toaster } from "react-hot-toast";
+import ManageHero from "./pages/Admin/ManageHero";
+import PrivacyPolicy from "./pages/policy/PrivacyPolicy";
+import ShippingPolicy from "./pages/policy/ShippingPolicy";
+import TermsConditions from "./pages/policy/TermsConditions";
+import "./styles/globals.css";
+import CategoryProducts from "./pages/CategoryProducts";
 
 function App() {
   // added
@@ -57,9 +63,14 @@ function App() {
             <Route path="admin/products" element={<CreateProduct />} />
             <Route path="admin/orders" element={<AdminOrders />} />
             <Route path="admin/category" element={<CreateCategory />} />
+            <Route path="admin/hero" element={<ManageHero />} />
           </Route>
 
           <Route path="/product/:slug" element={<ProductDetails />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
+          <Route path="/shipping-policy" element={<ShippingPolicy />} />
+          <Route path="/category/:slug" element={<CategoryProducts />} />
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
         <Footer />

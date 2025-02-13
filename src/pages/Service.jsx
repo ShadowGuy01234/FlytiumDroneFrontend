@@ -180,7 +180,7 @@ const Service = () => {
       {/* Hero Section */}
       <motion.div
         variants={fadeIn}
-        className="relative bg-blue-600 text-white py-24 overflow-hidden"
+        className="relative bg-blue-200 text-white py-24 overflow-hidden"
       >
         <div className="absolute inset-0 bg-[url('/circuit-pattern.png')] opacity-10"></div>
         <div className="container mx-auto px-4 relative">
@@ -240,7 +240,7 @@ const Service = () => {
       {/* CTA Section */}
       <motion.section variants={fadeIn} className="py-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-blue-600 rounded-3xl p-12 text-center text-white">
+          <div className="max-w-4xl mx-auto bg-blue-200 rounded-3xl p-12 text-center text-white">
             <h2 className="text-3xl font-bold mb-6">Ready to Get Started?</h2>
             <p className="text-xl opacity-90 mb-8">
               Join our community of innovators and tech enthusiasts

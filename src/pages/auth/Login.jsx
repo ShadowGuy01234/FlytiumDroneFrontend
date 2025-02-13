@@ -7,11 +7,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { API_URL } from "../../api";
 import { useAuth } from "../../Context/auth";
-
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
-  
+  const [message, setMessage] = useState("");
   const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
 
@@ -23,36 +22,23 @@ const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
-    // if (name === "password") {
-    //   validatePassword(value); // Validate password in real time
-    // }
   };
-
-  // Validate password strength
-  
-
-  // Pre-backend validations
-  
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    
-
     try {
       const res = await axios.post(`${API_URL}/api/auth/login`, formData);
       if (res && res.data.success) {
         toast.success(res.data.message, {
           style: {
-            border: "1px solid #713200",
-            padding: "16px",
-            color: "#713200",
+            border: '1px solid #713200',
+            padding: '16px',
+            color: '#713200',
           },
           iconTheme: {
-            primary: "#713200",
-            secondary: "#FFFAEE",
+            primary: '#713200',
+            secondary: '#FFFAEE',
           },
         });
 
@@ -73,15 +59,15 @@ const Login = () => {
   };
 
   return (
-    <div className="modern-login-container">
-      <div className="modern-login-card">
-        <h2>Welcome Back!</h2>
-        <p className="modern-subtitle">Login to continue your journey</p>
+    <div className="vb-login-container">
+      <div className="vb-login-form">
+        <h2>LOGIN</h2>
+
         <form onSubmit={handleSubmit}>
-          <div className="modern-input-container">
+          <div className="vb-input-container">
             <label htmlFor="email">Email</label>
-            <div className="modern-input-wrapper">
-              <FaUserAlt className="modern-icon" />
+            <div className="vb-input-wrapper">
+              <FaUserAlt className="vb-icon" />
               <input
                 type="text"
                 id="email"
@@ -93,10 +79,10 @@ const Login = () => {
               />
             </div>
           </div>
-          <div className="modern-input-container">
+          <div className="vb-input-container">
             <label htmlFor="password">Password</label>
-            <div className="modern-input-wrapper">
-              <FaLock className="modern-icon" />
+            <div className="vb-input-wrapper">
+              <FaLock className="vb-icon" />
               <input
                 type={passwordVisible ? "text" : "password"}
                 id="password"
@@ -106,19 +92,21 @@ const Login = () => {
                 onChange={handleChange}
                 required
               />
-              <span onClick={togglePasswordVisibility} className="modern-icon-eye">
+              <span onClick={togglePasswordVisibility} className="vb-icon-eye">
                 {passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
               </span>
             </div>
-            
           </div>
-          <button type="submit" className="modern-submit-button">
-            Login
-          </button>
+          <div className="vb-button-container">
+            <button type="submit">SUBMIT</button>
+          </div>
+          {message && <p className="vb-message">{message}</p>}{" "}
+          {/* Display success or error message */}
         </form>
-        <p className="modern-footer-text">
+
+        <p className="vb-p1">
           Don’t have an account?{" "}
-          <Link to="/signup" className="modern-link">
+          <Link to="/signup" className="Vijit">
             Register here
           </Link>
         </p>

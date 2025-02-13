@@ -22,6 +22,7 @@ const CreateProduct = () => {
   const [formData, setFormData] = useState({
     name: "",
     price: "",
+    discountedPrice: "",
     description: "",
     image: "",
     category: "",
@@ -92,6 +93,28 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Validate discounted price
+      if (formData.discountedPrice) {
+        const price = Number(formData.price);
+        const discountedPrice = Number(formData.discountedPrice);
+
+        if (discountedPrice >= price) {
+          toast.error("Discounted price must be less than regular price");
+          return;
+        }
+
+        // Calculate discount percentage
+        const discountPercentage = Math.round(
+          ((price - discountedPrice) / price) * 100
+        );
+
+        // Optional: Validate maximum discount
+        if (discountPercentage > 90) {
+          toast.error("Maximum discount cannot exceed 90%");
+          return;
+        }
+      }
+
       if (updateId) {
         const { data } = await axios.put(
           `${API_URL}/api/product/update-product/${updateId}`,
@@ -145,6 +168,7 @@ const CreateProduct = () => {
     setFormData({
       name: product.name,
       price: product.price,
+      discountedPrice: product.discountedPrice,
       description: product.description,
       image: product.image,
       category: product.category,
@@ -158,6 +182,7 @@ const CreateProduct = () => {
     setFormData({
       name: "",
       price: "",
+      discountedPrice: "",
       description: "",
       image: "",
       category: "",
@@ -185,7 +210,7 @@ const CreateProduct = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 px-8">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:w-1/4">
             <AdminMenu />
@@ -296,19 +321,39 @@ const CreateProduct = () => {
                   />
                 </div>
 
-                <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Price
-                  </label>
-                  <input
-                    type="number"
-                    name="price"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                    placeholder="Enter price"
-                    required
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      Regular Price
+                    </label>
+                    <input
+                      type="number"
+                      name="price"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      placeholder="Enter regular price"
+                      required
+                      min="0"
+                      step="0.01"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      Discounted Price (Optional)
+                    </label>
+                    <input
+                      type="number"
+                      name="discountedPrice"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      value={formData.discountedPrice}
+                      onChange={handleInputChange}
+                      placeholder="Enter discounted price"
+                      min="0"
+                      step="0.01"
+                    />
+                  </div>
                 </div>
 
                 <div>
