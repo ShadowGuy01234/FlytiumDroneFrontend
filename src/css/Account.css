@@ -1,146 +1,94 @@
-.ac-page {
-  height: 100vh;
+.modern-account-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('/Image/droneimg.jpg');
-  background-size: cover;
-  background-position: center;
+  min-height: 100vh;
+  background: url('/Image/dronebg.jpg') no-repeat center center/cover;
+  font-family: 'Arial', sans-serif;
 }
 
-.ac-container {
-  background: transparent;
+.modern-account-card {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
   border-radius: 10px;
-  padding: 20px;
-  width: 350px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(2px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
   text-align: center;
 }
 
-.ac-form-group {
-  margin-bottom: 15px;
-  text-align: left;
+.modern-account-card h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
 }
 
-.ac-form-group label {
-  display: block;
-  color: #080808;
-  margin-bottom: 5px;
-  font-family: fantasy;
+.modern-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
 }
 
-.ac-input-box {
+.modern-input-container {
+  margin-bottom: 1rem;
+}
+
+.modern-input-wrapper {
   display: flex;
   align-items: center;
-  border: 1px solid #070707;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 5px;
-  position: relative;
+  padding: 0.5rem;
 }
 
-.ac-input-box input {
-  background: transparent;
-  color: #050505;
+.modern-input-wrapper input {
+  flex: 1;
   border: none;
   outline: none;
-  width: 100%;
-  height: 30px;
-  padding-left: 25px;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
-.ac-input-box input::placeholder {
-  color: rgb(7, 7, 7);
-  padding-left: 2px;
+.modern-icon {
+  margin-right: 0.5rem;
+  color: #333;
 }
 
-.ac-icon-user,
-.ac-icon-email,
-.ac-icon-phone,
-.ac-icon-lock {
-  position: absolute;
-  left: 5px;
-  color: #111111;
-}
-
-.ac-password-box {
-  position: relative;
-}
-
-.ac-password-box input {
-  padding-right: 40px;
-}
-
-.ac-toggle-eye {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+.modern-icon-eye {
   cursor: pointer;
-  color: #050505;
+  color: #333;
 }
 
-.ac-button-wrapper {
-  position: relative;
-  /* width: 345px; */
-  height: 45px;
-  overflow: hidden;
-  border: 2px solid rgb(5, 5, 5);
-  transition: 0.5s;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 0 80px #000;
-}
-
-.ac-button-wrapper button {
-  width: 350px;
-  height: 200px;
-  font-family: 'Lato', sans-serif;
-  letter-spacing: 1px;
-  background-color: rgb(6, 6, 6);
-  -webkit-mask: url("./Image/mask.png");
-  mask: url("/Image/mask.png");
-  color: rgb(254, 250, 250);
-  font-weight: 900;
-  -webkit-mask-size: 3000% 100%;
-  mask-size: 3000% 100%;
+.modern-submit-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #333;
+  color: #fff;
+  font-size: 1rem;
   border: none;
-  font-size: 15px;
+  border-radius: 5px;
   cursor: pointer;
-  mask-position: 50% 0;
-  animation: anim_reverse 0.7s steps(29) forwards;
+  transition: background 0.3s;
 }
 
-.ac-button-wrapper button:hover {
-  animation: anim_forward 0.7s steps(29) forwards;
+.modern-submit-button:hover {
+  background: #555;
 }
 
-.ac-btn-text {
-  position: absolute;
-  font-weight: 900;
-  font-family: 'Lato', sans-serif;
-  text-align: center;
-  width: 100%;
-  font-size: 15px;
-  overflow: hidden;
-  color: rgb(255, 255, 255);
+
+/* Styling for the login prompt and button */
+.modern-login-prompt {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
 }
 
-@keyframes anim_forward {
-  from {
-    -webkit-mask-position: 0% 0%;
-  }
-  to {
-    -webkit-mask-position: 100% 0;
-  }
+.modern-login-prompt a {
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
-@keyframes anim_reverse {
-  from {
-    -webkit-mask-position: 100% 0;
-  }
-  to {
-    -webkit-mask-position: 0 0;
-  }
+.modern-login-prompt a:hover {
+  color: #555;
 }
