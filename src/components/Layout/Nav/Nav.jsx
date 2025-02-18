@@ -81,8 +81,8 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex justify-between items-center px-4">
         <div className="flex items-center space-x-2">
-          <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
-          <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <img src="/logo.png" alt="Logo" className="h-16 w-auto" />
+          <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             FLYTIUM
           </span>
         </div>
