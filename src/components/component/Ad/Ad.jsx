@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from "react"; // Import useState and useEffect
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, Check } from "lucide-react";
+import axios from "axios";
+import { API_URL } from "../../../api";
+import toast from "react-hot-toast";
 
 const ProductAdCard = () => {
   const [product, setProduct] = useState(null); // State for product data
 
-  const productData = {
-    name: "Professional Drone X1",
-    price: "₹49,999",
-    description: "Limited Time Offer - 20% Off",
-    features: [
-      "4K Ultra HD Camera",
-      "45 Minutes Flight Time",
-      "5KM Range",
-      "GPS Navigation",
-    ],
-    imageUrl: "/ad.png",
+  const getProduct = async () => {
+    try {
+      const { data } = await axios.get(`${API_URL}/api/ad/get-ads`);
+      if (data?.success) {
+        setProduct(data.ads[0]);  // Assuming you want the first ad
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to load product");
+    }
   };
 
-  // Temp
   useEffect(() => {
-    setProduct(productData);
+    getProduct();
   }, []);
 
   if (!product) {
@@ -50,10 +51,10 @@ const ProductAdCard = () => {
 
               <div className="space-y-3">
                 <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-                  {product.name}
+                {product.title}
                 </h2>
                 <p className="text-2xl sm:text-3xl font-bold text-blue-600">
-                  {product.price}
+                ₹{product.price}
                 </p>
               </div>
 
@@ -66,12 +67,12 @@ const ProductAdCard = () => {
                   Key Features
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-3">
-                  {product.features.map((feature, index) => (
+                {Array.isArray(product.features) && product.features.map((feature, index) => (
                     <div
                       key={index}
-                      className="flex items-center text-gray-700 bg-gray-50 p-3 rounded-lg"
+                      className="flex items-center text-yellow-700 bg-yellow-100 p-3 rounded-lg"
                     >
-                      <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                      <Check className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0" />
                       <span className="text-sm sm:text-base">{feature}</span>
                     </div>
                   ))}

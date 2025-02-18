@@ -31,6 +31,7 @@ import ShippingPolicy from "./pages/policy/ShippingPolicy";
 import TermsConditions from "./pages/policy/TermsConditions";
 import "./styles/globals.css";
 import CategoryProducts from "./pages/CategoryProducts";
+import CreateAd from "./pages/Admin/CreateAd";
 
 function App() {
   // added
@@ -64,6 +65,7 @@ function App() {
             <Route path="admin/orders" element={<AdminOrders />} />
             <Route path="admin/category" element={<CreateCategory />} />
             <Route path="admin/hero" element={<ManageHero />} />
+            <Route path="admin/ads" element={<CreateAd />} />
           </Route>
 
           <Route path="/product/:slug" element={<ProductDetails />} />
