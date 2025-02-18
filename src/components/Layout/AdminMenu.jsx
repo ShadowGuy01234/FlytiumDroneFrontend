@@ -6,6 +6,7 @@ import {
   FiLayers,
   FiMonitor,
 } from "react-icons/fi";
+import { FcAdvertising } from "react-icons/fc";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import "./sidebar.css";
@@ -38,6 +39,11 @@ const menuItems = [
         path: "/dashboard/admin/hero",
         icon: <FiMonitor />,
         label: "Hero Slides",
+      },
+       {
+        path: "/dashboard/admin/ads",
+        icon: <FcAdvertising />,
+        label: "Ad Management",
       },
     ],
   },
