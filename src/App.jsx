@@ -32,6 +32,8 @@ import TermsConditions from "./pages/policy/TermsConditions";
 import "./styles/globals.css";
 import CategoryProducts from "./pages/CategoryProducts";
 import CreateAd from "./pages/Admin/CreateAd";
+import Career from "./pages/Career";
+import ManageEmployees from "./pages/Admin/ManageEmployees";
 
 function App() {
   // added
@@ -52,6 +54,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Service />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/career" element={<Career />} />
           <Route path="/cartpage" element={<CartPage />} />
           <Route path="/dashboard" element={<Private />}>
             <Route path="user/orders" element={<Orders />} />
@@ -66,6 +69,10 @@ function App() {
             <Route path="admin/category" element={<CreateCategory />} />
             <Route path="admin/hero" element={<ManageHero />} />
             <Route path="admin/ads" element={<CreateAd />} />
+            <Route
+              path="admin/manage-employees"
+              element={<ManageEmployees />}
+            />
           </Route>
 
           <Route path="/product/:slug" element={<ProductDetails />} />

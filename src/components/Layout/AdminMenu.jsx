@@ -5,6 +5,7 @@ import {
   FiCreditCard,
   FiLayers,
   FiMonitor,
+  FiUserCheck,
 } from "react-icons/fi";
 import { FcAdvertising } from "react-icons/fc";
 import { motion } from "framer-motion";
@@ -40,7 +41,12 @@ const menuItems = [
         icon: <FiMonitor />,
         label: "Hero Slides",
       },
-       {
+      {
+        path: "/dashboard/admin/manage-employees",
+        icon: <FiUserCheck />,
+        label: "Team Members",
+      },
+      {
         path: "/dashboard/admin/ads",
         icon: <FcAdvertising />,
         label: "Ad Management",
