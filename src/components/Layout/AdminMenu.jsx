@@ -6,6 +6,8 @@ import {
   FiLayers,
   FiMonitor,
   FiUserCheck,
+  FiBriefcase,
+  FiFileText,
 } from "react-icons/fi";
 import { FcAdvertising } from "react-icons/fc";
 import { motion } from "framer-motion";
@@ -45,6 +47,16 @@ const menuItems = [
         path: "/dashboard/admin/manage-employees",
         icon: <FiUserCheck />,
         label: "Team Members",
+      },
+      {
+        path: "/dashboard/admin/jobs",
+        icon: <FiBriefcase />,
+        label: "Manage Jobs",
+      },
+      {
+        path: "/dashboard/admin/job-applications",
+        icon: <FiFileText />,
+        label: "Job Applications",
       },
       {
         path: "/dashboard/admin/ads",

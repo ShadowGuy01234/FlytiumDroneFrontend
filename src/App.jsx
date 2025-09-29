@@ -34,6 +34,8 @@ import CategoryProducts from "./pages/CategoryProducts";
 import CreateAd from "./pages/Admin/CreateAd";
 import Career from "./pages/Career";
 import ManageEmployees from "./pages/Admin/ManageEmployees";
+import ManageJobs from "./pages/Admin/ManageJobs";
+import JobApplications from "./pages/Admin/JobApplications";
 
 function App() {
   // added
@@ -72,6 +74,11 @@ function App() {
             <Route
               path="admin/manage-employees"
               element={<ManageEmployees />}
+            />
+            <Route path="admin/jobs" element={<ManageJobs />} />
+            <Route
+              path="admin/job-applications"
+              element={<JobApplications />}
             />
           </Route>
 
