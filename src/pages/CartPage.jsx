@@ -3,48 +3,100 @@ import Layout from "../components/Layout/Layout";
 import { useAuth } from "../Context/auth";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../Context/cart";
-import { FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiMinus, FiPlus, FiTrash2, FiLock, FiUser } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const Cart = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { cart, setCart } = useCart();
+  const { 
+    cart, 
+    updateQuantity: updateCartItemQuantity, 
+    removeFromCart: removeCartItem, 
+    getCartTotal, 
+    getCartCount, 
+    canAccessCart 
+  } = useCart();
+
+  // Redirect if user is not authenticated
+  useEffect(() => {
+    const accessResult = canAccessCart();
+    // Only redirect if auth is loaded and user is not authenticated
+    if (accessResult === false) {
+      toast.error("Please login to access your cart");
+      navigate("/login");
+    }
+    // accessResult === null means auth is still loading, so we wait
+  }, [canAccessCart, navigate]);
+
+  // Show loading spinner while auth is loading
+  const accessResult = canAccessCart();
+  if (accessResult === null) {
+    return (
+      <Layout title="Cart - Loading" description="Loading your cart">
+        <div className="container mx-auto p-4 max-w-md">
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Show login prompt if user is not authenticated
+  if (accessResult === false) {
+    return (
+      <Layout title="Cart - Login Required" description="Please login to access your cart">
+        <div className="container mx-auto p-4 max-w-md">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-xl shadow-lg p-8 text-center"
+          >
+            <FiLock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Login Required</h2>
+            <p className="text-gray-600 mb-6">
+              Please login to access your shopping cart and manage your items.
+            </p>
+            <div className="space-y-3">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate("/login")}
+                className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <FiUser className="w-5 h-5" />
+                Login to Continue
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate("/register")}
+                className="w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Create New Account
+              </motion.button>
+            </div>
+          </motion.div>
+        </div>
+      </Layout>
+    );
+  }
 
   const totalPrices = () => {
-    let total = 0;
-    cart?.forEach((item) => {
-      total += item.price * (item.quantity || 1);
-    });
-    return total.toLocaleString("en-US", {
+    return getCartTotal().toLocaleString("en-US", {
       style: "currency",
       currency: "INR",
     });
   };
-  const updateQuantity = (id, quantity) => {
-    const updatedCart = cart.map((item) =>
-      item._id === id ? { ...item, quantity: Math.max(1, quantity) } : item
-    );
-    setCart(updatedCart);
-    localStorage.setItem("PushPakCart", JSON.stringify(updatedCart));
+
+  const handleQuantityUpdate = (id, quantity) => {
+    updateCartItemQuantity(id, Math.max(1, quantity));
   };
-  const removeItem = (id) => {
-    let myCart = [...cart];
-    let index = myCart.findIndex((item) => item._id === id);
-    myCart.splice(index, 1);
-    setCart(myCart);
-    localStorage.setItem("cart", JSON.stringify(myCart));
-    toast.success("Item removed from cart", {
-      style: {
-        border: "1px solid #713200",
-        padding: "16px",
-        color: "#713200",
-      },
-      iconTheme: {
-        primary: "#713200",
-        secondary: "#FFFAEE",
-      },
-    });
+
+  const handleRemoveItem = (id) => {
+    removeCartItem(id);
   };
 
   return (
@@ -124,7 +176,7 @@ const Cart = () => {
                         <div className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-lg">
                           <button
                             onClick={() =>
-                              updateQuantity(item._id, (item.quantity || 1) - 1)
+                              handleQuantityUpdate(item._id, (item.quantity || 1) - 1)
                             }
                             className="p-1.5 rounded-full hover:bg-gray-200 text-gray-600"
                           >
@@ -135,7 +187,7 @@ const Cart = () => {
                           </span>
                           <button
                             onClick={() =>
-                              updateQuantity(item._id, (item.quantity || 1) + 1)
+                              handleQuantityUpdate(item._id, (item.quantity || 1) + 1)
                             }
                             className="p-1.5 rounded-full hover:bg-gray-200 text-gray-600"
                           >
@@ -144,7 +196,7 @@ const Cart = () => {
                         </div>
 
                         <button
-                          onClick={() => removeItem(item._id)}
+                          onClick={() => handleRemoveItem(item._id)}
                           className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors"
                         >
                           <FiTrash2 className="w-5 h-5" />

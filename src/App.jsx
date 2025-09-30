@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Layout/Nav/Nav";
+import Navbar from "./components/Navbar/Navbar";
 import Login from "./pages/auth/Login";
 import Account from "./pages/auth/Register";
 import Contact from "./pages/Contact";
@@ -12,6 +12,7 @@ import Pagenotfound from "./pages/Pagenotfound";
 import CartPage from "./pages/CartPage";
 import Footer from "./components/Layout/Foot/Foot";
 import CheckoutPage from "./pages/CheckoutPage";
+import NewCheckoutPage from "./pages/NewCheckoutPage";
 import Orders from "./pages/user/Orders";
 import Profile from "./pages/user/Profile";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
@@ -54,11 +55,13 @@ function App() {
           <Route path="/signup" element={<Account />} />
           <Route path="/register-success" element={<Successful2 />} />
           <Route path="/store" element={<Store />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/checkout" element={<NewCheckoutPage />} />
+          <Route path="/checkout-old" element={<CheckoutPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Service />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/career" element={<Career />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/cartpage" element={<CartPage />} />
           <Route path="/dashboard" element={<Private />}>
             <Route path="user/orders" element={<Orders />} />

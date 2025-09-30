@@ -35,7 +35,7 @@ const AdminOrders = () => {
 
   const getOrders = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/auth/all-orders`, {
+      const response = await axios.get(`${API_URL}/api/payment/all-orders`, {
         headers: {
           Authorization: `Bearer ${auth?.token}`,
         },
@@ -165,7 +165,7 @@ const AdminOrders = () => {
                       className="bg-white border border-gray-100 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg"
                     >
                       <div className="p-6 bg-gradient-to-r from-blue-50 to-transparent border-b">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                           <div className="flex items-center gap-3">
                             <div className="p-2 bg-white rounded-lg">
                               <FaBoxOpen className="text-blue-500" />
@@ -173,7 +173,7 @@ const AdminOrders = () => {
                             <div>
                               <p className="text-sm text-gray-500">Order ID</p>
                               <p className="font-semibold text-gray-800">
-                                #{order._id.slice(-6)}
+                                #{order?.payment?.razorpay_order_id || order._id.slice(-6)}
                               </p>
                             </div>
                           </div>
@@ -185,6 +185,9 @@ const AdminOrders = () => {
                               <p className="text-sm text-gray-500">Customer</p>
                               <p className="font-semibold text-gray-800">
                                 {order.buyer?.name}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {order.buyer?.email}
                               </p>
                             </div>
                           </div>
@@ -201,6 +204,17 @@ const AdminOrders = () => {
                               </p>
                             </div>
                           </div>
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-white rounded-lg">
+                              <FaCreditCard className="text-orange-500" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-500">Total Amount</p>
+                              <p className="font-semibold text-gray-800">
+                                ₹{order.totalAmount}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -212,7 +226,7 @@ const AdminOrders = () => {
                                 <FaCreditCard className="text-orange-500" />
                               </div>
                               <div>
-                                <p className="text-sm text-gray-500">Payment</p>
+                                <p className="text-sm text-gray-500">Payment Status</p>
                                 <span
                                   className={`px-3 py-1 rounded-full text-xs font-medium ${
                                     order?.payment?.razorpay_payment_id
@@ -224,6 +238,11 @@ const AdminOrders = () => {
                                     ? "Paid"
                                     : "Pending"}
                                 </span>
+                                {order?.payment?.razorpay_payment_id && (
+                                  <p className="text-xs text-gray-500 mt-1">
+                                    ID: {order.payment.razorpay_payment_id.slice(-8)}
+                                  </p>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -249,6 +268,37 @@ const AdminOrders = () => {
                           </div>
                         </div>
 
+                        {/* Shipping Address Section */}
+                        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+                          <h3 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
+                            <FaBox className="text-blue-500" />
+                            Shipping Address
+                          </h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div>
+                              <p className="font-medium">{order.shippingAddress?.name}</p>
+                              <p className="text-gray-600">{order.shippingAddress?.address}</p>
+                              <p className="text-gray-600">
+                                {order.shippingAddress?.city}, {order.shippingAddress?.state}
+                              </p>
+                              <p className="text-gray-600">
+                                PIN: {order.shippingAddress?.pincode}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-gray-600">
+                                Email: {order.shippingAddress?.email}
+                              </p>
+                              <p className="text-gray-600">
+                                Phone: {order.shippingAddress?.phone}
+                              </p>
+                              <p className="text-gray-600">
+                                Country: {order.shippingAddress?.country || 'India'}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                           {order.products?.map((item, idx) => (
                             <div
@@ -267,8 +317,16 @@ const AdminOrders = () => {
                                 <h4 className="font-medium text-gray-900 truncate">
                                   {item.name}
                                 </h4>
-                                <p className="text-sm font-medium text-blue-600 mt-1">
-                                  Rs. {item.price}
+                                <div className="mt-1 flex justify-between items-center">
+                                  <p className="text-sm font-medium text-blue-600">
+                                    ₹{item.price}
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    Qty: {item.quantity}
+                                  </p>
+                                </div>
+                                <p className="text-xs text-green-600 font-medium">
+                                  Total: ₹{item.price * item.quantity}
                                 </p>
 
                                 <button

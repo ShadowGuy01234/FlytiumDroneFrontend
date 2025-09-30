@@ -21,7 +21,7 @@ const Orders = () => {
 
   const getOrders = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/auth/getorders`, {
+      const response = await axios.get(`${API_URL}/api/payment/user-orders`, {
         headers: {
           Authorization: `Bearer ${auth?.token}`,
         },

@@ -23,16 +23,7 @@ const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
-    if (name === "password") {
-      validatePassword(value); // Validate password in real time
-    }
   };
-
-  // Validate password strength
-  
-
-  // Pre-backend validations
   
 
   // Handle form submission
