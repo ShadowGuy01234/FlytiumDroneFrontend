@@ -10,3 +10,33 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ScrollStack optimization styles */
+.scroll-stack-card {
+  contain: layout style paint;
+  transform-style: preserve-3d;
+}
+
+body.scroll-stack-active {
+  scroll-behavior: auto !important;
+}
+
+/* Smooth stacking transitions */
+.scroll-stack-card {
+  transition: none !important;
+}
+
+/* Infinite scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll var(--animation-duration, 6s) linear infinite;
+  animation-direction: var(--animation-direction, forwards);
+}

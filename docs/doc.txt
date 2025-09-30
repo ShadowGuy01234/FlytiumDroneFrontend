@@ -1,0 +1,490 @@
+Flytium: A Strategic Frontend Transformation Plan
+
+Executive Summary: The North Star
+
+This document outlines a strategic plan to transform the Flytium frontend from its current state into a world-class digital experience. Our objective is to move beyond generic templates and create a polished, intentional, and handcrafted interface that embodies our brand archetype: the modern aerospace atelier. Every pixel, interaction, and line of code will reflect precision, courage, and trustworthiness.
+
+This is not merely a reskin; it is a full-stack-aware redesign. We will architect a content-first experience where the frontend is a dynamic canvas for the powerful admin portal. The result will be a website that feels as meticulously crafted as our intelligent aerial systems, creating a powerful first impression for enterprise clients, inspiring tech enthusiasts, and attracting top-tier talent.
+
+Complete Application Structure:
+
+Public Routes:
+- HOME (/) - Dynamic hero slides, product categories, promotional content, video showcase, image gallery, Q&A section
+- ABOUT US (/about) - Company story, founder profile, values, statistics with motion animations
+- SERVICES (/services) - Comprehensive service offerings including IoT training programs, shipping, support
+- STORE (/store) - Advanced e-commerce with filtering, search, pagination, and dynamic product grid
+- CAREER (/career) - Team showcase with dynamic employee profiles filtered by current/past status
+- CONTACT (/contact) - Contact form with Google Maps integration and social media links
+- CART (/cartpage) - Shopping cart with quantity management and checkout flow
+- CHECKOUT (/checkout) - Secure payment processing with Razorpay integration
+- Product Details (/product/:slug) - Individual product pages with detailed specs and related products
+- Category Products (/category/:slug) - Products filtered by category with add-to-cart functionality
+- Policy Pages (/privacy-policy, /terms-conditions, /shipping-policy) - Legal and policy information
+
+Authentication Routes:
+- LOGIN (/login) - User authentication with redirect functionality
+- REGISTER (/signup) - User registration with validation
+- FORGOT PASSWORD - Password recovery flow with security questions
+- SUCCESS Pages (/login-success, /register-success) - Confirmation pages
+
+User Dashboard (/dashboard/user/*):
+- Profile Management (/dashboard/user/profile) - Edit user information with modal interface
+- Order History (/dashboard/user/orders) - View past orders and status tracking
+
+Admin Dashboard (/dashboard/admin/*):
+- Dashboard Overview (/dashboard/admin) - Statistics, charts, and KPI widgets
+- User Management (/dashboard/admin/users) - Manage registered users
+- Product Management (/dashboard/admin/products, /dashboard/admin/category) - CRUD operations for products and categories
+- Content Management (/dashboard/admin/hero, /dashboard/admin/ads) - Manage homepage content
+- Employee Management (/dashboard/admin/manage-employees) - Team member CRUD with photo uploads
+- Order Management (/dashboard/admin/orders) - Process and track customer orders
+
+Specialized Components:
+- 404 Error Page (*) - Professional not found page
+- Dynamic Product Components (Sensors, Drone Parts, Microboards, etc.) - Specialized product showcases
+- WhatsApp Integration - Direct customer support chat
+- Toast Notifications - User feedback system
+- Loading States and Skeletons - Professional loading experiences
+
+The redesign will maintain all existing functionality while transforming the visual experience to a clean, professional light theme.
+
+1. Vision & Experiential Pillars
+
+1.1 Brand Archetype & Voice
+
+    Archetype: The Professional Innovator. We are a trusted provider of intelligent aerial systems and drone technology. Our digital presence must feel professional, clean, and expertly crafted with a light, modern aesthetic.
+
+    Voice: Professional, clear, and approachable. We communicate complex technology with clarity and confidence, maintaining a clean, professional tone that builds trust and credibility.
+
+1.2 Audience-Centric Design
+
+We will design through the lens of our key personas, ensuring each journey is optimized for its purpose:
+
+    The Enterprise Buyer: Seeks credibility, robust data, clear value propositions, and a seamless path to "Talk to an Expert."
+
+    The Technologist: Craves technical depth, innovative design, and a peek under the hood of our software ecosystem.
+
+    The Prospective Employee: Looks for a strong mission, a vibrant culture, and a brand that feels like a leader in its field.
+
+1.3 Experiential Goals
+
+The user should leave the site feeling:
+
+    Confident: Met with an immediate sense of professionalism and expertise.
+
+    Intrigued: Drawn in by storytelling, depth, and interactive elements.
+
+    Empowered: Able to find information effortlessly, from browsing the fleet to understanding complex use cases.
+
+2. The Flytium Design System: A Foundation for Excellence
+
+This is our single source of truth for creating a cohesive and scalable interface.
+
+2.1 Color Palette: Light & Refined
+
+The palette is inspired by clean aerospace environments and premium manufacturing, creating a light, sophisticated, and professional appearance.
+Token	Hex	Strategic Usage
+--color-primary	#1F2937	Refined charcoal gray. Primary text, navigation, headers.
+--color-accent	#059669	Professional emerald green. Primary CTAs, active states, success indicators.
+--color-secondary	#F59E0B	Warm amber gold. Secondary actions, highlights, featured content.
+--color-surface	#FFFFFF	Pure white. Main backgrounds, cards, content areas.
+--color-surface-alt	#F9FAFB	Subtle gray tint. Section backgrounds, alternating areas.
+--color-surface-accent	#F0FDF4	Light green tint. Success zones, featured sections.
+--color-success	#10B981	System feedback: Confirmations, completed states.
+--color-warning	#F59E0B	System feedback: Cautions, pending states.
+--color-danger	#EF4444	System feedback: Errors, destructive actions.
+--color-neutral-scale	#111827 → #F9FAFB	A 9-step scale for all typography, borders, and dividers.
+
+Signature Gradient: A subtle, premium gradient for special elements: linear-gradient(135deg, rgba(5,150,105,0.1) 0%, rgba(245,158,11,0.05) 100%).
+
+2.2 Typography: Clarity & Character
+
+    Headlines (Display): Space Grotesk (Semibold, Bold). Its geometric forms evoke engineering precision and aerospace heritage.
+
+    Body (UI & Text): Inter (Regular, Medium). Renowned for its superb legibility on screens, ensuring dense information is easily consumed.
+
+    Data (Monospace): JetBrains Mono. For technical specifications and telemetry data, providing clarity and a distinct "systems" feel.
+
+A fluid type scale will be implemented using clamp() to ensure typography is responsive and harmonious across all viewports.
+
+2.3 Layout, Spacing, and Elevation
+
+    Grid: A 12-column grid with a max-width of 1224px will enforce structure and consistency.
+
+    Spacing: A rhythmic 4px-based scale (space-1 to space-16) will ensure consistent vertical and horizontal alignment throughout the interface.
+
+    Radius: A refined radius scale (6px, 12px, 20px) will create clean, modern edges that feel premium and professional.
+
+    Elevation: Clean, subtle shadows will create depth without overwhelming the light theme:
+        - shadow-sm: Subtle card elevation
+        - shadow-md: Interactive element hover states  
+        - shadow-lg: Modal and dropdown overlays
+        - shadow-xl: Hero and featured content areas
+
+2.4 Imagery & Iconography
+
+    Visuals: Move from stock to bespoke. Commission cinematic 3D renders of our drones. Humanize the brand with high-quality lifestyle photography of our team in workshops and field deployments.
+
+    Iconography: Replace generic icons with a custom or premium outline set (e.g., Phosphor) to maintain a unique, crafted feel.
+
+2.5 Motion & Interaction Design
+
+Motion will be clean, subtle, and purposeful, reinforcing the professional light theme.
+
+    Smooth Transitions: Clean hover states and transitions using Framer Motion with professional easing: ease: [0.4, 0.0, 0.2, 1].
+
+    Subtle Animations: Gentle scroll-triggered reveals and hover effects that enhance usability without distraction. Focus on clean, fade-in effects and subtle scale transforms.
+
+    Professional Interactions: Button hover states with subtle color shifts and shadow changes. Clean focus states with emerald green outlines.
+
+    Accessibility-First: All motion will respect prefers-reduced-motion and maintain professional appearance across all devices.
+
+3. Headless Architecture & Content-First UX
+
+This redesign acknowledges that the frontend is a dynamic reflection of the admin portal. Our components and pages will be architected to be resilient, content-agnostic, and a pleasure for our team to manage.
+
+3.1 Complete Content Model Integration
+
+The comprehensive mapping of all dynamic content sources and their frontend implementations:
+
+Core Content Management:
+Dataset	Backend Source	Admin Surface	Frontend Consumption	Key Considerations
+Hero Slides	Hero model → GET /api/hero	ManageHero (CRUD + Cloudinary)	Homepage hero carousel with auto-play	Order sequencing, active states, graceful fallbacks, image optimization
+Promotional Ads	Ad model → GET /api/ad/get-ads	CreateAd (CRUD + features array)	Homepage promo cards, marketing sections	Variable content lengths, feature lists, pricing display, CTA management
+Categories	Category model → GET /api/category/get-category	CreateCategory (CRUD with slugs)	Homepage tiles, Store filters, navigation	Consistent imagery, slug routing, hierarchical display
+Products	Product model → GET /api/product/*	CreateProduct (full CRUD suite)	Store grid, details, cart, checkout	Complex pricing (discounts), specifications, category relationships, inventory
+Team Members	Employee model → GET /api/employee/get-employees	ManageEmployees (status management)	Careers page with filtering, About Us	Status filtering (current/past), display order, featured flags, photo management
+Orders & Payments	Order model + Razorpay integration	AdminOrders, User Orders	Checkout flow, history, tracking	Secure payment handling, status transitions, user data protection
+Dashboard Analytics	Aggregated via /api/auth/dashboard-stats	AdminDashboard with Chart.js	KPI widgets, trend analysis	Real-time data visualization, graceful degradation for missing data
+
+Specialized Product Components:
+- Sensor Products (DHT11, DHT22, Temperature, LDR, PIR, IR sensors)
+- Drone Parts and Components  
+- Microcontroller Boards
+- 3D Printing Services
+- Professional Tools and Equipment
+- Battery and Power Solutions
+
+User & Authentication Management:
+- User Profiles with editable fields and validation
+- Role-based access control (User/Admin)
+- Secure authentication with JWT tokens
+- Password recovery with security questions
+- Registration and login success flows
+
+3.2 Advanced UX Patterns & System Resilience
+
+    Professional Loading States: 
+        - Skeleton loaders for product grids, employee cards, and dashboard widgets
+        - Spinner component for page-level loading states
+        - Progressive image loading with placeholder states
+        - Smooth transitions between loading and loaded states
+
+    Comprehensive Empty State Management:
+        - No products in category: Professional empty state with suggested actions
+        - No search results: Helpful suggestions and alternative products
+        - No employees in team section: Clean empty state with admin CTA
+        - No orders in history: Encouraging first purchase messaging
+        - No items in cart: Clear shopping suggestions and category links
+
+    Content Stability & Validation:
+        - CSS line-clamp for product descriptions and employee bios
+        - Intelligent text truncation with "read more" functionality
+        - Image aspect ratio preservation across all components
+        - Form validation with real-time feedback
+        - Toast notification system for user feedback
+
+    Error Handling & Recovery:
+        - 404 pages with professional design and navigation options
+        - API error boundaries with graceful fallbacks
+        - Network failure detection with retry mechanisms
+        - Image loading failure with placeholder alternatives
+        - Payment failure handling with clear recovery paths
+
+    Performance Optimization:
+        - Lazy loading for images and components
+        - Pagination for large product catalogs
+        - Debounced search functionality
+        - Optimized re-rendering with React hooks
+        - Code splitting for faster initial loads
+
+    Admin-Frontend Consistency:
+        - WYSIWYG content editing with live preview
+        - Consistent typography and spacing across admin and frontend
+        - Real-time content validation
+        - Image upload with automatic optimization
+        - Preview modes for content changes before publishing
+
+4. Architectural Blueprints: Core Page Experiences
+
+4.1 The Landing Page (/) - A Professional Journey
+
+    Dynamic Hero Carousel: Powered by Hero model (/api/hero) with:
+        - Auto-playing slider with multiple hero slides
+        - Professional drone imagery with gradient overlays
+        - Dynamic content including titles, descriptions, and button text
+        - Smooth transitions with Framer Motion animations
+        - Order-based sequencing and active state management
+
+    Product Categories Section: "OUR PRODUCTS" powered by /api/category/get-category featuring:
+        - Interactive category cards with hover animations
+        - Professional product imagery with consistent aspect ratios
+        - Slug-based navigation to category-specific product pages
+        - Clean grid layout with subtle shadows and professional styling
+
+    Promotional Content: Dynamic ads from Ad model (/api/ad/get-ads) including:
+        - Featured product showcases with pricing and feature lists
+        - Promotional cards with dynamic content and CTAs
+        - Professional card design with motion effects
+        - Time-sensitive offers and special announcements
+
+    Interactive Components:
+        - Image Slider: Static content showcase with card-based interface highlighting winter themes, digital technology, globalization, and new technologies
+        - Video Showcase: Professional video presentation with play button overlay and compelling content about drone capabilities
+        - Gallery Carousel: Rotating showcase of drone experiences, FPV racing events, company information, and community features with navigation controls
+
+    FAQ Section: Professional Q&A interface featuring:
+        - Collapsible FAQ items with smooth animations
+        - WhatsApp integration for direct customer support
+        - Professional typography and spacing
+        - Customer service hours and contact information
+
+    Footer Integration: Comprehensive footer with company information, social links, and navigation structure
+
+4.2 The Store (/store) & Product Details (/product/:slug)
+
+    Store: A professional-grade e-commerce experience. A sticky filter sidebar (powered by /api/category/get-category) on the left, and a grid of meticulously designed product cards on the right. A "Compare" feature will be available.
+
+    Product Detail Page: The ultimate resource for a buyer. It starts with a multi-image gallery (supporting a future 360° viewer), followed by a clear specs table, and then narrative sections for use cases, payload options, and documentation, all fetched from /api/product/get-product/:slug. A persistent CTA bar will follow the user on scroll.
+
+4.3 Core Application Pages
+
+Primary Navigation Pages:
+
+    About Us (/about): Dynamic founder spotlight section with motion animations, company values cards with hover effects, statistics showcasing growth metrics, and professional timeline design. Features gradient backgrounds and clean typography hierarchy.
+
+    Services (/services): Comprehensive service showcase including:
+        - Service cards (Free Shipping, Secure Payment, 24/7 Support, Easy Returns, Quality Products, Premium Support)
+        - IoT Training Programs with detailed course information (IoT Fundamentals, IoT Networking, IoT Data Management)
+        - Professional hero section with circuit pattern overlay
+        - Call-to-action sections with WhatsApp integration
+
+    Careers (/career): Dynamic team management system with:
+        - Employee profiles from /api/employee/get-employees
+        - Tab navigation for Current Team vs Past Members  
+        - Status filtering and display order management
+        - Professional employee cards with photos, tenure, and descriptions
+        - Job opportunities and company culture showcase
+
+    Store (/store): Advanced e-commerce platform featuring:
+        - Product grid with infinite scroll and pagination
+        - Advanced filtering by categories, price range, and search
+        - Mobile-responsive filter modal
+        - Product comparison functionality
+        - Real-time inventory and pricing from /api/product/get-product
+        - Cart integration with quantity management
+
+    Contact (/contact): Professional contact interface with:
+        - Embedded Google Maps showing business location
+        - Multi-field contact form with validation
+        - Social media integration (Instagram, Twitter, Facebook)
+        - Company highlights and value propositions
+        - Direct WhatsApp integration for instant support
+
+4.4 E-commerce & User Management Systems
+
+    Shopping Experience:
+        - Product Details (/product/:slug): Comprehensive product pages with image galleries, quantity selectors, pricing with discounts, specifications, and related products
+        - Category Products (/category/:slug): Filtered product listings by category with add-to-cart functionality and professional grid layouts
+        - Cart Management (/cartpage): Dynamic cart with quantity adjustment, item removal, and real-time total calculations
+        - Checkout Process (/checkout): Secure Razorpay payment integration with order verification, user authentication requirements, and success handling
+
+    User Dashboard (/dashboard/user/*):
+        - Profile Management: Comprehensive user profile editing with modal interfaces, field validation, and secure updates
+        - Order History: Complete order tracking with status updates, product details, and payment information
+        - Account Settings: Personal information management with professional UI
+
+    Admin Dashboard (/dashboard/admin/*): 
+        - Analytics Dashboard: Real-time statistics with Chart.js integration showing revenue trends, user metrics, and sales data
+        - Content Management: Hero slide management with Cloudinary integration, promotional ad management, and dynamic content updates
+        - Product Operations: Complete CRUD operations for products and categories with image uploads and inventory management
+        - User Administration: User management with role-based access, registration statistics, and account oversight
+        - Employee Management: Team member management with photo uploads, status tracking, and display order control
+        - Order Processing: Order status management, payment verification, and customer communication tools
+
+    Authentication System:
+        - Secure Login/Registration: Professional forms with validation, success/error handling, and redirect functionality
+        - Password Recovery: Complete forgot password flow with security questions and email verification
+        - Session Management: Token-based authentication with role-based access control (User/Admin)
+        - Success Pages: Professional confirmation pages with clear next steps and navigation options
+
+## 5. Technical Implementation Strategy
+
+5.1 Design Token System & Tailwind Configuration
+
+    Light Theme Color Palette:
+        - Primary: Slate (#334155) - Professional, readable
+        - Secondary: Indigo (#4f46e5) - Modern, tech-forward  
+        - Accent: Amber (#f59e0b) - Energy, call-to-action
+        - Background: White (#ffffff) and Light Gray (#f8fafc)
+        - Surface: Gray variants (#f1f5f9, #e2e8f0)
+        - Text: Dark Gray (#1e293b) primary, Medium Gray (#64748b) secondary
+        - Success: Emerald (#10b981)
+        - Warning: Amber (#f59e0b)
+        - Error: Red (#ef4444)
+        - Border: Light Gray (#e2e8f0)
+
+    Typography System:
+        - Font Family: Inter (Google Fonts)
+        - Weights: 300 (light), 400 (normal), 500 (medium), 600 (semibold), 700 (bold)
+        - Scale: text-xs (12px), text-sm (14px), text-base (16px), text-lg (18px), text-xl (20px), text-2xl (24px), text-3xl (30px), text-4xl (36px), text-5xl (48px)
+        - Line Heights: Optimized for readability (1.4-1.6)
+        - Letter Spacing: Tight for headings, normal for body
+
+    Spacing & Layout System:
+        - Container: max-w-7xl (1280px) with responsive padding
+        - Grid: 12-column system with gap-6 (24px) default
+        - Vertical Rhythm: space-y-4, space-y-6, space-y-8 patterns
+        - Section Padding: py-16 (64px) desktop, py-12 (48px) mobile
+        - Component Spacing: p-6 (24px) default, p-8 (32px) for larger cards
+
+    Component Design Standards:
+        - Border Radius: rounded-lg (8px) default, rounded-xl (12px) for cards
+        - Shadows: shadow-sm (subtle), shadow-md (default), shadow-lg (prominent)
+        - Transitions: transition-all duration-200 ease-in-out
+        - Hover States: Consistent scale and color transformations
+        - Focus States: Professional focus rings with brand colors
+
+    Responsive Breakpoints:
+        - Mobile: Default (< 640px)
+        - Tablet: sm: (640px+)
+        - Desktop: lg: (1024px+)
+        - Large: xl: (1280px+)
+        - Extra Large: 2xl: (1536px+)
+
+5.2 Implementation Phases
+
+    Phase 1: Design System Foundation 
+        ✅ Update Tailwind configuration with light theme tokens
+        ✅ Create CSS custom properties for consistent theming
+        ✅ Build base component library (Button, Card, Input, etc.)
+        ✅ Implement responsive grid system
+        ✅ Set up animation and transition standards
+
+    Phase 2: Navigation & Layout Redesign 
+        ✅ Redesign navigation component with light theme
+        ✅ Update Layout component with consistent spacing
+        ✅ Implement professional footer design
+        ✅ Create loading states and skeleton components
+        ✅ Build error boundary components
+
+    Phase 3: Homepage Experience 
+        ✅ Redesign Hero carousel with professional styling
+        ✅ Update product category cards with new design system
+        ✅ Enhance promotional ad components
+        ✅ Redesign interactive elements (sliders, galleries, Q&A)
+        ✅ Implement professional animations and transitions
+
+    Phase 4: E-commerce Enhancement 
+        ✅ Redesign Store page with advanced filtering
+        ✅ Update product detail pages with professional layout
+        ✅ Enhance cart and checkout experience
+        ✅ Implement comparison functionality
+        ✅ Add professional product image galleries
+
+    Phase 5: User & Admin Experience 
+        ✅ Redesign user dashboard with modern UI
+        ✅ Update admin interface with professional design
+        ✅ Enhance Chart.js visualizations
+        ✅ Implement advanced form components
+        ✅ Add comprehensive validation and feedback
+
+    Phase 6: Content Pages & Polish 
+        ✅ Redesign About, Services, Careers, Contact pages
+        ✅ Implement consistent content management interfaces
+        ✅ Add advanced typography and spacing
+        ✅ Enhance image handling and optimization
+        ✅ Final performance optimization and testing
+
+5.3 Component Architecture Strategy
+
+    Base Component Layer:
+        - Button: Multiple variants (primary, secondary, outline, ghost)
+        - Card: Professional shadows, consistent padding, responsive
+        - Input: Form components with validation states
+        - Modal: Overlay system with backdrop blur
+        - Toast: Notification system with queue management
+
+    Layout Components:
+        - Container: Responsive wrapper with consistent margins
+        - Grid: Flexible grid system with gap controls
+        - Stack: Vertical spacing utility component
+        - Flex: Horizontal alignment utility component
+
+    Business Components:
+        - ProductCard: Sophisticated product display with hover states
+        - CategoryCard: Interactive category navigation
+        - EmployeeCard: Professional team member display  
+        - HeroSlide: Dynamic hero content with animations
+        - AdCard: Promotional content with CTA management
+
+    Page Components:
+        - Navigation: Professional header with responsive menu
+        - Footer: Comprehensive footer with social links
+        - Breadcrumb: Navigation aid for deeper pages
+        - Pagination: Professional pagination with page info
+        - SearchBar: Advanced search with filtering
+
+5.4 Performance & Quality Standards
+
+    Core Web Vitals Targets:
+        - Largest Contentful Paint (LCP): < 2.5s
+        - First Input Delay (FID): < 100ms
+        - Cumulative Layout Shift (CLS): < 0.1
+        - First Contentful Paint (FCP): < 1.8s
+
+    Image Optimization:
+        - WebP format with fallbacks
+        - Responsive image sizes
+        - Lazy loading implementation
+        - Cloudinary automatic optimization
+        - Progressive image enhancement
+
+    Code Quality Standards:
+        - ESLint configuration with strict rules
+        - Prettier formatting standards
+        - Component prop validation
+        - TypeScript gradual adoption
+        - Performance monitoring with React DevTools
+
+    Accessibility Compliance:
+        - WCAG 2.1 AA standards
+        - Semantic HTML structure
+        - Proper ARIA labels
+        - Keyboard navigation support
+        - Screen reader optimization
+
+## 6. Success Metrics & Validation
+
+6.1 User Experience Metrics
+    - Professional appearance rating: Target 9/10
+    - Task completion rate: > 95%
+    - User satisfaction score: > 4.5/5
+    - Mobile responsiveness score: 100%
+    - Loading performance: < 3s initial load
+
+6.2 Technical Quality Metrics
+    - Lighthouse Performance: > 90
+    - Accessibility Score: > 95
+    - SEO Score: > 90
+    - Best Practices: > 95
+    - Code Coverage: > 80%
+
+6.3 Business Impact Goals
+    - Conversion rate improvement: +25%
+    - Bounce rate reduction: -20%
+    - Session duration increase: +30%
+    - Admin content management efficiency: +40%
+    - Mobile engagement improvement: +35%
+
+This comprehensive redesign transforms the Flytium drone website from an AI-generated appearance to a sophisticated, professional platform that reflects senior-level development expertise while maintaining all existing functionality and enhancing user experience across all touchpoints.

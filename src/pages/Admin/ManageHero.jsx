@@ -16,8 +16,10 @@ const ManageHero = () => {
   const { auth } = useAuth();
   const [formData, setFormData] = useState({
     title: "",
+    subtitle: "",
     description: "",
     buttonText: "",
+    buttonLink: "",
     image: "",
     order: 0,
     isActive: true,
@@ -100,8 +102,10 @@ const ManageHero = () => {
     setSelectedSlide(slide);
     setFormData({
       title: slide.title,
+      subtitle: slide.subtitle || "",
       description: slide.description,
       buttonText: slide.buttonText,
+      buttonLink: slide.buttonLink || "",
       image: slide.image,
       order: slide.order,
       isActive: slide.isActive,
@@ -132,8 +136,10 @@ const ManageHero = () => {
   const resetForm = () => {
     setFormData({
       title: "",
+      subtitle: "",
       description: "",
       buttonText: "",
+      buttonLink: "",
       image: "",
       order: 0,
       isActive: true,
@@ -206,11 +212,11 @@ const ManageHero = () => {
 
         {/* Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="fixed inset-0 bg-black/50 flex items-start justify-center p-4 z-50 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-white rounded-lg p-6 w-full max-w-2xl"
+              className="bg-white rounded-lg p-6 w-full max-w-2xl my-8 min-h-fit"
             >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold">
@@ -242,6 +248,21 @@ const ManageHero = () => {
 
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">
+                    Subtitle
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.subtitle}
+                    onChange={(e) =>
+                      setFormData({ ...formData, subtitle: e.target.value })
+                    }
+                    className="w-full p-2 border rounded-lg"
+                    placeholder="e.g., Premium Technology"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-2">
                     Description
                   </label>
                   <textarea
@@ -267,6 +288,21 @@ const ManageHero = () => {
                     }
                     className="w-full p-2 border rounded-lg"
                     required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Button Link
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.buttonLink}
+                    onChange={(e) =>
+                      setFormData({ ...formData, buttonLink: e.target.value })
+                    }
+                    className="w-full p-2 border rounded-lg"
+                    placeholder="e.g., /store, /about, /contact"
                   />
                 </div>
 

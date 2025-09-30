@@ -36,6 +36,7 @@ import Career from "./pages/Career";
 import ManageEmployees from "./pages/Admin/ManageEmployees";
 import ManageJobs from "./pages/Admin/ManageJobs";
 import JobApplications from "./pages/Admin/JobApplications";
+import LenisProvider from "./components/LenisProvider";
 
 function App() {
   // added
@@ -43,9 +44,10 @@ function App() {
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
-      <Router>
-        <Navbar />
-        <Routes>
+      <LenisProvider>
+        <Router>
+          <Navbar />
+          <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login-success" element={<Successful />} />
@@ -90,7 +92,8 @@ function App() {
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
         <Footer />
-      </Router>
+        </Router>
+      </LenisProvider>
     </>
   );
 }
