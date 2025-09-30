@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import Container from '../../ui/Container';
 
 const ImageSlider = () => {
@@ -9,34 +9,10 @@ const ImageSlider = () => {
   const [start, setStart] = useState(false);
   const animationRef = useRef(null);
   const positionRef = useRef(0);
-  const [scrollOffset, setScrollOffset] = useState(0);
-  
-  // Scroll-based animations
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-  
   const isInView = useInView(containerRef, { 
     once: false, 
     margin: "-100px" 
   });
-  
-  // Parallax transforms
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.9]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.3]);
-  
-  // Optional scroll tracking for enhanced effects
-  useEffect(() => {
-    const handleScroll = () => {
-      const progress = window.scrollY / window.innerHeight;
-      setScrollOffset(progress * 50); // Adjust scroll influence
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const cards = [
     {
@@ -130,7 +106,7 @@ const ImageSlider = () => {
 
     const animate = () => {
       if (!isPaused && scrollerRef.current) {
-        positionRef.current -= 3; // Adjust speed here (higher = faster)
+        positionRef.current -= 8; // Adjust speed here (higher = faster)
         
         // Get the width of one complete set of cards
         const totalWidth = scrollerRef.current.scrollWidth / 2;
@@ -158,14 +134,10 @@ const ImageSlider = () => {
   return (
     <motion.section 
       ref={containerRef}
-      style={{ scale, opacity }}
       className="py-32 bg-gradient-to-br from-slate-900 via-gray-900 to-black relative overflow-hidden"
     >
-      {/* Animated Background Elements with Parallax */}
-      <motion.div 
-        style={{ y: backgroundY }}
-        className="absolute inset-0"
-      >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0">
         <motion.div 
           animate={{ 
             rotate: [0, 360],
@@ -191,71 +163,24 @@ const ImageSlider = () => {
           className="absolute bottom-20 right-20 w-120 h-72 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-      </motion.div>
+      </div>
 
       <Container>
         <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.9 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ 
-            duration: 1, 
-            ease: "easeOut",
-            staggerChildren: 0.2
-          }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-20 relative z-10"
         >
-          <motion.h2 
-            className="text-5xl lg:text-7xl font-display font-bold text-white mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.8, 
-              delay: 0.2,
-              type: "spring",
-              stiffness: 100
-            }}
-          >
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              Our
-            </motion.span>
-            <motion.span 
-              className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 ml-4"
-              initial={{ opacity: 0, x: 20, scale: 0.8 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
-              transition={{ 
-                duration: 0.8, 
-                delay: 0.5,
-                type: "spring",
-                stiffness: 120
-              }}
-              animate={{ 
-                y: [0, -5, 0],
-                transition: {
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }
-              }}
-            >
+          <h2 className="text-5xl lg:text-7xl font-display font-bold text-white mb-6">
+            Our{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">
               Solutions
-            </motion.span>
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.8, 
-              delay: 0.7,
-              ease: "easeOut"
-            }}
-          >
+            </span>
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Explore our comprehensive range of drone technologies and solutions
-          </motion.p>
+          </p>
         </motion.div>
       </Container>
 
