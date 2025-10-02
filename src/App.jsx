@@ -38,7 +38,6 @@ import ManageEmployees from "./pages/Admin/ManageEmployees";
 import ManageJobs from "./pages/Admin/ManageJobs";
 import JobApplications from "./pages/Admin/JobApplications";
 import ManageContacts from "./pages/Admin/ManageContacts";
-import LenisProvider from "./components/LenisProvider";
 
 function App() {
   // added
@@ -46,8 +45,7 @@ function App() {
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
-      <LenisProvider>
-        <Router>
+      <Router>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -94,13 +92,10 @@ function App() {
             <Route path="/terms-conditions" element={<TermsConditions />} />
             <Route path="/shipping-policy" element={<ShippingPolicy />} />
             <Route path="/category/:slug" element={<CategoryProducts />} />
-            <Route path="*" element={<Pagenotfound />} />
-          </Routes>
-          <Footer />
-        </Router>
-      </LenisProvider>
+          <Route path="*" element={<Pagenotfound />} />
+        </Routes>
+        <Footer />
+      </Router>
     </>
   );
-}
-
-export default App;
+}export default App;

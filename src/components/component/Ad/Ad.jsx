@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Clock,
@@ -12,9 +11,9 @@ import { API_URL } from "../../../api";
 import toast from "react-hot-toast";
 
 const ProductAdCard = () => {
-  const [ads, setAds] = useState([]); // State for all ads data
-  const [currentAdIndex, setCurrentAdIndex] = useState(0); // Current ad being displayed
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true); // Auto-play state
+  const [ads, setAds] = useState([]);
+  const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   const getAds = async () => {
     try {
@@ -49,55 +48,38 @@ const ProductAdCard = () => {
   };
 
   const goToPrevious = () => {
-    setCurrentAdIndex((prevIndex) => (prevIndex - 1 + ads.length) % ads.length);
+    setCurrentAdIndex((prevIndex) => 
+      prevIndex === 0 ? ads.length - 1 : prevIndex - 1
+    );
   };
 
   const goToSlide = (index) => {
     setCurrentAdIndex(index);
+    setIsAutoPlaying(false);
   };
 
-  if (ads.length === 0) {
-    return (
-      <div className="min-h-[400px] flex items-center justify-center bg-gradient-to-br from-white to-gray-50/50">
-        <div className="flex items-center space-x-3">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
-          <span className="text-slate-600 font-medium">
-            Loading special offers...
-          </span>
-        </div>
-      </div>
-    );
-  }
+  // Don't render if no ads
+  if (!ads.length) return null;
 
   const currentAd = ads[currentAdIndex];
 
   return (
-    <section
-      className="py-20 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 relative overflow-hidden"
-      onMouseEnter={() => setIsAutoPlaying(false)}
-      onMouseLeave={() => setIsAutoPlaying(true)}
-    >
+    <section className="py-24 bg-gradient-to-br from-emerald-50 via-white to-amber-50/30 relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl opacity-30"></div>
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl opacity-20"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-l from-emerald-400/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-r from-amber-400/10 to-transparent rounded-full blur-3xl"></div>
 
-      <motion.div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        {/* Carousel Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
         {ads.length > 1 && (
-          <div className="text-center mb-8">
-            <motion.h2
-              className="text-2xl font-bold text-slate-800 mb-4"
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              Special Offers
-            </motion.h2>
+          <div className="text-center mb-16 space-y-6">
+            <h2 className="text-4xl lg:text-5xl font-display font-bold text-slate-900 animate-fade-in-up">
+              Featured Products
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Discover our latest offerings and exclusive deals
+            </p>
+
             {/* Dots Indicator */}
             <div className="flex justify-center space-x-2">
               {ads.map((_, index) => (
@@ -117,19 +99,19 @@ const ProductAdCard = () => {
         )}
 
         <div className="relative">
-          {/* Navigation Arrows (only show if more than 1 ad) */}
+          {/* Navigation Arrows */}
           {ads.length > 1 && (
             <>
               <button
                 onClick={goToPrevious}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center group"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-200 flex items-center justify-center group"
                 aria-label="Previous ad"
               >
                 <ChevronLeft className="w-6 h-6 text-slate-600 group-hover:text-emerald-600 transition-colors" />
               </button>
               <button
                 onClick={goToNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center group"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-200 flex items-center justify-center group"
                 aria-label="Next ad"
               >
                 <ChevronRight className="w-6 h-6 text-slate-600 group-hover:text-emerald-600 transition-colors" />
@@ -137,199 +119,113 @@ const ProductAdCard = () => {
             </>
           )}
 
-          {/* Ad Content with Animation */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentAdIndex}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-strong border border-white/50 overflow-hidden"
-            >
-              <div className="grid lg:grid-cols-2 gap-12 p-8 lg:p-16">
-                {/* Content Section */}
-                <div className="space-y-8 order-2 lg:order-1 flex flex-col justify-center">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium w-fit"
-                  >
-                    <Clock className="w-4 h-4 mr-2" />
-                    Special Offer Available
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="space-y-4"
-                  >
-                    <h2 className="text-4xl lg:text-5xl font-display font-bold text-slate-900 leading-tight">
-                      {currentAd.title}
-                    </h2>
-                    <div className="flex items-baseline space-x-3">
-                      <span className="text-3xl lg:text-4xl font-bold text-emerald-600">
-                        ₹{currentAd.price}
-                      </span>
-                      <span className="text-lg text-slate-500 line-through">
-                        ₹{Math.round(currentAd.price * 1.2)}
-                      </span>
-                      <span className="px-3 py-1 bg-amber-100 text-amber-700 text-sm font-semibold rounded-full">
-                        Save 20%
-                      </span>
-                    </div>
-                  </motion.div>
-
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="text-lg text-slate-600 leading-relaxed"
-                  >
-                    {currentAd.description}
-                  </motion.p>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="space-y-6"
-                  >
-                    <h3 className="text-xl font-display font-semibold text-slate-900">
-                      Key Features
-                    </h3>
-                    <div className="grid gap-3">
-                      {Array.isArray(currentAd.features) &&
-                        currentAd.features.map((feature, index) => (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{
-                              duration: 0.3,
-                              delay: 0.5 + index * 0.1,
-                            }}
-                            className="flex items-center p-4 bg-emerald-50 border border-emerald-100 rounded-xl hover:bg-emerald-100/50 transition-colors duration-200"
-                          >
-                            <div className="w-8 h-8 bg-emerald-200 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                              <Check className="w-5 h-5 text-emerald-700" />
-                            </div>
-                            <span className="text-slate-700 font-medium">
-                              {feature}
-                            </span>
-                          </motion.div>
-                        ))}
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                    className="flex flex-col sm:flex-row gap-4 pt-4"
-                  >
-                    <motion.a
-                      href="/store"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="px-8 py-4 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-                    >
-                      Order Now
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.a>
-                    <motion.a
-                      href="/about"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="px-8 py-4 border-2 border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 text-center"
-                    >
-                      Learn More
-                    </motion.a>
-                  </motion.div>
-                </div>
-
-                {/* Image Section */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
-                  className="relative order-1 lg:order-2"
-                >
-                  {/* Background Elements */}
-                  <div className="absolute -top-8 -right-8 w-64 h-64 bg-gradient-to-r from-emerald-400/20 to-emerald-600/20 rounded-full blur-2xl"></div>
-                  <div className="absolute -bottom-8 -left-8 w-56 h-56 bg-gradient-to-r from-amber-400/20 to-amber-600/20 rounded-full blur-2xl"></div>
-
-                  {/* Main Image Container */}
-                  <div className="relative bg-gradient-to-br from-white/90 to-gray-50/90 backdrop-blur-sm rounded-2xl p-8 shadow-medium border border-white/50">
-                    <motion.div className="aspect-square flex items-center justify-center">
-                      <motion.img
-                        src={currentAd.image}
-                        alt={currentAd.title}
-                        className="w-full h-full object-contain drop-shadow-2xl"
-                        whileHover={{ scale: 1.1, rotate: 3 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 20,
-                        }}
-                      />
-                    </motion.div>
-
-                    {/* Product Badge */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.8 }}
-                      className="absolute -top-4 -left-4 bg-emerald-600 text-white p-3 rounded-full shadow-lg"
-                    >
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                        />
-                      </svg>
-                    </motion.div>
-
-                    {/* Discount Badge */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 1 }}
-                      className="absolute -top-4 -right-4 bg-amber-500 text-white px-4 py-2 rounded-full shadow-lg font-bold text-sm"
-                    >
-                      20% OFF
-                    </motion.div>
+          {/* Ad Content */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-strong border border-white/50 overflow-hidden transition-opacity duration-500">
+            <div className="grid lg:grid-cols-2 gap-12 p-8 lg:p-16">
+              {/* Content Section */}
+              <div className="space-y-8 order-2 lg:order-1 flex flex-col justify-center">
+                <div>
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-6">
+                    <Clock className="w-4 h-4" />
+                    {currentAd.badge || "Limited Time"}
                   </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
 
-          {/* Carousel Progress Bar (only show if more than 1 ad and auto-playing) */}
+                  {/* Title */}
+                  <h1 className="text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 leading-tight">
+                    {currentAd.title}
+                  </h1>
+
+                  {/* Description */}
+                  <p className="text-xl text-slate-600 mb-8 leading-relaxed">
+                    {currentAd.description}
+                  </p>
+
+                  {/* Features */}
+                  {Array.isArray(currentAd.features) && (
+                    <div className="grid gap-3 mb-8">
+                      {currentAd.features.map((feature, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center p-4 bg-emerald-50 border border-emerald-100 rounded-xl hover:bg-emerald-100/50 transition-colors duration-200"
+                        >
+                          <div className="w-8 h-8 bg-emerald-200 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <Check className="w-5 h-5 text-emerald-700" />
+                          </div>
+                          <span className="text-slate-700 font-medium">
+                            {feature}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button
+                      className="px-8 py-4 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                    >
+                      {currentAd.buttonText || "Shop Now"}
+                      <ArrowRight className="w-5 h-5" />
+                    </button>
+                    <button className="px-8 py-4 border-2 border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 hover:border-slate-300 hover:scale-105 hover:-translate-y-1 transition-all duration-200 text-center">
+                      Learn More
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Image Section */}
+              <div className="relative order-1 lg:order-2">
+                {/* Background Elements */}
+                <div className="absolute -top-8 -right-8 w-64 h-64 bg-gradient-to-r from-emerald-400/20 to-emerald-600/20 rounded-full blur-2xl"></div>
+                <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-gradient-to-r from-amber-400/20 to-orange-400/20 rounded-full blur-2xl"></div>
+
+                {/* Product Image */}
+                <div className="relative bg-gradient-to-br from-slate-50 to-white rounded-2xl p-8 shadow-soft border border-gray-100 overflow-hidden group">
+                  <img
+                    src={currentAd.image}
+                    alt={currentAd.title}
+                    className="w-full h-auto max-h-96 object-contain relative z-10 group-hover:scale-105 transition-transform duration-500"
+                  />
+
+                  {/* Discount Badge */}
+                  {currentAd.discount && (
+                    <div className="absolute top-4 right-4 z-20">
+                      <div className="bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                        {currentAd.discount}% OFF
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
           {ads.length > 1 && isAutoPlaying && (
             <div className="mt-6 mx-auto max-w-md">
               <div className="h-1 bg-slate-200 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-emerald-600"
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 5, ease: "linear", repeat: Infinity }}
+                <div 
+                  className="h-full bg-emerald-600 transition-all duration-75 ease-linear"
+                  style={{ 
+                    width: '100%',
+                    animation: `progress 5s linear infinite`
+                  }}
                   key={currentAdIndex}
                 />
               </div>
             </div>
           )}
         </div>
-      </motion.div>
+      </div>
+
+      <style jsx>{`
+        @keyframes progress {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+      `}</style>
     </section>
   );
 };
