@@ -79,23 +79,23 @@ const ImageSlider = () => {
   const duplicatedCards = [...cards, ...cards];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-slate-900 via-gray-900 to-black relative overflow-hidden">
-      {/* Animated Background Elements (static for performance) */}
+    <section className="py-32 bg-gradient-to-br from-white via-gray-50 to-blue-50/30 relative overflow-hidden">
+      {/* Animated Background Elements (subtle for light theme) */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-120 h-72 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-spin-slow" />
-        <div className="absolute bottom-20 right-20 w-120 h-72 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl animate-spin-slow-reverse" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        <div className="absolute top-20 left-20 w-120 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-20 w-120 h-72 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-50/50 to-transparent" />
       </div>
 
       <Container>
         <div className="text-center mb-20 relative z-10">
-          <h2 className="text-5xl lg:text-7xl font-display font-bold text-white mb-6">
+          <h2 className="text-5xl lg:text-7xl font-display font-bold text-gray-900 mb-6">
             Our{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600">
               Solutions
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Explore our comprehensive range of drone technologies and solutions
           </p>
         </div>
@@ -126,22 +126,22 @@ const ImageSlider = () => {
               {/* Stacked Cards Effect */}
               <div className="relative">
                 {/* Background Cards (Stacked) */}
-                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${card.gradient} transform rotate-2 translate-x-3 translate-y-3 opacity-60 blur-sm`} />
-                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${card.gradient} transform rotate-1 translate-x-1.5 translate-y-1.5 opacity-80`} />
+                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${card.gradient} transform rotate-2 translate-x-3 translate-y-3 opacity-40 blur-sm`} />
+                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${card.gradient} transform rotate-1 translate-x-1.5 translate-y-1.5 opacity-60`} />
 
                 {/* Main Card */}
                 <div
                   className={`
                     relative bg-gradient-to-br ${card.gradient}
                     rounded-3xl p-6 h-[480px]
-                    shadow-2xl border border-white/20 backdrop-blur-sm
+                    shadow-2xl border border-white/40 backdrop-blur-sm
                     transform-gpu transition-all duration-500
                   `}
                 >
                   {/* Card Content */}
                   <div className="relative z-10 h-full flex flex-col">
                     {/* Icon */}
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-xl">
+                    <div className="w-16 h-16 bg-white/30 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-xl border border-white/40">
                       {card.icon}
                     </div>
 
@@ -150,28 +150,28 @@ const ImageSlider = () => {
                       <h3 className="text-3xl font-bold text-white mb-1 tracking-tight">
                         {card.title}
                       </h3>
-                      <p className="text-lg text-white/80 font-medium">
+                      <p className="text-lg text-white/90 font-medium">
                         {card.subtitle}
                       </p>
                     </div>
 
                     {/* Description */}
-                    <p className="text-white/90 text-base leading-relaxed mb-6 flex-grow">
+                    <p className="text-white/95 text-base leading-relaxed mb-6 flex-grow">
                       {card.description}
                     </p>
 
                     {/* Features List */}
                     <div className="space-y-2 mb-6">
                       {card.features.slice(0, 3).map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-3 text-white/90">
-                          <div className="w-1.5 h-1.5 bg-white/60 rounded-full" />
+                        <div key={idx} className="flex items-center gap-3 text-white/95">
+                          <div className="w-1.5 h-1.5 bg-white/70 rounded-full" />
                           <span className="text-sm">{feature}</span>
                         </div>
                       ))}
                     </div>
 
                     {/* CTA Button */}
-                    <button className="w-full py-3 px-4 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl font-semibold text-white text-base shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <button className="w-full py-3 px-4 bg-white/25 backdrop-blur-md border border-white/40 rounded-xl font-semibold text-white text-base shadow-xl hover:shadow-2xl hover:bg-white/35 transition-all duration-300">
                       Explore More
                     </button>
                   </div>
@@ -194,8 +194,8 @@ const ImageSlider = () => {
 
                   {/* Floating Image */}
                   <div className="absolute top-4 right-4 w-16 h-16">
-                    <div className="relative w-full h-full bg-white/10 backdrop-blur-md rounded-xl p-2 shadow-lg">
-                      <img src={card.image} alt={card.title} className="w-full h-full object-contain opacity-80" />
+                    <div className="relative w-full h-full bg-white/15 backdrop-blur-md rounded-xl p-2 shadow-lg border border-white/30">
+                      <img src={card.image} alt={card.title} className="w-full h-full object-contain opacity-90" />
                     </div>
                   </div>
                 </div>

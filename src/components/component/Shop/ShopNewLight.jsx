@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Zap, Shield, Award, Sparkles, ChevronRight, Package, TrendingUp, Star, Users } from "lucide-react";
 import axios from "axios";
 import { API_URL } from "../../../api";
@@ -171,19 +170,19 @@ const ShopNew = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-      {/* Animated Background Grid */}
-      <div className="absolute inset-0 opacity-20">
+    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-emerald-50/30 relative overflow-hidden">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(to right, rgba(148, 163, 184, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(148, 163, 184, 0.1) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(to right, rgba(16, 185, 129, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(16, 185, 129, 0.1) 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
       </div>
 
-      {/* Gradient Orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-500/30 to-blue-500/30 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-3xl" />
+      {/* Soft Gradient Accents */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-100/40 to-blue-100/40 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-100/40 to-pink-100/40 rounded-full blur-3xl" />
       </div>
 
       <Container className="relative z-10">
@@ -192,47 +191,28 @@ const ShopNew = () => {
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12">
             {/* Title Section */}
             <div className="flex-1">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-semibold mb-6"
-              >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 border border-emerald-200 rounded-full text-emerald-700 text-sm font-semibold mb-6">
                 <Package className="w-4 h-4" />
                 Premium Drone Collection
-              </motion.div>
+              </div>
               
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-5xl lg:text-6xl font-display font-bold text-white mb-4"
-              >
+              <h1 className="text-5xl lg:text-6xl font-display font-bold text-gray-900 mb-4">
                 Shop Our{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600">
                   Premium Categories
                 </span>
-              </motion.h1>
+              </h1>
               
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-lg text-slate-400 max-w-2xl"
-              >
+              <p className="text-lg text-gray-600 max-w-2xl">
                 Professional-grade drones and accessories for every application. Industry-leading quality, performance, and reliability.
-              </motion.p>
+              </p>
             </div>
 
+            
           </div>
 
           {/* Filter Tabs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
-          >
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
             {filters.map((filter) => (
               <button
                 key={filter.id}
@@ -240,56 +220,51 @@ const ShopNew = () => {
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold whitespace-nowrap transition-all duration-300 ${
                   activeFilter === filter.id
                     ? 'bg-gradient-to-r from-emerald-600 to-blue-600 text-white shadow-lg shadow-emerald-500/20'
-                    : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 shadow-sm'
                 }`}
               >
                 <filter.icon className="w-4 h-4" />
                 {filter.label}
               </button>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* Categories Grid */}
         {categories.length === 0 ? (
           <div className="flex items-center justify-center py-32">
             <div className="text-center">
-              <div className="w-16 h-16 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-slate-400 text-lg">Loading categories...</p>
+              <div className="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+              <p className="text-gray-600 text-lg">Loading categories...</p>
             </div>
           </div>
         ) : (
           <div className="grid lg:grid-cols-3 gap-6 mb-16">
             {categories.map((category, index) => (
-              <motion.div
+              <div
                 key={category._id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: index * 0.1,
-                  ease: "easeOut" 
-                }}
                 onClick={() => handleCategoryClick(category)}
                 className="group cursor-pointer"
               >
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden h-full hover:border-emerald-400/50 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-500/10">
-                  {/* Gradient Overlay on Hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 to-blue-500/0 group-hover:from-emerald-500/10 group-hover:to-blue-500/10 transition-all duration-500" />
+                <div className="relative bg-white border-2 border-gray-200 rounded-2xl overflow-hidden h-full hover:border-emerald-400 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                  {/* Subtle Gradient Overlay on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 to-blue-50/0 group-hover:from-emerald-50/30 group-hover:to-blue-50/30 transition-all duration-500 pointer-events-none z-10" />
                   
                   {/* Category Image Banner */}
-                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
+                  <div className="relative h-56 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
                     <img
                       src={category.image || '/003.jpg'}
                       alt={category.name}
-                      className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700"
+                      className="w-full h-full object-contain object-center p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                      onError={(e) => {
+                        e.target.src = '/003.jpg';
+                        e.target.onerror = null;
+                      }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
-                    
+                    <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent pointer-events-none" />
 
                     {/* Badge */}
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-emerald-500/90 backdrop-blur-sm rounded-full text-white text-xs font-bold">
+                    <div className="absolute top-4 right-4 px-3 py-1.5 bg-emerald-500 backdrop-blur-sm rounded-full text-white text-xs font-bold shadow-lg animate-pulse">
                       NEW
                     </div>
                   </div>
@@ -297,28 +272,28 @@ const ShopNew = () => {
                   {/* Content */}
                   <div className="relative p-6">
                     {/* Category Name */}
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors duration-300">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors duration-300">
                       {category.name}
                     </h3>
                     
                     {/* Description */}
-                    <p className="text-slate-400 text-sm mb-4 line-clamp-2">
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                       {category.description || 'Explore our premium drone solutions designed for professionals and enthusiasts.'}
                     </p>
 
                     {/* Info Grid */}
-                    <div className="grid grid-cols-3 gap-3 mb-4 py-4 border-y border-white/10">
+                    <div className="grid grid-cols-3 gap-3 mb-4 py-4 border-y border-gray-100">
                       {[
                         { label: 'Products', value: '25+', icon: Package },
                         { label: 'Rating', value: '4.9', icon: Star },
                         { label: 'Stock', value: 'In Stock', icon: TrendingUp }
                       ].map((item, idx) => (
                         <div key={idx} className="text-center">
-                          <div className="flex items-center justify-center gap-1 text-emerald-400 mb-1">
+                          <div className="flex items-center justify-center gap-1 text-emerald-600 mb-1">
                             <item.icon className="w-3 h-3" />
-                            <span className="text-sm font-bold text-white">{item.value}</span>
+                            <span className="text-sm font-bold text-gray-900">{item.value}</span>
                           </div>
-                          <div className="text-xs text-slate-500">{item.label}</div>
+                          <div className="text-xs text-gray-500">{item.label}</div>
                         </div>
                       ))}
                     </div>
@@ -334,14 +309,15 @@ const ShopNew = () => {
 
                   {/* Hover Arrow Indicator */}
                   <div className="absolute top-1/2 right-4 -translate-y-1/2 opacity-0 group-hover:opacity-100 group-hover:right-6 transition-all duration-300">
-                    <ChevronRight className="w-8 h-8 text-emerald-400" />
+                    <ChevronRight className="w-8 h-8 text-emerald-500" />
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         )}
 
+        
       </Container>
     </section>
   );

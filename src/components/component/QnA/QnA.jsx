@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, ChevronDown, Phone, Mail, MapPin, Clock, HelpCircle, ArrowRight } from "lucide-react";
+import { MessageCircle, Phone, Mail, Plus, Minus, HelpCircle } from "lucide-react";
 import Container from "../../ui/Container";
 
 const FAQSection = () => {
@@ -25,240 +24,214 @@ const FAQSection = () => {
         "We provide guidance on all necessary certifications including DGCA compliance in India, Part 107 in the US, and other international regulations. Our legal team stays updated with changing drone laws and helps customers navigate licensing requirements for commercial operations.",
       category: "Legal"
     },
+    {
+      question: "What warranty and after-sales support do you offer?",
+      answer:
+        "We provide a comprehensive 1-year warranty covering manufacturing defects. Our after-sales support includes free repairs, replacement parts at discounted rates, and lifetime technical assistance. We also offer extended warranty plans for professional users.",
+      category: "Support"
+    },
+    {
+      question: "Can I customize my drone for specific applications?",
+      answer:
+        "Yes! We offer customization services for payload integration, camera upgrades, extended battery packs, and specialized sensors. Our engineering team works with you to design solutions for agriculture, surveillance, mapping, and other industry-specific needs.",
+      category: "Custom"
+    },
   ];
 
   const supportChannels = [
     {
       icon: MessageCircle,
-      title: "WhatsApp Support",
-      description: "Instant help via WhatsApp",
+      title: "WhatsApp",
+      info: "+91 6307193440",
       action: "https://wa.me/916307193440",
-      color: "bg-green-500 hover:bg-green-600",
-      available: "24/7"
+      color: "emerald"
     },
     {
       icon: Phone,
-      title: "Phone Support",
-      description: "Talk to our experts",
+      title: "Call Us",
+      info: "+91 6307193440",
       action: "tel:+916307193440",
-      color: "bg-blue-500 hover:bg-blue-600",
-      available: "10AM-6:30PM"
+      color: "blue"
     },
     {
       icon: Mail,
-      title: "Email Support", 
-      description: "Detailed technical help",
+      title: "Email",
+      info: "support@flytium.com",
       action: "mailto:support@flytium.com",
-      color: "bg-emerald-500 hover:bg-emerald-600",
-      available: "24 hrs"
+      color: "purple"
     }
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-gradient-to-r from-emerald-400/10 to-amber-400/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-l from-amber-400/10 to-transparent rounded-full blur-3xl"></div>
-
+    <section className="py-24 bg-white">
       <Container>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <motion.div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-6">
+        {/* Header - Clean and Simple */}
+        <div className="max-w-2xl mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 border border-gray-200 rounded-full text-sm text-gray-600 mb-6">
             <HelpCircle className="w-4 h-4" />
-            FAQ & Support
-          </motion.div>
+            Support Center
+          </div>
           
-          <motion.h2 
-            className="text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6"
-          >
-            Got Questions? We've Got
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-amber-600 ml-3">
-              Answers
-            </span>
-          </motion.h2>
+          <h2 className="text-5xl md:text-6xl font-display font-bold text-gray-900 mb-6 leading-tight">
+            Questions &<br />
+            <span className="text-gray-400">Answers</span>
+          </h2>
           
-          <motion.p 
-            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-          >
-            Find answers to common questions or get in touch with our expert support team
-          </motion.p>
-        </motion.div>
+          <p className="text-lg text-gray-600">
+            Everything you need to know about our drones, support, and services.
+          </p>
+        </div>
 
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-12 mb-16">
-            {/* Support Channels */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-1"
-            >
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-soft border border-white/50 sticky top-8">
-                <h3 className="text-2xl font-display font-bold text-slate-900 mb-6">
-                  Need Immediate Help?
+        <div className="grid lg:grid-cols-12 gap-16">
+          {/* Left Side - FAQ List */}
+          <div className="lg:col-span-7">
+            <div className="space-y-2">
+              {faqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className={`
+                    border-l-2 transition-all duration-200
+                    ${activeIndex === index 
+                      ? 'border-gray-900 bg-gray-50' 
+                      : 'border-gray-200 hover:border-gray-400'
+                    }
+                  `}
+                >
+                  <button
+                    onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+                    className="w-full px-6 py-5 text-left flex items-start justify-between gap-4"
+                  >
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-xs font-mono text-gray-400">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">
+                          {faq.category}
+                        </span>
+                      </div>
+                      <h3 className={`font-semibold text-base transition-colors ${
+                        activeIndex === index ? 'text-gray-900' : 'text-gray-700'
+                      }`}>
+                        {faq.question}
+                      </h3>
+                    </div>
+                    
+                    <div className={`
+                      w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1 transition-colors
+                      ${activeIndex === index 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-gray-100 text-gray-600'
+                      }
+                    `}>
+                      {activeIndex === index ? (
+                        <Minus className="w-3 h-3" />
+                      ) : (
+                        <Plus className="w-3 h-3" />
+                      )}
+                    </div>
+                  </button>
+                  
+                  {activeIndex === index && (
+                    <div className="px-6 pb-6">
+                      <div className="pl-8">
+                        <p className="text-gray-600 leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Side - Contact Cards */}
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-24 space-y-6">
+              {/* Contact Methods */}
+              <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">
+                  Get in Touch
                 </h3>
                 
-                <div className="space-y-4 mb-8">
-                  {supportChannels.map((channel, index) => (
-                    <motion.a
+                {supportChannels.map((channel, index) => {
+                  const colorClasses = {
+                    emerald: 'border-emerald-200 hover:border-emerald-400 hover:bg-emerald-50',
+                    blue: 'border-blue-200 hover:border-blue-400 hover:bg-blue-50',
+                    purple: 'border-purple-200 hover:border-purple-400 hover:bg-purple-50'
+                  };
+                  
+                  const iconColors = {
+                    emerald: 'text-emerald-600',
+                    blue: 'text-blue-600',
+                    purple: 'text-purple-600'
+                  };
+
+                  return (
+                    <a
                       key={index}
                       href={channel.action}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
                       className={`
-                        ${channel.color} text-white rounded-xl p-4 flex items-center gap-4 
-                        transition-all duration-300 shadow-lg hover:shadow-xl group
+                        block p-4 border-2 rounded-lg transition-all duration-200
+                        ${colorClasses[channel.color]}
                       `}
                     >
-                      <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                        <channel.icon className="w-6 h-6" />
+                      <div className="flex items-start gap-3">
+                        <channel.icon className={`w-5 h-5 mt-0.5 ${iconColors[channel.color]}`} />
+                        <div>
+                          <div className="font-semibold text-gray-900 text-sm mb-0.5">
+                            {channel.title}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            {channel.info}
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold">{channel.title}</h4>
-                        <p className="text-sm opacity-90">{channel.description}</p>
-                        <span className="text-xs opacity-75">Available: {channel.available}</span>
-                      </div>
-                      <ArrowRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </motion.a>
-                  ))}
-                </div>
+                    </a>
+                  );
+                })}
+              </div>
 
-                {/* Business Hours */}
-                <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Clock className="w-5 h-5 text-emerald-600" />
-                    <h4 className="font-semibold text-emerald-900">Business Hours</h4>
+              {/* Hours Box */}
+              <div className="p-6 bg-gray-50 rounded-lg border border-gray-200">
+                <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">
+                  Business Hours
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between text-gray-600">
+                    <span>Mon - Fri</span>
+                    <span className="font-mono">10:00 - 18:30</span>
                   </div>
-                  <div className="space-y-1 text-sm text-emerald-700">
-                    <div className="flex justify-between">
-                      <span>Monday - Friday:</span>
-                      <span>10:00 AM - 6:30 PM</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Saturday:</span>
-                      <span>10:00 AM - 4:00 PM</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sunday:</span>
-                      <span>Emergency Only</span>
-                    </div>
+                  <div className="flex justify-between text-gray-600">
+                    <span>Saturday</span>
+                    <span className="font-mono">10:00 - 16:00</span>
+                  </div>
+                  <div className="flex justify-between text-gray-600">
+                    <span>Sunday</span>
+                    <span className="font-mono">Emergency</span>
                   </div>
                 </div>
               </div>
-            </motion.div>
 
-            {/* FAQ Section */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="lg:col-span-2"
-            >
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-soft border border-white/50">
-                <h3 className="text-2xl font-display font-bold text-slate-900 mb-8">
-                  Frequently Asked Questions
-                </h3>
-                
-                <div className="space-y-4">
-                  {faqs.map((faq, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className={`
-                        border rounded-xl transition-all duration-300 
-                        ${activeIndex === index 
-                          ? 'border-emerald-200 bg-emerald-50/50 shadow-md' 
-                          : 'border-slate-200 bg-white hover:border-emerald-200 hover:shadow-sm'
-                        }
-                      `}
-                    >
-                      <button
-                        onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                        className="w-full px-6 py-5 text-left flex items-center justify-between"
-                      >
-                        <div className="flex items-center gap-4">
-                          <span className={`
-                            w-2 h-2 rounded-full transition-colors
-                            ${activeIndex === index ? 'bg-emerald-500' : 'bg-slate-300'}
-                          `}></span>
-                          <span className="font-semibold text-slate-900 text-lg">
-                            {faq.question}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">
-                            {faq.category}
-                          </span>
-                          <ChevronDown
-                            className={`w-5 h-5 text-slate-500 transition-transform duration-300 ${
-                              activeIndex === index ? "rotate-180" : ""
-                            }`}
-                          />
-                        </div>
-                      </button>
-                      
-                      <AnimatePresence>
-                        {activeIndex === index && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="px-6 pb-6">
-                              <div className="pl-6 border-l-2 border-emerald-200">
-                                <p className="text-slate-600 leading-relaxed">
-                                  {faq.answer}
-                                </p>
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* CTA Section */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.8 }}
-                  className="mt-12 p-6 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl text-white text-center"
+              {/* CTA Box */}
+              <div className="p-6 bg-gray-900 text-white rounded-lg">
+                <h4 className="text-lg font-bold mb-2">
+                  Need More Help?
+                </h4>
+                <p className="text-gray-400 text-sm mb-4">
+                  Our experts are ready to assist you with any questions.
+                </p>
+                <a
+                  href="/contact"
+                  className="inline-block w-full px-4 py-2.5 bg-white text-gray-900 text-center text-sm font-semibold rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <h4 className="text-xl font-bold mb-2">Still have questions?</h4>
-                  <p className="mb-4 opacity-90">Our expert team is here to help you make the right choice</p>
-                  
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <motion.a
-                      href="/contact"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="px-6 py-3 bg-white text-emerald-600 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-                    >
-                      Contact Us
-                    </motion.a>
-                    <motion.a
-                      href="/store"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors"
-                    >
-                      Browse Products
-                    </motion.a>
-                  </div>
-                </motion.div>
+                  Contact Support →
+                </a>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </Container>

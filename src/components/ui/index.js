@@ -4,9 +4,29 @@ export { default as Card } from './Card';
 export { default as Input } from './Input';
 export { default as Modal } from './Modal';
 export { default as Toast } from './Toast';
+export { default as Container } from './Container';
+
+// Feedback Components
+export { default as LoadingSpinner, SkeletonCard, SkeletonText, PageLoader, InlineSpinner } from './LoadingSpinner';
+export { default as Alert, ToastContainer, Toast as ToastNotification, BannerAlert } from './Alert';
+export { 
+  default as Badge, 
+  StatusBadge, 
+  CategoryBadge, 
+  CountBadge, 
+  DiscountBadge, 
+  NewBadge, 
+  FeaturedBadge, 
+  BadgeGroup 
+} from './Badge';
+export { 
+  default as ProgressBar, 
+  CircularProgress, 
+  StepProgress, 
+  LoadingBar 
+} from './ProgressBar';
 
 // Layout Components (to be added)
-// export { default as Container } from './Container';
 // export { default as Grid } from './Grid';
 // export { default as Stack } from './Stack';
 // export { default as Flex } from './Flex';
@@ -17,8 +37,6 @@ export { default as Toast } from './Toast';
 // export { default as Checkbox } from './Checkbox';
 // export { default as Radio } from './Radio';
 
-// Feedback Components (to be added)
-// export { default as Loading } from './Loading';
-// export { default as Skeleton } from './Skeleton';
-// export { default as Progress } from './Progress';
-// export { default as Badge } from './Badge';
+// Additional Components (to be added)
+// export { default as Tabs } from './Tabs';
+// export { default as Accordion } from './Accordion';
