@@ -32,13 +32,12 @@ body.scroll-stack-active {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-33.333%);
+    transform: translateX(-50%);
   }
 }
 
 .animate-scroll {
-  animation: scroll var(--animation-duration, 6s) linear infinite;
-  animation-direction: var(--animation-direction, forwards);
+  animation: scroll 5s linear infinite;
 }
 
 /* Fade in up animation */
