@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Truck, Shield, Clock, Package, Headphones, Wrench } from "lucide-react";
 
 const Service = () => {
@@ -77,7 +78,7 @@ const Service = () => {
     <div className="bg-white">
 
       {/* Hero Section - Minimal */}
-      <section className="pt-32 pb-20 border-b-2 border-gray-900">
+      <section className="pt-8 pb-8 border-b-2 border-gray-900">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl">
             <div className="w-20 h-1 bg-gradient-to-r from-emerald-600 to-blue-600 mb-8"></div>
@@ -92,7 +93,7 @@ const Service = () => {
       </section>
 
       {/* Interactive Services Grid */}
-      <section className="py-32">
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-6">
           
           <div className="mb-16">
@@ -269,7 +270,7 @@ const Service = () => {
                   <p className="text-sm text-gray-700">Our team will respond within 24 hours</p>
                 </div>
                 
-                <button className="w-full group relative px-8 py-5 bg-gray-900 text-white font-bold tracking-wider uppercase text-sm overflow-hidden">
+                <Link to="/contact" className="block w-full group relative px-8 py-5 bg-gray-900 text-white font-bold tracking-wider uppercase text-sm overflow-hidden">
                   <span className="relative z-10 flex items-center justify-center gap-3">
                     Contact Us
                     <svg className="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -277,7 +278,7 @@ const Service = () => {
                     </svg>
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
-                </button>
+                </Link>
               </div>
             </div>
 

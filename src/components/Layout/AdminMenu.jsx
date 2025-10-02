@@ -1,114 +1,62 @@
-import {
-  FiGrid,
-  FiUsers,
-  FiShoppingBag,
-  FiCreditCard,
-  FiLayers,
-  FiMonitor,
-  FiUserCheck,
-  FiBriefcase,
-  FiFileText,
-  FiMail,
-} from "react-icons/fi";
-import { FcAdvertising } from "react-icons/fc";
-import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
-import "./sidebar.css";
+import { 
+  LayoutDashboard, 
+  Package, 
+  FolderTree, 
+  ShoppingCart, 
+  Users, 
+  Briefcase, 
+  FileText, 
+  Mail, 
+  Image as ImageIcon,
+  Tag
+} from "lucide-react";
 
-const menuItems = [
-  {
-    title: "MAIN",
-    items: [{ path: "/dashboard/admin", icon: <FiGrid />, label: "Dashboard" }],
-  },
-  {
-    title: "LISTS",
-    items: [
-      { path: "/dashboard/admin/users", icon: <FiUsers />, label: "Users" },
-      {
-        path: "/dashboard/admin/category",
-        icon: <FiLayers />,
-        label: "Category",
-      },
-      {
-        path: "/dashboard/admin/products",
-        icon: <FiShoppingBag />,
-        label: "Products",
-      },
-      {
-        path: "/dashboard/admin/orders",
-        icon: <FiCreditCard />,
-        label: "Orders",
-      },
-      {
-        path: "/dashboard/admin/hero",
-        icon: <FiMonitor />,
-        label: "Hero Slides",
-      },
-      {
-        path: "/dashboard/admin/manage-employees",
-        icon: <FiUserCheck />,
-        label: "Team Members",
-      },
-      {
-        path: "/dashboard/admin/jobs",
-        icon: <FiBriefcase />,
-        label: "Manage Jobs",
-      },
-      {
-        path: "/dashboard/admin/job-applications",
-        icon: <FiFileText />,
-        label: "Job Applications",
-      },
-      {
-        path: "/dashboard/admin/contacts",
-        icon: <FiMail />,
-        label: "Contact Submissions",
-      },
-      {
-        path: "/dashboard/admin/ads",
-        icon: <FcAdvertising />,
-        label: "Ad Management",
-      },
-    ],
-  },
-];
+const AdminMenu = () => {
+  const menuItems = [
+    { to: "/dashboard/admin", icon: LayoutDashboard, label: "Dashboard", exact: true },
+    { to: "/dashboard/admin/category", icon: FolderTree, label: "Create Category" },
+    { to: "/dashboard/admin/products", icon: Package, label: "Create Product" },
+    { to: "/dashboard/admin/hero", icon: ImageIcon, label: "Manage Hero" },
+    { to: "/dashboard/admin/ads", icon: Tag, label: "Manage Ads" },
+    { to: "/dashboard/admin/manage-employees", icon: Users, label: "Manage Team" },
+    { to: "/dashboard/admin/orders", icon: ShoppingCart, label: "Orders" },
+    { to: "/dashboard/admin/jobs", icon: Briefcase, label: "Manage Jobs" },
+    { to: "/dashboard/admin/job-applications", icon: FileText, label: "Job Applications" },
+    { to: "/dashboard/admin/contacts", icon: Mail, label: "Contact Submissions" },
+    { to: "/dashboard/admin/users", icon: Users, label: "Users" },
+  ];
 
-const Sidebar = () => {
   return (
-    <motion.div
-      className="sidebar"
-      initial={{ x: -300 }}
-      animate={{ x: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <hr className="sidebar-divider" />
-      <div className="sidebar-content">
-        {menuItems.map((section, idx) => (
-          <div key={idx} className="menu-section">
-            <h3 className="section-title">{section.title}</h3>
-            {section.items.map((item, index) => (
-              <NavLink
-                key={index}
-                to={item.path}
-                className={({ isActive }) =>
-                  `menu-item ${isActive ? "active" : ""}`
-                }
-              >
-                <motion.div
-                  className="menu-item-content"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <span className="icon">{item.icon}</span>
-                  <span className="label">{item.label}</span>
-                </motion.div>
-              </NavLink>
-            ))}
-          </div>
-        ))}
+    <div className="bg-slate-950 min-h-screen border-r-2 border-slate-800">
+      <div className="p-6">
+        <h2 className="text-2xl font-black text-white mb-2 border-b-2 border-indigo-600 pb-3">
+          Admin Panel
+        </h2>
+        <p className="text-sm text-slate-400 mb-6 font-bold">Management Dashboard</p>
+        
+        <nav className="space-y-2">
+          {menuItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.exact}
+              className={({ isActive }) =>
+                `flex items-center px-4 py-3 border-2 transition-all font-black text-sm ${
+                  isActive
+                    ? "bg-indigo-950 border-indigo-600 text-indigo-400"
+                    : "bg-slate-900 border-slate-800 text-slate-400 hover:border-indigo-600 hover:text-white"
+                }`
+              }
+            >
+              <item.icon className="w-5 h-5 mr-3" />
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-export default Sidebar;
+export default AdminMenu;

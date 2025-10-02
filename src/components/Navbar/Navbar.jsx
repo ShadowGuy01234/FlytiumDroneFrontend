@@ -157,7 +157,7 @@ const Navbar = () => {
                         onClick={() => setUserMenuOpen(false)}
                       >
                         <FiHeart className="w-4 h-4" />
-                        <span>DashBoard</span>
+                        <span>Profile</span>
                       </Link>
 
                       {auth?.user?.role === 1 && (

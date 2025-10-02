@@ -5,8 +5,7 @@ import { useCart } from "../Context/cart";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../api";
 import axios from "axios";
-import { motion } from "framer-motion";
-import { FiMinus, FiPlus, FiTrash2, FiEdit2 } from "react-icons/fi";
+import { MapPin, Edit2, ShoppingBag, CreditCard, CheckCircle2 } from "lucide-react";
 
 const CheckoutPage = () => {
   const { auth } = useAuth();
@@ -129,109 +128,191 @@ const CheckoutPage = () => {
 
   return (
     <Layout title="Checkout" description="Complete your purchase">
-      <div className="container mx-auto px-4 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto"
-        >
-          <h1 className="text-3xl font-bold mb-8">Checkout</h1>
-
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <h2 className="text-xl font-semibold mb-4">Shipping Address</h2>
-            {auth?.user?.address ? (
-              <div className="mb-4">
-                <p className="text-gray-700">{auth.user.address}</p>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="mt-2 text-blue-500 hover:text-blue-700"
-                  onClick={() => navigate("/dashboard/user/profile")}
-                >
-                  Update Address
-                </motion.button>
+      <div className="min-h-screen bg-white py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          
+          {/* Header */}
+          <div className="mb-12 pb-8 border-b-2 border-gray-900">
+            <h1 className="text-5xl font-black text-gray-900 mb-4">Checkout</h1>
+            
+            {/* Progress Steps */}
+            <div className="flex items-center gap-4 mt-8">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-gray-900 text-white flex items-center justify-center font-bold">1</div>
+                <span className="font-bold text-gray-900">Review Cart</span>
               </div>
-            ) : (
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={() => navigate("/dashboard/user/profile")}
-              >
-                Add Address
-              </motion.button>
-            )}
+              <div className="flex-1 h-0.5 bg-gray-900"></div>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-gray-900 text-white flex items-center justify-center font-bold">2</div>
+                <span className="font-bold text-gray-900">Confirm Address</span>
+              </div>
+              <div className="flex-1 h-0.5 bg-gray-300"></div>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 border-2 border-gray-300 text-gray-400 flex items-center justify-center font-bold">3</div>
+                <span className="font-bold text-gray-400">Payment</span>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Order Summary</h2>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate("/cartpage")}
-                className="flex items-center gap-2 text-blue-500 hover:text-blue-600"
-              >
-                <FiEdit2 className="w-4 h-4" />
-                <span>Edit Cart</span>
-              </motion.button>
-            </div>
-            <div className="space-y-4">
-              {cart.map((item) => (
-                <div
-                  key={item._id}
-                  className="flex items-center justify-between p-4 border rounded-lg"
-                >
-                  <div className="flex items-center flex-1 justify-between">
-                    <div className="ml-4 ">
-                      <div className=" flex">
-                        {" "}
+          <div className="grid lg:grid-cols-3 gap-8">
+            
+            {/* Left: Items & Address */}
+            <div className="lg:col-span-2 space-y-8">
+              
+              {/* Shipping Address */}
+              <div className="border-2 border-gray-900 p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <MapPin className="w-6 h-6" />
+                    <h2 className="text-2xl font-black text-gray-900">Shipping Address</h2>
+                  </div>
+                  {auth?.user?.address && (
+                    <button
+                      onClick={() => navigate("/dashboard/user/profile")}
+                      className="flex items-center gap-2 px-4 py-2 border-2 border-gray-900 hover:bg-gray-50 transition-colors font-bold"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                      Edit
+                    </button>
+                  )}
+                </div>
+                
+                {auth?.user?.address ? (
+                  <div className="bg-gray-50 p-6 border-l-4 border-gray-900">
+                    <p className="text-gray-900 font-medium leading-relaxed">
+                      {auth.user.address}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="text-center py-12 bg-gray-50">
+                    <MapPin className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                    <p className="text-gray-600 mb-4">No address added yet</p>
+                    <button
+                      onClick={() => navigate("/dashboard/user/profile")}
+                      className="group relative px-8 py-4 bg-gray-900 text-white font-bold overflow-hidden"
+                    >
+                      <span className="relative z-10">Add Address</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Order Items */}
+              <div className="border-2 border-gray-900 p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <ShoppingBag className="w-6 h-6" />
+                    <h2 className="text-2xl font-black text-gray-900">Order Items</h2>
+                  </div>
+                  <button
+                    onClick={() => navigate("/cartpage")}
+                    className="flex items-center gap-2 px-4 py-2 border-2 border-gray-900 hover:bg-gray-50 transition-colors font-bold"
+                  >
+                    <Edit2 className="w-4 h-4" />
+                    Edit Cart
+                  </button>
+                </div>
+
+                <div className="space-y-4">
+                  {cart.map((item) => (
+                    <div
+                      key={item._id}
+                      className="flex gap-4 p-4 border-2 border-gray-300 hover:border-gray-900 transition-colors"
+                    >
+                      <div className="w-24 h-24 border-2 border-gray-900 flex-shrink-0 bg-gray-50 p-2">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-20 h-20 object-cover rounded"
+                          className="w-full h-full object-contain"
                         />
-                        <h3 className="font-medium text-lg flex items-center justify-center">
-                          {item.name}
-                        </h3>
+                      </div>
+                      <div className="flex-1 flex justify-between">
+                        <div>
+                          <h3 className="font-black text-gray-900 mb-2">{item.name}</h3>
+                          <p className="text-sm text-gray-600">Quantity: {item.quantity || 1}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-gray-600 mb-1">
+                            ₹{item.price.toLocaleString()} × {item.quantity || 1}
+                          </p>
+                          <p className="text-xl font-black text-gray-900">
+                            ₹{(item.price * (item.quantity || 1)).toLocaleString()}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <p className="text-gray-600">
-                        ₹{item.price.toLocaleString()} × {item.quantity || 1}
-                      </p>
-                      <p className="font-semibold text-blue-600">
-                        Total: ₹
-                        {(item.price * (item.quantity || 1)).toLocaleString()}
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-
-            <div className="border-t mt-6 pt-4">
-              <div className="flex justify-between items-center text-lg font-semibold">
-                <span>Total Amount:</span>
-                <span className="text-blue-600">{totalAmount()}</span>
               </div>
             </div>
-          </div>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            disabled={loading || !auth?.user?.address || cart.length === 0}
-            onClick={handlePayment}
-            className={`w-full bg-blue-500 text-white py-4 rounded-lg font-medium text-lg ${
-              loading || !auth?.user?.address || cart.length === 0
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-blue-600"
-            }`}
-          >
-            {loading ? "Processing..." : "Proceed to Payment"}
-          </motion.button>
-        </motion.div>
+            {/* Right: Order Summary */}
+            <div className="lg:col-span-1">
+              <div className="border-2 border-gray-900 p-8 sticky top-24">
+                <h2 className="text-2xl font-black text-gray-900 mb-6">Order Summary</h2>
+
+                <div className="space-y-4 mb-6 pb-6 border-b-2 border-gray-900">
+                  <div className="flex justify-between text-gray-600">
+                    <span>Subtotal</span>
+                    <span className="font-bold">{totalAmount()}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-600">
+                    <span>Shipping</span>
+                    <span className="font-bold text-emerald-600">FREE</span>
+                  </div>
+                  <div className="flex justify-between text-gray-600">
+                    <span>Tax</span>
+                    <span className="font-bold">Included</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center mb-8 pb-8 border-b-2 border-gray-900">
+                  <span className="text-lg font-bold text-gray-600">Total</span>
+                  <span className="text-3xl font-black text-gray-900">{totalAmount()}</span>
+                </div>
+
+                <button
+                  disabled={loading || !auth?.user?.address || cart.length === 0}
+                  onClick={handlePayment}
+                  className="group relative w-full px-8 py-5 bg-gray-900 text-white font-bold overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-3">
+                    {loading ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent animate-spin"></div>
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard className="w-5 h-5" />
+                        Proceed to Payment
+                      </>
+                    )}
+                  </span>
+                  {!loading && !(!auth?.user?.address || cart.length === 0) && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
+                  )}
+                </button>
+
+                {(!auth?.user?.address || cart.length === 0) && (
+                  <p className="text-sm text-gray-500 text-center mt-4">
+                    {!auth?.user?.address ? "Please add shipping address" : "Cart is empty"}
+                  </p>
+                )}
+
+                {/* Security Badge */}
+                <div className="mt-6 pt-6 border-t-2 border-gray-300">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                    <span>Secure checkout with Razorpay</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </Layout>
   );

@@ -8,17 +8,20 @@ import moment from "moment";
 import { API_URL } from "../../api";
 import { Select } from "antd";
 import {
-  FaBox,
-  FaSearch,
-  FaChevronDown,
-  FaChevronUp,
-  FaShoppingBag,
-  FaUser,
-  FaCalendar,
-  FaCreditCard,
-  FaBoxOpen,
-} from "react-icons/fa";
-import { motion } from "framer-motion";
+  Package,
+  Search,
+  ChevronDown,
+  ChevronUp,
+  ShoppingBag,
+  User,
+  Calendar,
+  CreditCard,
+  MapPin,
+  Mail,
+  Phone,
+  CheckCircle,
+  Clock
+} from "lucide-react";
 
 const AdminOrders = () => {
   const [status] = useState([
@@ -86,15 +89,15 @@ const AdminOrders = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case "Delivered":
-        return "bg-green-100 text-green-800";
+        return "border-emerald-500 bg-emerald-500/10 text-emerald-400";
       case "Cancelled":
-        return "bg-red-100 text-red-800";
+        return "border-red-500 bg-red-500/10 text-red-400";
       case "Processing":
-        return "bg-yellow-100 text-yellow-800";
+        return "border-amber-500 bg-amber-500/10 text-amber-400";
       case "Shipped":
-        return "bg-blue-100 text-blue-800";
+        return "border-cyan-500 bg-cyan-500/10 text-cyan-400";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "border-slate-600 bg-slate-600/10 text-slate-400";
     }
   };
 
@@ -111,280 +114,274 @@ const AdminOrders = () => {
     }));
   };
 
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.4 },
-  };
-
   return (
     <Layout title={"Admin Orders"} description={"Manage Orders"}>
-      <div className="min-h-screen bg-gray-50">
-        <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/4 bg-white shadow-lg">
+      <div className="min-h-screen bg-slate-950">
+        <div className="flex flex-col lg:flex-row">
+          <div className="lg:w-1/5 bg-slate-900 border-r-2 border-slate-800">
             <AdminMenu />
           </div>
 
-          <motion.div
-            className="md:w-3/4 p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <div className="flex justify-between items-center mb-8">
+          <div className="flex-1 p-8">
+            {/* Header */}
+            <div className="mb-12 pb-8 border-b-2 border-slate-800">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-blue-50 rounded-lg">
-                    <FaShoppingBag className="text-blue-500 text-2xl" />
+                  <div className="p-3 border-2 border-indigo-600 bg-indigo-600/10">
+                    <ShoppingBag className="w-8 h-8 text-indigo-400" />
                   </div>
                   <div>
-                    <h1 className="text-2xl font-bold text-gray-800">
-                      Orders Management
-                    </h1>
-                    <p className="text-gray-500">Manage and track all orders</p>
+                    <h1 className="text-5xl font-black text-white mb-2">Orders</h1>
+                    <p className="text-xl text-slate-400">Manage and track all orders</p>
                   </div>
                 </div>
+                
                 <div className="relative">
-                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input
                     type="text"
-                    placeholder="Search orders..."
-                    className="pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    placeholder="Search by customer or order ID..."
+                    className="pl-14 pr-6 py-4 bg-slate-900 border-2 border-slate-800 focus:border-indigo-600 text-white placeholder-slate-500 font-medium outline-none transition-colors w-96"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
               </div>
-
-              {filteredOrders.length > 0 ? (
-                <div className="space-y-6">
-                  {filteredOrders.map((order) => (
-                    <motion.div
-                      key={order._id}
-                      {...fadeIn}
-                      className="bg-white border border-gray-100 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg"
-                    >
-                      <div className="p-6 bg-gradient-to-r from-blue-50 to-transparent border-b">
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white rounded-lg">
-                              <FaBoxOpen className="text-blue-500" />
-                            </div>
-                            <div>
-                              <p className="text-sm text-gray-500">Order ID</p>
-                              <p className="font-semibold text-gray-800">
-                                #{order?.payment?.razorpay_order_id || order._id.slice(-6)}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white rounded-lg">
-                              <FaUser className="text-green-500" />
-                            </div>
-                            <div>
-                              <p className="text-sm text-gray-500">Customer</p>
-                              <p className="font-semibold text-gray-800">
-                                {order.buyer?.name}
-                              </p>
-                              <p className="text-xs text-gray-500">
-                                {order.buyer?.email}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white rounded-lg">
-                              <FaCalendar className="text-purple-500" />
-                            </div>
-                            <div>
-                              <p className="text-sm text-gray-500">
-                                Order Date
-                              </p>
-                              <p className="font-semibold text-gray-800">
-                                {moment(order.createdAt).format("MMM DD, YYYY")}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white rounded-lg">
-                              <FaCreditCard className="text-orange-500" />
-                            </div>
-                            <div>
-                              <p className="text-sm text-gray-500">Total Amount</p>
-                              <p className="font-semibold text-gray-800">
-                                ₹{order.totalAmount}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="p-6">
-                        <div className="flex flex-wrap gap-6 items-center justify-between mb-6">
-                          <div className="flex items-center gap-6">
-                            <div className="flex items-center gap-3">
-                              <div className="p-2 bg-gray-50 rounded-lg">
-                                <FaCreditCard className="text-orange-500" />
-                              </div>
-                              <div>
-                                <p className="text-sm text-gray-500">Payment Status</p>
-                                <span
-                                  className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                    order?.payment?.razorpay_payment_id
-                                      ? "bg-green-100 text-green-700"
-                                      : "bg-red-100 text-red-700"
-                                  }`}
-                                >
-                                  {order?.payment?.razorpay_payment_id
-                                    ? "Paid"
-                                    : "Pending"}
-                                </span>
-                                {order?.payment?.razorpay_payment_id && (
-                                  <p className="text-xs text-gray-500 mt-1">
-                                    ID: {order.payment.razorpay_payment_id.slice(-8)}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div>
-                            <p className="text-sm text-gray-600 mb-1">
-                              Order Status
-                            </p>
-                            <Select
-                              defaultValue={order?.status}
-                              style={{ width: 140 }}
-                              onChange={(value) =>
-                                handleChange(value, order._id)
-                              }
-                              className="text-sm"
-                            >
-                              {status.map((item, index) => (
-                                <Select.Option key={index} value={item}>
-                                  {item}
-                                </Select.Option>
-                              ))}
-                            </Select>
-                          </div>
-                        </div>
-
-                        {/* Shipping Address Section */}
-                        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-                          <h3 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
-                            <FaBox className="text-blue-500" />
-                            Shipping Address
-                          </h3>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <div>
-                              <p className="font-medium">{order.shippingAddress?.name}</p>
-                              <p className="text-gray-600">{order.shippingAddress?.address}</p>
-                              <p className="text-gray-600">
-                                {order.shippingAddress?.city}, {order.shippingAddress?.state}
-                              </p>
-                              <p className="text-gray-600">
-                                PIN: {order.shippingAddress?.pincode}
-                              </p>
-                            </div>
-                            <div>
-                              <p className="text-gray-600">
-                                Email: {order.shippingAddress?.email}
-                              </p>
-                              <p className="text-gray-600">
-                                Phone: {order.shippingAddress?.phone}
-                              </p>
-                              <p className="text-gray-600">
-                                Country: {order.shippingAddress?.country || 'India'}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                          {order.products?.map((item, idx) => (
-                            <div
-                              key={idx}
-                              className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-200"
-                            >
-                              <div className="relative pb-[100%]">
-                                <img
-                                  src={item.image}
-                                  alt={item.name}
-                                  className="absolute inset-0 w-full h-full object-cover"
-                                />
-                              </div>
-
-                              <div className="p-3">
-                                <h4 className="font-medium text-gray-900 truncate">
-                                  {item.name}
-                                </h4>
-                                <div className="mt-1 flex justify-between items-center">
-                                  <p className="text-sm font-medium text-blue-600">
-                                    ₹{item.price}
-                                  </p>
-                                  <p className="text-sm text-gray-600">
-                                    Qty: {item.quantity}
-                                  </p>
-                                </div>
-                                <p className="text-xs text-green-600 font-medium">
-                                  Total: ₹{item.price * item.quantity}
-                                </p>
-
-                                <button
-                                  onClick={() =>
-                                    toggleProductDetails(order._id, idx)
-                                  }
-                                  className="mt-2 flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200"
-                                >
-                                  {expandedProducts[`${order._id}-${idx}`] ? (
-                                    <>
-                                      <FaChevronUp className="text-xs" />
-                                      Hide Details
-                                    </>
-                                  ) : (
-                                    <>
-                                      <FaChevronDown className="text-xs" />
-                                      Show Details
-                                    </>
-                                  )}
-                                </button>
-
-                                {expandedProducts[`${order._id}-${idx}`] && (
-                                  <div className="mt-2 pt-2 border-t border-gray-100">
-                                    <div className="space-y-1">
-                                      <p className="text-sm text-gray-600 line-clamp-3">
-                                        {item.description}
-                                      </p>
-                                      <div className="text-sm">
-                                        <span className="text-gray-600">
-                                          Category:{" "}
-                                        </span>
-                                        <span className="text-gray-900">
-                                          {item.category?.name}
-                                        </span>
-                                      </div>
-                                      {/* Add more product details here if needed */}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <FaBox className="mx-auto text-gray-400 text-5xl mb-4" />
-                  <p className="text-gray-600 text-lg">No orders found</p>
-                  <p className="text-gray-500">
-                    Orders will appear here once customers place them
-                  </p>
-                </div>
-              )}
             </div>
-          </motion.div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+              <div className="bg-slate-900 border-2 border-slate-800 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <ShoppingBag className="w-5 h-5 text-indigo-400" />
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Total Orders</p>
+                </div>
+                <p className="text-4xl font-black text-white">{orders.length}</p>
+              </div>
+              
+              <div className="bg-slate-900 border-2 border-slate-800 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Clock className="w-5 h-5 text-amber-400" />
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Processing</p>
+                </div>
+                <p className="text-4xl font-black text-white">
+                  {orders.filter(o => o.status === 'Processing').length}
+                </p>
+              </div>
+
+              <div className="bg-slate-900 border-2 border-slate-800 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Delivered</p>
+                </div>
+                <p className="text-4xl font-black text-white">
+                  {orders.filter(o => o.status === 'Delivered').length}
+                </p>
+              </div>
+
+              <div className="bg-slate-900 border-2 border-slate-800 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Search className="w-5 h-5 text-cyan-400" />
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Filtered</p>
+                </div>
+                <p className="text-4xl font-black text-white">{filteredOrders.length}</p>
+              </div>
+            </div>
+
+            {/* Orders List */}
+            {filteredOrders.length > 0 ? (
+              <div className="space-y-6">
+                {filteredOrders.map((order) => (
+                  <div
+                    key={order._id}
+                    className="bg-slate-900 border-2 border-slate-800 hover:border-indigo-600 transition-all"
+                  >
+                    {/* Order Header */}
+                    <div className="p-6 bg-slate-800/50 border-b-2 border-slate-800">
+                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div className="flex items-start gap-3">
+                          <Package className="w-5 h-5 mt-1 text-indigo-400" />
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Order ID</p>
+                            <p className="text-lg font-black text-white">
+                              #{order?.payment?.razorpay_order_id?.slice(-8) || order._id.slice(-8)}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start gap-3">
+                          <User className="w-5 h-5 mt-1 text-cyan-400" />
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Customer</p>
+                            <p className="text-lg font-black text-white">{order.buyer?.name}</p>
+                            <p className="text-sm text-slate-400">{order.buyer?.email}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start gap-3">
+                          <Calendar className="w-5 h-5 mt-1 text-amber-400" />
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Order Date</p>
+                            <p className="text-lg font-black text-white">
+                              {moment(order.createdAt).format("MMM DD, YYYY")}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start gap-3">
+                          <CreditCard className="w-5 h-5 mt-1 text-emerald-400" />
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Total Amount</p>
+                            <p className="text-lg font-black text-white">₹{order.totalAmount}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      {/* Status and Payment */}
+                      <div className="flex flex-wrap gap-6 items-center justify-between mb-6 pb-6 border-b-2 border-slate-800">
+                        <div className="flex items-center gap-6">
+                          <div>
+                            <p className="text-xs text-slate-500 font-bold uppercase mb-2">Payment Status</p>
+                            <div className={`px-4 py-2 border-2 ${
+                              order?.payment?.razorpay_payment_id
+                                ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
+                                : "border-red-500 bg-red-500/10 text-red-400"
+                            } font-bold`}>
+                              {order?.payment?.razorpay_payment_id ? "PAID" : "PENDING"}
+                            </div>
+                            {order?.payment?.razorpay_payment_id && (
+                              <p className="text-xs text-slate-500 mt-1">
+                                ID: {order.payment.razorpay_payment_id.slice(-8)}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="text-xs text-slate-500 font-bold uppercase mb-2">Order Status</p>
+                          <Select
+                            defaultValue={order?.status}
+                            style={{ width: 160 }}
+                            onChange={(value) => handleChange(value, order._id)}
+                            className="dark-select"
+                          >
+                            {status.map((item, index) => (
+                              <Select.Option key={index} value={item}>
+                                {item}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </div>
+                      </div>
+
+                      {/* Shipping Address */}
+                      <div className="mb-6 p-6 bg-slate-800/50 border-2 border-slate-800">
+                        <div className="flex items-center gap-3 mb-4 pb-4 border-b-2 border-slate-800">
+                          <MapPin className="w-5 h-5 text-indigo-400" />
+                          <h3 className="text-xl font-black text-white">Shipping Address</h3>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <p className="text-lg font-bold text-white">{order.shippingAddress?.name}</p>
+                            <p className="text-slate-400">{order.shippingAddress?.address}</p>
+                            <p className="text-slate-400">
+                              {order.shippingAddress?.city}, {order.shippingAddress?.state}
+                            </p>
+                            <p className="text-slate-400">PIN: {order.shippingAddress?.pincode}</p>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <Mail className="w-4 h-4 text-cyan-400" />
+                              <p className="text-slate-400">{order.shippingAddress?.email}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Phone className="w-4 h-4 text-amber-400" />
+                              <p className="text-slate-400">{order.shippingAddress?.phone}</p>
+                            </div>
+                            <p className="text-slate-400">Country: {order.shippingAddress?.country || 'India'}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Products Grid */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        {order.products?.map((item, idx) => (
+                          <div
+                            key={idx}
+                            className="border-2 border-slate-800 hover:border-cyan-500 transition-all overflow-hidden group"
+                          >
+                            <div className="aspect-square bg-slate-800">
+                              <img
+                                src={item.image}
+                                alt={item.name}
+                                className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform"
+                              />
+                            </div>
+
+                            <div className="p-4 bg-slate-800/50">
+                              <h4 className="font-black text-white text-sm mb-2 line-clamp-1">
+                                {item.name}
+                              </h4>
+                              <div className="flex justify-between items-center mb-2">
+                                <p className="text-lg font-black text-cyan-400">₹{item.price}</p>
+                                <p className="text-xs px-2 py-1 bg-slate-900 text-white font-bold">
+                                  Qty: {item.quantity}
+                                </p>
+                              </div>
+                              <p className="text-sm font-bold text-emerald-400">
+                                Total: ₹{item.price * item.quantity}
+                              </p>
+
+                              <button
+                                onClick={() => toggleProductDetails(order._id, idx)}
+                                className="mt-3 w-full flex items-center justify-center gap-2 px-3 py-2 border-2 border-slate-700 hover:border-indigo-600 text-slate-400 hover:text-white text-xs font-bold transition-colors"
+                              >
+                                {expandedProducts[`${order._id}-${idx}`] ? (
+                                  <>
+                                    <ChevronUp className="w-4 h-4" />
+                                    Hide Details
+                                  </>
+                                ) : (
+                                  <>
+                                    <ChevronDown className="w-4 h-4" />
+                                    Show Details
+                                  </>
+                                )}
+                              </button>
+
+                              {expandedProducts[`${order._id}-${idx}`] && (
+                                <div className="mt-3 pt-3 border-t-2 border-slate-800">
+                                  <p className="text-sm text-slate-400 line-clamp-3 mb-2">
+                                    {item.description}
+                                  </p>
+                                  <div className="text-sm">
+                                    <span className="text-slate-500">Category: </span>
+                                    <span className="text-white font-bold">{item.category?.name}</span>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="border-2 border-slate-800 bg-slate-900 p-16 text-center">
+                <Package className="w-24 h-24 mx-auto mb-6 text-slate-700" />
+                <h3 className="text-2xl font-black text-white mb-4">No Orders Found</h3>
+                <p className="text-slate-400 max-w-md mx-auto">
+                  {searchTerm 
+                    ? 'Try adjusting your search criteria' 
+                    : 'Orders will appear here once customers place them'}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </Layout>

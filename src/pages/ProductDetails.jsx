@@ -4,8 +4,7 @@ import axios from "axios";
 import { API_URL } from "../api";
 import toast from "react-hot-toast";
 import { useCart } from "../Context/cart";
-import { motion } from "framer-motion";
-import { FiMinus, FiPlus, FiShoppingCart, FiArrowLeft } from "react-icons/fi";
+import { Minus, Plus, ShoppingCart, ArrowLeft, Tag, Package, ShieldCheck, Truck } from "lucide-react";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null);
@@ -95,190 +94,181 @@ const ProductDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="w-16 h-16 border-4 border-gray-900 border-t-transparent animate-spin"></div>
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-        <h2 className="text-2xl font-bold mb-4">Product Not Found</h2>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+        <Package className="w-24 h-24 mb-6 text-gray-400" />
+        <h2 className="text-3xl font-black text-gray-900 mb-4">Product Not Found</h2>
         <button
           onClick={() => navigate("/store")}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+          className="group px-8 py-4 bg-gray-900 text-white font-bold flex items-center gap-2 hover:bg-gray-800 transition-colors"
         >
-          <FiArrowLeft /> Back to Store
+          <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-2" />
+          Back to Store
         </button>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb Navigation */}
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <button
-          onClick={() => navigate("/store")}
-          className="text-gray-600 hover:text-blue-600 flex items-center gap-2 transition-colors"
-        >
-          <FiArrowLeft className="w-4 h-4" />
-          Back to Store
-        </button>
+    <div className="min-h-screen bg-white">
+      
+      {/* Navigation */}
+      <div className="border-b-2 border-gray-900">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <button
+            onClick={() => navigate("/store")}
+            className="group flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-2" />
+            Back to Store
+          </button>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            {/* Product Image Section */}
-            <div className="p-8 lg:p-12 bg-gray-50">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="aspect-square rounded-xl overflow-hidden bg-white"
-              >
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-contain p-4"
-                />
-              </motion.div>
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          {/* Product Image */}
+          <div className="border-2 border-gray-900 p-8 lg:p-12 bg-gray-50">
+            <div className="aspect-square bg-white border-2 border-gray-900 flex items-center justify-center p-8">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
+
+          {/* Product Info */}
+          <div className="flex flex-col">
+            
+            {/* Category Tag */}
+            <div className="flex items-center gap-2 mb-6">
+              <Tag className="w-4 h-4" />
+              <span className="text-sm font-bold uppercase tracking-wider text-gray-600">
+                {product.category.name}
+              </span>
             </div>
 
-            {/* Product Details Section */}
-            <div className="p-8 lg:p-12">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-6"
-              >
-                {/* Category Badge */}
-                <span className="inline-block bg-blue-50 text-blue-600 text-sm font-medium px-3 py-1 rounded-full">
-                  {product.category.name}
+            {/* Product Title */}
+            <h1 className="text-5xl font-black text-gray-900 leading-tight mb-6">
+              {product.name}
+            </h1>
+
+            {/* Price Section */}
+            <div className="mb-8 pb-8 border-b-2 border-gray-900">
+              <div className="flex items-end gap-4 mb-2">
+                <span className="text-5xl font-black text-gray-900">
+                  ₹{product.price.toLocaleString()}
+                </span>
+                <span className="text-2xl text-gray-400 line-through mb-2">
+                  ₹{(product.price * 1.2).toLocaleString()}
+                </span>
+              </div>
+              <div className="inline-block px-3 py-1 bg-emerald-600 text-white text-sm font-bold">
+                SAVE 20%
+              </div>
+            </div>
+
+            {/* Description */}
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              {product.description}
+            </p>
+
+            {/* Quantity Selector */}
+            <div className="mb-8">
+              <label className="block text-sm font-bold uppercase tracking-wider text-gray-600 mb-4">
+                Quantity
+              </label>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={handleDecreaseQuantity}
+                  disabled={quantity <= 1}
+                  className="w-12 h-12 border-2 border-gray-900 flex items-center justify-center hover:bg-gray-900 hover:text-white disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-gray-900 transition-colors"
+                >
+                  <Minus className="w-5 h-5" />
+                </button>
+
+                <span className="text-2xl font-black text-gray-900 min-w-[60px] text-center">
+                  {quantity}
                 </span>
 
-                {/* Product Title */}
-                <h1 className="text-3xl font-bold text-gray-900">
-                  {product.name}
-                </h1>
-
-                {/* Price */}
-                <div className="flex items-baseline gap-4">
-                  <span className="text-3xl font-bold text-gray-900">
-                    ₹{product.price.toLocaleString()}
-                  </span>
-                  <span className="text-lg text-gray-500 line-through">
-                    ₹{(product.price * 1.2).toLocaleString()}
-                  </span>
-                  <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded">
-                    20% OFF
-                  </span>
-                </div>
-
-                {/* Description */}
-                <div className="prose prose-sm text-gray-600">
-                  <p>{product.description}</p>
-                </div>
-
-                {/* Quantity Selector */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Quantity
-                  </label>
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={handleDecreaseQuantity}
-                      disabled={quantity <= 1}
-                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                    >
-                      <FiMinus className="w-4 h-4" />
-                    </button>
-
-                    <span className="w-12 text-center font-medium text-lg">
-                      {quantity}
-                    </span>
-
-                    <button
-                      onClick={handleIncreaseQuantity}
-                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
-                    >
-                      <FiPlus className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Total Price */}
-                <div className="pt-4 border-t">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600 font-medium">
-                      Total Price
-                    </span>
-                    <span className="text-2xl font-bold text-blue-600">
-                      ₹{(product.price * quantity).toLocaleString()}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-4 pt-6">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={handleAddToCart}
-                    className="flex-1 bg-blue-600 text-white py-4 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium"
-                  >
-                    <FiShoppingCart className="w-5 h-5" />
-                    Add {quantity} to Cart
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => navigate("/cartpage")}
-                    className="flex-1 border border-gray-300 text-gray-700 py-4 rounded-xl hover:bg-gray-50 transition-colors font-medium"
-                  >
-                    View Cart
-                  </motion.button>
-                </div>
-
-                {/* Additional Info */}
-                <div className="pt-6 space-y-4">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <svg
-                      className="w-5 h-5 text-green-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    Free shipping on orders over ₹999
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <svg
-                      className="w-5 h-5 text-green-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    30-day return policy
-                  </div>
-                </div>
-              </motion.div>
+                <button
+                  onClick={handleIncreaseQuantity}
+                  className="w-12 h-12 border-2 border-gray-900 flex items-center justify-center hover:bg-gray-900 hover:text-white transition-colors"
+                >
+                  <Plus className="w-5 h-5" />
+                </button>
+              </div>
             </div>
+
+            {/* Total */}
+            <div className="mb-8 p-6 border-2 border-gray-900">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-bold uppercase tracking-wider text-gray-600">
+                  Total Price
+                </span>
+                <span className="text-3xl font-black text-gray-900">
+                  ₹{(product.price * quantity).toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-4 mb-8">
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 group relative px-8 py-5 bg-gray-900 text-white font-bold overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center justify-center gap-3">
+                  <ShoppingCart className="w-5 h-5" />
+                  Add {quantity} to Cart
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
+              </button>
+
+              <button
+                onClick={() => navigate("/cartpage")}
+                className="flex-1 px-8 py-5 border-2 border-gray-900 text-gray-900 font-bold hover:bg-gray-50 transition-colors"
+              >
+                View Cart
+              </button>
+            </div>
+
+            {/* Features */}
+            <div className="space-y-4">
+              <div className="flex items-start gap-4 border-l-4 border-gray-900 pl-4 py-2">
+                <Truck className="w-6 h-6 flex-shrink-0 mt-1" />
+                <div>
+                  <p className="font-bold text-gray-900">Free Shipping</p>
+                  <p className="text-sm text-gray-600">On orders over ₹999</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 border-l-4 border-gray-900 pl-4 py-2">
+                <ShieldCheck className="w-6 h-6 flex-shrink-0 mt-1" />
+                <div>
+                  <p className="font-bold text-gray-900">30-Day Returns</p>
+                  <p className="text-sm text-gray-600">Hassle-free return policy</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 border-l-4 border-gray-900 pl-4 py-2">
+                <Package className="w-6 h-6 flex-shrink-0 mt-1" />
+                <div>
+                  <p className="font-bold text-gray-900">Secure Packaging</p>
+                  <p className="text-sm text-gray-600">Safe delivery guaranteed</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

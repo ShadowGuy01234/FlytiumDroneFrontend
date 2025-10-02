@@ -5,7 +5,7 @@ import { API_URL } from "../api";
 import toast from "react-hot-toast";
 import { useCart } from "../Context/cart";
 import Layout from "../components/Layout/Layout";
-import { motion } from "framer-motion";
+import { ShoppingCart, Eye, Package, Tag } from "lucide-react";
 
 const CategoryProducts = () => {
   const params = useParams();
@@ -66,99 +66,123 @@ const CategoryProducts = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-white">
+        
         {loading ? (
-          <div className="flex justify-center items-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+          <div className="flex justify-center items-center min-h-screen">
+            <div className="w-16 h-16 border-4 border-gray-900 border-t-transparent animate-spin"></div>
           </div>
         ) : (
           <>
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-800">
-                {category?.name}
-              </h1>
-              <p className="text-gray-600 mt-2">
-                Browse our selection of {category?.name}
-              </p>
-            </div>
-
-            {products.length === 0 ? (
-              <div className="text-center text-gray-500">
-                No products available in this category
+            {/* Header */}
+            <section className="pt-32 pb-16 border-b-2 border-gray-900">
+              <div className="max-w-7xl mx-auto px-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <Tag className="w-8 h-8" />
+                  <span className="text-sm font-bold uppercase tracking-wider text-gray-600">Category</span>
+                </div>
+                <h1 className="text-6xl lg:text-7xl font-black text-gray-900 leading-tight mb-6">
+                  {category?.name}
+                </h1>
+                <p className="text-xl text-gray-600 max-w-2xl">
+                  {products.length} {products.length === 1 ? 'product' : 'products'} available
+                </p>
               </div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-              >
-                {products.map((product) => (
-                  <motion.div
-                    key={product._id}
-                    whileHover={{ y: -5 }}
-                    className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
-                  >
-                    <div className="relative aspect-square">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover rounded-t-xl"
-                      />
-                      {product.discountedPrice &&
-                        product.price > product.discountedPrice && (
-                          <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-                            {Math.round(
-                              ((product.price - product.discountedPrice) /
-                                product.price) *
-                                100
+            </section>
+
+            {/* Products Grid */}
+            <section className="py-16">
+              <div className="max-w-7xl mx-auto px-6">
+                {products.length === 0 ? (
+                  <div className="border-2 border-gray-900 p-16 text-center">
+                    <Package className="w-24 h-24 mx-auto mb-6 text-gray-400" />
+                    <h3 className="text-2xl font-black text-gray-900 mb-4">
+                      No Products Available
+                    </h3>
+                    <p className="text-gray-600 max-w-md mx-auto mb-8">
+                      We don't have any products in this category yet. Check back soon!
+                    </p>
+                    <button
+                      onClick={() => navigate("/store")}
+                      className="group relative px-8 py-4 bg-gray-900 text-white font-bold overflow-hidden"
+                    >
+                      <span className="relative z-10">Browse All Products</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {products.map((product) => (
+                      <div
+                        key={product._id}
+                        className="border-2 border-gray-900 group hover:shadow-lg transition-all"
+                      >
+                        {/* Image */}
+                        <div className="relative aspect-square bg-gray-50 border-b-2 border-gray-900 overflow-hidden">
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                          />
+                          {product.discountedPrice && product.price > product.discountedPrice && (
+                            <div className="absolute top-4 right-4 px-3 py-1 bg-emerald-600 text-white text-xs font-bold">
+                              {Math.round(((product.price - product.discountedPrice) / product.price) * 100)}% OFF
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Details */}
+                        <div className="p-6">
+                          <h3 className="text-lg font-black text-gray-900 mb-4 line-clamp-2">
+                            {product.name}
+                          </h3>
+
+                          {/* Price */}
+                          <div className="mb-6">
+                            {product.discountedPrice && product.price > product.discountedPrice ? (
+                              <div className="flex items-end gap-3">
+                                <span className="text-2xl font-black text-gray-900">
+                                  ₹{product.discountedPrice.toLocaleString()}
+                                </span>
+                                <span className="text-lg line-through text-gray-400">
+                                  ₹{product.price.toLocaleString()}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="text-2xl font-black text-gray-900">
+                                ₹{product.price.toLocaleString()}
+                              </span>
                             )}
-                            % OFF
                           </div>
-                        )}
-                    </div>
 
-                    <div className="p-4">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                        {product.name}
-                      </h3>
-
-                      <div className="flex items-center gap-2 mb-4">
-                        {product.discountedPrice &&
-                        product.price > product.discountedPrice ? (
-                          <>
-                            <span className="text-xl font-bold text-gray-900">
-                              ₹{product.discountedPrice.toLocaleString()}
-                            </span>
-                            <span className="text-sm line-through text-gray-500">
-                              ₹{product.price.toLocaleString()}
-                            </span>
-                          </>
-                        ) : (
-                          <span className="text-xl font-bold text-gray-900">
-                            ₹{product.price.toLocaleString()}
-                          </span>
-                        )}
+                          {/* Actions */}
+                          <div className="space-y-3">
+                            <button
+                              onClick={() => handleAddToCart(product)}
+                              className="w-full group/btn relative px-6 py-3 bg-gray-900 text-white font-bold overflow-hidden"
+                            >
+                              <span className="relative z-10 flex items-center justify-center gap-2">
+                                <ShoppingCart className="w-4 h-4" />
+                                Add to Cart
+                              </span>
+                              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-500"></div>
+                            </button>
+                            
+                            <button
+                              onClick={() => navigate(`/product/${product.slug}`)}
+                              className="w-full px-6 py-3 border-2 border-gray-900 text-gray-900 font-bold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                            >
+                              <Eye className="w-4 h-4" />
+                              View Details
+                            </button>
+                          </div>
+                        </div>
                       </div>
-
-                      <div className="space-y-2">
-                        <button
-                          onClick={() => handleAddToCart(product)}
-                          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                        >
-                          Add to Cart
-                        </button>
-                        <button
-                          onClick={() => navigate(`/product/${product.slug}`)}
-                          className="w-full border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                        >
-                          View Details
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
+                    ))}
+                  </div>
+                )}
+              </div>
+            </section>
           </>
         )}
       </div>

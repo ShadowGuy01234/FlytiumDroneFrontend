@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -309,7 +310,7 @@ const About = () => {
 
             {/* Right: CTA Buttons */}
             <div className="space-y-6">
-              <button className="w-full group relative px-12 py-6 bg-white text-gray-900 font-bold tracking-wider uppercase text-sm overflow-hidden">
+              <Link to="/products" className="block w-full group relative px-12 py-6 bg-white text-gray-900 font-bold tracking-wider uppercase text-sm overflow-hidden">
                 <span className="relative z-10 flex items-center justify-center gap-3">
                   Explore Products
                   <svg className="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -317,11 +318,11 @@ const About = () => {
                   </svg>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
-              </button>
+              </Link>
 
-              <button className="w-full px-12 py-6 border-2 border-white text-white font-bold tracking-wider uppercase text-sm hover:bg-white hover:text-gray-900 transition-all">
+              <Link to="/contact" className="block w-full px-12 py-6 border-2 border-white text-white font-bold tracking-wider uppercase text-sm hover:bg-white hover:text-gray-900 transition-all text-center">
                 Contact Us
-              </button>
+              </Link>
             </div>
 
           </div>
