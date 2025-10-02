@@ -1,15 +1,20 @@
 
 @keyframes infinite-scroll {
 	0% {
-		transform: translateX(0);
+		transform: translate3d(0, 0, 0);
 	}
 	100% {
-		transform: translateX(-50%);
+		transform: translate3d(-50%, 0, 0);
 	}
 }
 
 .animate-infinite-scroll {
 	animation: infinite-scroll 20s linear infinite;
+	will-change: transform;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	-webkit-font-smoothing: subpixel-antialiased;
+	transform: translateZ(0);
 }
 
 @keyframes spin-slow {

@@ -110,7 +110,12 @@ const ImageSlider = () => {
             paddingLeft: '2rem',
             paddingRight: '2rem',
             width: 'fit-content',
-            minWidth: '100vw'
+            minWidth: '100vw',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            perspective: 1000,
+            WebkitPerspective: 1000
           }}
         >
           {duplicatedCards.map((card, index) => (
