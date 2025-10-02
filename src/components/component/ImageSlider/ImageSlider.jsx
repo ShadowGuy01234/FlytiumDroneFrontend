@@ -1,21 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
-// Removed Framer Motion for performance
+import React, { useRef } from 'react';
 import Container from '../../ui/Container';
 
 const ImageSlider = () => {
-  const [isPaused, setIsPaused] = useState(false);
   const scrollerRef = useRef(null);
 
   const cards = [
     {
       id: 1,
       title: "Components",
-      subtitle: "Premium Drone Parts",
-      description: "High-quality components engineered for peak performance and reliability",
-      icon: "🔧",
-      gradient: "from-violet-600 via-purple-600 to-blue-600",
-      bgPattern: "geometric",
-      features: ["Flight Controllers", "Motors & ESCs", "Cameras & Gimbals", "Batteries"],
+      subtitle: "Premium Parts",
+      description: "High-quality components engineered for peak performance",
+      features: ["Flight Controllers", "Motors & ESCs", "Cameras"],
       image: "/FCpix.png"
     },
     {
@@ -23,181 +18,133 @@ const ImageSlider = () => {
       title: "Technology",
       subtitle: "Smart Systems",
       description: "Cutting-edge AI and sensor technology for autonomous flight",
-      icon: "🤖",
-      gradient: "from-pink-600 via-rose-600 to-orange-500",
-      bgPattern: "circuits",
-      features: ["AI Navigation", "Obstacle Avoidance", "Real-time Processing", "Smart Sensors"],
+      features: ["AI Navigation", "Obstacle Avoidance", "Real-time Processing"],
       image: "/sensors.png"
     },
     {
       id: 3,
       title: "Innovation",
       subtitle: "Future Forward",
-      description: "Revolutionary designs pushing the boundaries of what's possible",
-      icon: "🚀",
-      gradient: "from-emerald-600 via-teal-600 to-cyan-600",
-      bgPattern: "waves",
-      features: ["Next-Gen Materials", "Advanced Aerodynamics", "Modular Design", "Eco-Friendly"],
+      description: "Revolutionary designs pushing the boundaries",
+      features: ["Next-Gen Materials", "Advanced Aerodynamics", "Modular Design"],
       image: "/RT.png"
     },
     {
       id: 4,
       title: "Solutions",
       subtitle: "Complete Systems",
-      description: "End-to-end drone solutions for professional applications",
-      icon: "⚡",
-      gradient: "from-indigo-600 via-blue-600 to-purple-600",
-      bgPattern: "grid",
-      features: ["Custom Solutions", "24/7 Support", "Global Warranty", "Training Included"],
+      description: "End-to-end drone solutions for professionals",
+      features: ["Custom Solutions", "24/7 Support", "Global Warranty"],
       image: "/motor.png"
     },
     {
       id: 5,
       title: "Support",
       subtitle: "24/7 Assistance",
-      description: "Round-the-clock support for all your drone technology needs",
-      icon: "🛠️",
-      gradient: "from-amber-600 via-orange-600 to-red-600",
-      bgPattern: "geometric",
-      features: ["Live Chat Support", "Video Tutorials", "Remote Assistance", "Expert Guidance"],
+      description: "Round-the-clock support for all your needs",
+      features: ["Live Chat", "Video Tutorials", "Remote Assistance"],
       image: "/C1.png"
     },
     {
       id: 6,
       title: "Training",
       subtitle: "Skill Development",
-      description: "Comprehensive training programs for drone operation and maintenance",
-      icon: "🎓",
-      gradient: "from-teal-600 via-green-600 to-emerald-600",
-      bgPattern: "waves",
-      features: ["Certified Courses", "Hands-on Training", "Safety Protocols", "Advanced Techniques"],
+      description: "Comprehensive training programs",
+      features: ["Certified Courses", "Hands-on Training", "Safety Protocols"],
       image: "/ESC.png"
     }
   ];
 
   // Duplicate cards for seamless infinite effect
-  const duplicatedCards = [...cards, ...cards];
+  const duplicatedCards = [...cards, ...cards, ...cards];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-white via-gray-50 to-blue-50/30 relative overflow-hidden">
-      {/* Animated Background Elements (subtle for light theme) */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-120 h-72 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-20 w-120 h-72 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-50/50 to-transparent" />
-      </div>
-
+    <section className="py-20 bg-white relative overflow-hidden">
       <Container>
-        <div className="text-center mb-20 relative z-10">
-          <h2 className="text-5xl lg:text-7xl font-display font-bold text-gray-900 mb-6">
-            Our{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600">
+        <div className="mb-16">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="h-px w-12 bg-gray-900"></div>
+            <span className="text-sm font-medium tracking-[0.2em] uppercase text-gray-600">
               Solutions
             </span>
+          </div>
+          <h2 className="text-6xl lg:text-7xl font-black text-gray-900 tracking-tight">
+            What We <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600">Offer</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Explore our comprehensive range of drone technologies and solutions
-          </p>
         </div>
       </Container>
 
-      {/* Infinite Scrolling Cards - CSS Animation */}
-      <div className="relative z-10 w-full overflow-hidden" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
+      {/* Infinite Scrolling Cards */}
+      <div className="relative w-full overflow-hidden" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
         <div
           ref={scrollerRef}
-          className="flex gap-12 py-6 animate-infinite-scroll"
+          className="flex gap-6 py-6 animate-infinite-scroll"
           style={{
             paddingLeft: '2rem',
             paddingRight: '2rem',
             width: 'fit-content',
             minWidth: '100vw',
             willChange: 'transform',
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
-            perspective: 1000,
-            WebkitPerspective: 1000
           }}
         >
           {duplicatedCards.map((card, index) => (
             <div
               key={`${card.id}-${index}`}
-              className="group relative cursor-pointer flex-shrink-0 w-[320px] lg:w-[360px]"
+              className="group relative flex-shrink-0 w-[300px] lg:w-[340px]"
             >
-              {/* Stacked Cards Effect */}
-              <div className="relative">
-                {/* Background Cards (Stacked) */}
-                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${card.gradient} transform rotate-2 translate-x-3 translate-y-3 opacity-40 blur-sm`} />
-                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${card.gradient} transform rotate-1 translate-x-1.5 translate-y-1.5 opacity-60`} />
+              {/* Card */}
+              <div className="relative bg-white border-2 border-gray-900 h-[420px] p-6 overflow-hidden transition-all duration-300 hover:shadow-2xl">
+                
+                {/* Decorative corner */}
+                <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-gray-200"></div>
+                
+                {/* Image Container */}
+                <div className="mb-6 relative h-32 flex items-center justify-center bg-gray-50 group-hover:bg-gray-100 transition-colors">
+                  <img 
+                    src={card.image} 
+                    alt={card.title} 
+                    className="w-24 h-24 object-contain transition-transform duration-500 group-hover:scale-110" 
+                  />
+                  
+                  {/* Accent line */}
+                  <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-500 group-hover:w-full transition-all duration-500"></div>
+                </div>
 
-                {/* Main Card */}
-                <div
-                  className={`
-                    relative bg-gradient-to-br ${card.gradient}
-                    rounded-3xl p-6 h-[480px]
-                    shadow-2xl border border-white/40 backdrop-blur-sm
-                    transform-gpu transition-all duration-500
-                  `}
-                >
-                  {/* Card Content */}
-                  <div className="relative z-10 h-full flex flex-col">
-                    {/* Icon */}
-                    <div className="w-16 h-16 bg-white/30 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-xl border border-white/40">
-                      {card.icon}
+                {/* Content */}
+                <div className="space-y-4">
+                  {/* Title */}
+                  <div>
+                    <div className="text-xs font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">
+                      {card.subtitle}
                     </div>
+                    <h3 className="text-2xl font-black text-gray-900 tracking-tight">
+                      {card.title}
+                    </h3>
+                  </div>
 
-                    {/* Title and Subtitle */}
-                    <div className="mb-4">
-                      <h3 className="text-3xl font-bold text-white mb-1 tracking-tight">
-                        {card.title}
-                      </h3>
-                      <p className="text-lg text-white/90 font-medium">
-                        {card.subtitle}
-                      </p>
-                    </div>
+                  {/* Description */}
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {card.description}
+                  </p>
 
-                    {/* Description */}
-                    <p className="text-white/95 text-base leading-relaxed mb-6 flex-grow">
-                      {card.description}
-                    </p>
-
-                    {/* Features List */}
-                    <div className="space-y-2 mb-6">
-                      {card.features.slice(0, 3).map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-3 text-white/95">
-                          <div className="w-1.5 h-1.5 bg-white/70 rounded-full" />
-                          <span className="text-sm">{feature}</span>
+                  {/* Features */}
+                  <div className="space-y-2 pt-2">
+                    {card.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <div className="flex-shrink-0 mt-1.5">
+                          <div className="w-4 h-px bg-gray-900"></div>
                         </div>
-                      ))}
-                    </div>
-
-                    {/* CTA Button */}
-                    <button className="w-full py-3 px-4 bg-white/25 backdrop-blur-md border border-white/40 rounded-xl font-semibold text-white text-base shadow-xl hover:shadow-2xl hover:bg-white/35 transition-all duration-300">
-                      Explore More
-                    </button>
+                        <span className="text-xs text-gray-700 font-medium">{feature}</span>
+                      </div>
+                    ))}
                   </div>
+                </div>
 
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    {card.bgPattern === 'geometric' && (
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:20px_20px]" />
-                    )}
-                    {card.bgPattern === 'circuits' && (
-                      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:30px_30px]" />
-                    )}
-                    {card.bgPattern === 'waves' && (
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.1)_0%,transparent_50%)]" />
-                    )}
-                    {card.bgPattern === 'grid' && (
-                      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:25px_25px]" />
-                    )}
-                  </div>
-
-                  {/* Floating Image */}
-                  <div className="absolute top-4 right-4 w-16 h-16">
-                    <div className="relative w-full h-full bg-white/15 backdrop-blur-md rounded-xl p-2 shadow-lg border border-white/30">
-                      <img src={card.image} alt={card.title} className="w-full h-full object-contain opacity-90" />
-                    </div>
-                  </div>
+                {/* Hover arrow */}
+                <div className="absolute bottom-6 right-6 w-10 h-10 border border-gray-900 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </div>
               </div>
             </div>

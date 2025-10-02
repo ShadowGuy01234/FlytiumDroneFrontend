@@ -37,7 +37,7 @@ const About = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/ad.png"
+                src="https://res.cloudinary.com/dsg5tzzdg/image/upload/v1759420994/ad_zv4ggk.png"
                 alt="Drone Technology"
                 className="w-full h-[400px] object-cover transform transition duration-500 group-hover:scale-105"
               />
@@ -54,7 +54,7 @@ const About = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
               <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl mx-auto">
                 <img
-                  src="./ankit sir.png"
+                  src="https://res.cloudinary.com/dsg5tzzdg/image/upload/v1759421026/ankit_sir_kfgxxo.png"
                   alt="Founder"
                   className="w-full h-full object-cover transform transition duration-500 group-hover:scale-110"
                 />
