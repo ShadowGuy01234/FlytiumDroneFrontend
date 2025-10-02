@@ -120,6 +120,33 @@
 	animation: loading-bar 1.5s ease-in-out infinite;
 }
 
+/* Hero Section Animations */
+@keyframes float-slow {
+	0%, 100% {
+		transform: translate(0, 0) scale(1);
+	}
+	50% {
+		transform: translate(30px, -30px) scale(1.05);
+	}
+}
+
+.animate-float-slow {
+	animation: float-slow 20s ease-in-out infinite;
+}
+
+@keyframes float {
+	0%, 100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+.animate-float {
+	animation: float 3s ease-in-out infinite;
+}
+
 /* ========================================
    PULSE & GLOW EFFECTS
    ======================================== */

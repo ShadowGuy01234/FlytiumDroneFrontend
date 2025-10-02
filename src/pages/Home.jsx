@@ -10,6 +10,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <GalleryCard />
 
       <Shop />
 
@@ -17,7 +18,6 @@ const Home = () => {
 
       <ImageSlider />
 
-      <GalleryCard />
 
       <VideoCard />
 

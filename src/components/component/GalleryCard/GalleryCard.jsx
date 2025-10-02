@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, ArrowRight, MapPin, Calendar, Users } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import Container from "../../ui/Container";
 import axios from "axios";
 import { API_URL } from "../../../api";
@@ -7,7 +7,7 @@ import { API_URL } from "../../../api";
 const GalleryCard = () => {
   const [experiences, setExperiences] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [loading, setLoading] = useState(true);
   
   const containerRef = useRef(null);
@@ -28,81 +28,78 @@ const GalleryCard = () => {
         const transformedData = activeHeroes.map(hero => ({
           id: hero._id,
           src: hero.image,
-          category: hero.category || "Experience",
+          category: hero.category,
           title: hero.title,
           description: hero.description,
-          buttonText: hero.buttonText || "Learn More",
-          buttonAction: () => (window.location.href = hero.buttonLink || "/"),
-          features: hero.features || ["Professional", "High Quality", "Expert Support"],
-          stats: { 
-            participants: hero.stats?.participants || "100+", 
-            rating: hero.stats?.rating || "4.9", 
-            duration: hero.stats?.duration || "Varies" 
-          }
+          buttonText: hero.buttonText,
+          buttonLink: hero.buttonLink,
+          features: hero.features,
+          stats: hero.stats
         }));
         
         setExperiences(transformedData);
       }
     } catch (error) {
       console.error("Error fetching hero data:", error);
-      setExperiences([
-        {
-          id: 1,
-          src: "/001.jpg",
-          category: "Experience",
-          title: "Drone Experience Arena",
-          description: "Step into our state-of-the-art drone arena where beginners and professionals alike can experience the thrill of aerial flight in a safe, controlled environment.",
-          buttonText: "Book Arena",
-          buttonAction: () => (window.location.href = "/drone-arena"),
-          features: ["Professional Training", "Safety Equipment", "Guided Sessions"],
-          stats: { participants: "500+", rating: "4.9", duration: "2 hrs" }
-        }
-      ]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Auto-play functionality
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % experiences.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, experiences.length]);
-
-  const nextImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % experiences.length);
-    setIsAutoPlaying(false);
+  const handleNext = () => {
+    if (isTransitioning || experiences.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => {
+      const next = (prev + 1) % experiences.length;
+      console.log('Next clicked - Current:', prev, 'Next:', next);
+      return next;
+    });
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
-  const prevImage = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? experiences.length - 1 : prevIndex - 1
-    );
-    setIsAutoPlaying(false);
+  const handlePrev = () => {
+    if (isTransitioning || experiences.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => {
+      const previous = prev === 0 ? experiences.length - 1 : prev - 1;
+      console.log('Prev clicked - Current:', prev, 'Previous:', previous);
+      return previous;
+    });
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
   const goToSlide = (index) => {
+    if (isTransitioning || index === currentIndex) return;
+    setIsTransitioning(true);
+    console.log('Go to slide:', index);
     setCurrentIndex(index);
-    setIsAutoPlaying(false);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
-  const currentExperience = experiences[currentIndex];
+  // Auto-play functionality
+  useEffect(() => {
+    if (experiences.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % experiences.length);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [experiences.length]);
+
+  const handleButtonClick = (link) => {
+    if (link) {
+      window.location.href = link;
+    }
+  };
 
   // Loading state
   if (loading) {
     return (
-      <section className="py-24 bg-gradient-to-br from-white via-emerald-50/30 to-amber-50/20 relative overflow-hidden">
+      <section className="py-20 bg-white">
         <Container>
           <div className="flex items-center justify-center min-h-[400px]">
-            <div className="flex items-center space-x-3">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
-              <span className="text-slate-600 font-medium">Loading gallery...</span>
-            </div>
+            <div className="animate-spin rounded-full h-10 w-10 border-2 border-gray-200 border-t-gray-900"></div>
           </div>
         </Container>
       </section>
@@ -111,154 +108,249 @@ const GalleryCard = () => {
 
   // No data state
   if (!experiences.length) {
-    return (
-      <section className="py-24 bg-gradient-to-br from-white via-emerald-50/30 to-amber-50/20 relative overflow-hidden">
-        <Container>
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">No gallery content available</h2>
-            <p className="text-slate-600">Please check back later or contact admin.</p>
-          </div>
-        </Container>
-      </section>
-    );
+    return null;
   }
 
   return (
     <section 
       ref={containerRef}
-      className="py-24 bg-gradient-to-br from-white via-emerald-50/30 to-amber-50/20 relative overflow-hidden"
+      className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-l from-emerald-400/10 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-r from-amber-400/10 to-transparent rounded-full blur-3xl"></div>
+      {/* Subtle geometric patterns */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }} />
+      </div>
 
       <Container>
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6">
-            <span>Explore Our</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-amber-600 ml-3">
-              Experiences
-            </span>
-          </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            From training arenas to competitive racing, discover the world of possibilities with our drone experiences
-          </p>
-        </div>
-
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-soft overflow-hidden border border-white/50 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <div className="grid lg:grid-cols-2 gap-0 min-h-[600px]">
-              {/* Image Section */}
-              <div className="relative overflow-hidden">
-                <div className="relative h-[400px] lg:h-full">
-                  <div className="absolute inset-0">
-                    <img
-                      key={currentIndex}
-                      src={currentExperience.src}
-                      alt={currentExperience.title}
-                      className="w-full h-full object-cover transition-opacity duration-500"
-                    />
-                    
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
-                    
-                    {/* Stats Overlay */}
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
-                        <div className="grid grid-cols-3 gap-4 text-center">
-                          <div>
-                            <div className="text-sm text-slate-500">Participants</div>
-                            <div className="font-semibold text-slate-900">{currentExperience.stats.participants}</div>
-                          </div>
-                          <div>
-                            <div className="text-sm text-slate-500">Rating</div>
-                            <div className="font-semibold text-slate-900">⭐ {currentExperience.stats.rating}</div>
-                          </div>
-                          <div>
-                            <div className="text-sm text-slate-500">Duration</div>
-                            <div className="font-semibold text-slate-900">{currentExperience.stats.duration}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Navigation Buttons */}
-                  <div className="absolute inset-0 flex items-center justify-between p-6 pointer-events-none">
-                    <button
-                      onClick={prevImage}
-                      className="w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-800 shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 pointer-events-auto"
-                    >
-                      <ChevronLeft className="w-6 h-6" />
-                    </button>
-                    <button
-                      onClick={nextImage}
-                      className="w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-800 shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 pointer-events-auto"
-                    >
-                      <ChevronRight className="w-6 h-6" />
-                    </button>
-                  </div>
-                </div>
+        {/* Section Header */}
+        <div className="mb-20 relative">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="relative z-10">
+              {/* Large number background */}
+              <div className="absolute -left-4 -top-8 text-[180px] font-black text-gray-100 leading-none select-none pointer-events-none z-0">
+                {String(currentIndex + 1).padStart(2, '0')}
               </div>
-
-              {/* Content Section */}
-              <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-6">
-                    <MapPin className="w-4 h-4" />
-                    {currentExperience.category}
-                  </div>
-
-                  <h2 className="text-3xl lg:text-4xl font-display font-bold text-slate-900 mb-6 leading-tight">
-                    {currentExperience.title}
-                  </h2>
-
-                  <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                    {currentExperience.description}
-                  </p>
-
-                  {/* Features */}
-                  <div className="grid grid-cols-1 gap-3 mb-8">
-                    {currentExperience.features.map((feature, index) => (
-                      <div key={index} className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                        <span className="text-slate-700">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Action Button */}
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <button
-                      onClick={currentExperience.buttonAction}
-                      className="px-8 py-4 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-                    >
-                      {currentExperience.buttonText}
-                      <ArrowRight className="w-5 h-5" />
-                    </button>
-                  </div>
+              
+              <div className="relative z-20">
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <div className="h-px w-12 bg-gray-900"></div>
+                  <span className="text-sm font-medium tracking-[0.2em] uppercase text-gray-600">
+                    Featured
+                  </span>
                 </div>
+                <h2 className="text-6xl lg:text-7xl font-black text-gray-900 tracking-tight">
+                  Experiences
+                </h2>
               </div>
             </div>
 
-            {/* Slide Indicators */}
+            {/* Navigation with counter */}
             {experiences.length > 1 && (
-              <div className="flex justify-center gap-2 py-6">
-                {experiences.map((_, index) => (
+              <div className="flex items-center gap-6 relative z-50 pointer-events-auto">
+                <div className="text-right pointer-events-none">
+                  <div className="text-4xl font-bold text-gray-900">
+                    {String(currentIndex + 1).padStart(2, '0')}
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    / {String(experiences.length).padStart(2, '0')}
+                  </div>
+                </div>
+                <div className="flex gap-2 pointer-events-auto">
                   <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentIndex 
-                        ? 'bg-emerald-600 scale-125' 
-                        : 'bg-slate-300 hover:bg-slate-400'
-                    }`}
-                  />
-                ))}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handlePrev();
+                    }}
+                    disabled={isTransitioning}
+                    className="w-14 h-14 border-2 border-gray-900 text-gray-900 flex items-center justify-center hover:bg-gray-900 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed group cursor-pointer relative z-50"
+                    aria-label="Previous"
+                  >
+                    <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5 pointer-events-none" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleNext();
+                    }}
+                    disabled={isTransitioning}
+                    className="w-14 h-14 bg-gray-900 text-white flex items-center justify-center hover:bg-gray-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed group cursor-pointer relative z-50"
+                    aria-label="Next"
+                  >
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 pointer-events-none" />
+                  </button>
+                </div>
               </div>
             )}
           </div>
         </div>
+
+        {/* Main Content */}
+        <div className="relative">
+          {experiences.map((experience, index) => (
+            <div
+              key={experience.id}
+              className={`transition-all duration-700 ${
+                index === currentIndex
+                  ? 'opacity-100 relative'
+                  : 'opacity-0 absolute inset-0 pointer-events-none'
+              }`}
+            >
+              <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                {/* Image Side - Takes more space */}
+                <div className="lg:col-span-7 relative group">
+                  {/* Image container with creative border */}
+                  <div className="relative">
+                    {/* Decorative corner elements */}
+                    <div className="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2 border-gray-900 z-10"></div>
+                    <div className="absolute -bottom-4 -right-4 w-12 h-12 border-r-2 border-b-2 border-gray-900 z-10"></div>
+                    
+                    <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
+                      <img
+                        src={experience.src}
+                        alt={experience.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      
+                      {/* Gradient overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+
+                    {/* Floating category badge */}
+                    {experience.category && (
+                      <div className="absolute top-6 left-6 bg-white px-4 py-2 shadow-lg">
+                        <span className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900">
+                          {experience.category}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Stats bar below image */}
+                  {experience.stats && (
+                    <div className="mt-6 grid grid-cols-3 gap-4 border-l-4 border-gray-900 pl-6">
+                      {experience.stats.participants && (
+                        <div>
+                          <div className="text-3xl font-black text-gray-900">
+                            {experience.stats.participants}
+                          </div>
+                          <div className="text-xs font-medium tracking-wider uppercase text-gray-500 mt-1">
+                            Participants
+                          </div>
+                        </div>
+                      )}
+                      {experience.stats.rating && (
+                        <div>
+                          <div className="text-3xl font-black text-gray-900">
+                            {experience.stats.rating}
+                          </div>
+                          <div className="text-xs font-medium tracking-wider uppercase text-gray-500 mt-1">
+                            Rating
+                          </div>
+                        </div>
+                      )}
+                      {experience.stats.duration && (
+                        <div>
+                          <div className="text-3xl font-black text-gray-900">
+                            {experience.stats.duration}
+                          </div>
+                          <div className="text-xs font-medium tracking-wider uppercase text-gray-500 mt-1">
+                            Duration
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Content Side */}
+                <div className="lg:col-span-5 space-y-8 lg:pt-8">
+                  {/* Title with creative line */}
+                  <div>
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className="flex-shrink-0 w-1 h-24 bg-gradient-to-b from-emerald-500 via-blue-500 to-purple-500"></div>
+                      <h3 className="text-4xl lg:text-5xl font-black text-gray-900 leading-[0.95] tracking-tight">
+                        {experience.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  {experience.description && (
+                    <p className="text-lg text-gray-600 leading-relaxed font-light">
+                      {experience.description}
+                    </p>
+                  )}
+
+                  {/* Features with creative bullets */}
+                  {experience.features && experience.features.length > 0 && (
+                    <div className="space-y-4 pt-4">
+                      {experience.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-start gap-4 group">
+                          <div className="flex-shrink-0 mt-2">
+                            <div className="w-6 h-px bg-gray-900 group-hover:w-12 transition-all duration-300"></div>
+                          </div>
+                          <span className="text-gray-700 font-medium">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* CTA Button with creative style */}
+                  {experience.buttonText && (
+                    <div className="pt-4">
+                      <button
+                        onClick={() => handleButtonClick(experience.buttonLink)}
+                        className="group relative px-10 py-5 bg-gray-900 text-white font-bold tracking-wider uppercase text-sm overflow-hidden"
+                      >
+                        <span className="relative z-10 flex items-center gap-3">
+                          {experience.buttonText}
+                          <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+                        </span>
+                        {/* Animated background */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Creative Progress Bars */}
+        {experiences.length > 1 && (
+          <div className="mt-16 space-y-3">
+            {experiences.map((exp, index) => (
+              <div key={index} className="flex items-center gap-4 group">
+                <button
+                  onClick={() => goToSlide(index)}
+                  disabled={isTransitioning}
+                  className="text-sm font-bold text-gray-400 hover:text-gray-900 transition-colors disabled:cursor-not-allowed"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </button>
+                <div className="flex-1 h-px bg-gray-200 relative overflow-hidden">
+                  <div 
+                    className={`absolute inset-y-0 left-0 bg-gray-900 transition-all duration-1000 ${
+                      index === currentIndex ? 'w-full' : 'w-0'
+                    }`}
+                  />
+                </div>
+                <div className="text-xs text-gray-400 uppercase tracking-wider max-w-[200px] truncate">
+                  {exp.title}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </Container>
     </section>
   );

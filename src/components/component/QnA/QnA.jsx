@@ -218,7 +218,7 @@ const FAQSection = () => {
 
               {/* CTA Box */}
               <div className="p-6 bg-gray-900 text-white rounded-lg">
-                <h4 className="text-lg font-bold mb-2">
+                <h4 className="text-lg font-bold mb-2 text-white">
                   Need More Help?
                 </h4>
                 <p className="text-gray-400 text-sm mb-4">

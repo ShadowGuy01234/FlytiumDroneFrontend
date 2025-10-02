@@ -1,23 +1,57 @@
-/* .chk{
-    position: relative;
-        --tw-bg-opacity: 1;
-        background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
-        height: 100vh;
-        z-index: 10;
-} */
+/* Hero Section Animations */
 
+/* Minimal scroll indicator */
+@keyframes hero-scroll-indicator {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.2);
+  }
+}
 
+.hero-scroll-indicator {
+  animation: hero-scroll-indicator 2s ease-in-out infinite;
+  transform-origin: top;
+}
 
+/* Drone Image Hover Effect */
+.hero-drone-image {
+  transition: transform 0.3s ease-out;
+}
 
+.hero-drone-image:hover {
+  transform: translateY(-10px);
+}
+
+/* Info Cards Float Animation */
+@keyframes hero-info-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hero-info-card {
+  animation: hero-info-float 3s ease-in-out infinite;
+}
+
+/* Title Letter Spacing Effect */
+.hero-title {
+  letter-spacing: -0.02em;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    /* .chk{
-        height: 62vh;
-    } */
-
-    #custom-mobile-style {
-        width: 471px;
-        height: 486px;
-        top: -41%;
-        right: 1rem;
-    }
+  .hero-info-card {
+    display: none;
+  }
+  
+  .hero-title {
+    font-size: 4rem;
+  }
 }
