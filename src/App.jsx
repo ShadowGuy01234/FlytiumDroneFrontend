@@ -37,6 +37,7 @@ import Career from "./pages/Career";
 import ManageEmployees from "./pages/Admin/ManageEmployees";
 import ManageJobs from "./pages/Admin/ManageJobs";
 import JobApplications from "./pages/Admin/JobApplications";
+import ManageContacts from "./pages/Admin/ManageContacts";
 import LenisProvider from "./components/LenisProvider";
 
 function App() {
@@ -49,52 +50,53 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/login-success" element={<Successful />} />
-          <Route path="/signup" element={<Account />} />
-          <Route path="/register-success" element={<Successful2 />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/checkout" element={<NewCheckoutPage />} />
-          <Route path="/checkout-old" element={<CheckoutPage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Service />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/career" element={<Career />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/cartpage" element={<CartPage />} />
-          <Route path="/dashboard" element={<Private />}>
-            <Route path="user/orders" element={<Orders />} />
-            <Route path="user/profile" element={<Profile />} />
-          </Route>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/login-success" element={<Successful />} />
+            <Route path="/signup" element={<Account />} />
+            <Route path="/register-success" element={<Successful2 />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/checkout" element={<NewCheckoutPage />} />
+            <Route path="/checkout-old" element={<CheckoutPage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Service />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/career" element={<Career />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/cartpage" element={<CartPage />} />
+            <Route path="/dashboard" element={<Private />}>
+              <Route path="user/orders" element={<Orders />} />
+              <Route path="user/profile" element={<Profile />} />
+            </Route>
 
-          <Route path="/dashboard" element={<AdminRoute />}>
-            <Route path="admin" element={<AdminDashboard />} />
-            <Route path="admin/users" element={<Users />} />
-            <Route path="admin/products" element={<CreateProduct />} />
-            <Route path="admin/orders" element={<AdminOrders />} />
-            <Route path="admin/category" element={<CreateCategory />} />
-            <Route path="admin/hero" element={<ManageHero />} />
-            <Route path="admin/ads" element={<CreateAd />} />
-            <Route
-              path="admin/manage-employees"
-              element={<ManageEmployees />}
-            />
-            <Route path="admin/jobs" element={<ManageJobs />} />
-            <Route
-              path="admin/job-applications"
-              element={<JobApplications />}
-            />
-          </Route>
+            <Route path="/dashboard" element={<AdminRoute />}>
+              <Route path="admin" element={<AdminDashboard />} />
+              <Route path="admin/users" element={<Users />} />
+              <Route path="admin/products" element={<CreateProduct />} />
+              <Route path="admin/orders" element={<AdminOrders />} />
+              <Route path="admin/category" element={<CreateCategory />} />
+              <Route path="admin/hero" element={<ManageHero />} />
+              <Route path="admin/ads" element={<CreateAd />} />
+              <Route
+                path="admin/manage-employees"
+                element={<ManageEmployees />}
+              />
+              <Route path="admin/jobs" element={<ManageJobs />} />
+              <Route
+                path="admin/job-applications"
+                element={<JobApplications />}
+              />
+              <Route path="admin/contacts" element={<ManageContacts />} />
+            </Route>
 
-          <Route path="/product/:slug" element={<ProductDetails />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-conditions" element={<TermsConditions />} />
-          <Route path="/shipping-policy" element={<ShippingPolicy />} />
-          <Route path="/category/:slug" element={<CategoryProducts />} />
-          <Route path="*" element={<Pagenotfound />} />
-        </Routes>
-        <Footer />
+            <Route path="/product/:slug" element={<ProductDetails />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-conditions" element={<TermsConditions />} />
+            <Route path="/shipping-policy" element={<ShippingPolicy />} />
+            <Route path="/category/:slug" element={<CategoryProducts />} />
+            <Route path="*" element={<Pagenotfound />} />
+          </Routes>
+          <Footer />
         </Router>
       </LenisProvider>
     </>

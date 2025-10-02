@@ -8,6 +8,7 @@ import {
   FiUserCheck,
   FiBriefcase,
   FiFileText,
+  FiMail,
 } from "react-icons/fi";
 import { FcAdvertising } from "react-icons/fc";
 import { motion } from "framer-motion";
@@ -57,6 +58,11 @@ const menuItems = [
         path: "/dashboard/admin/job-applications",
         icon: <FiFileText />,
         label: "Job Applications",
+      },
+      {
+        path: "/dashboard/admin/contacts",
+        icon: <FiMail />,
+        label: "Contact Submissions",
       },
       {
         path: "/dashboard/admin/ads",

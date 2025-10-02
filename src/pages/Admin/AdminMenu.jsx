@@ -38,6 +38,9 @@ const AdminMenu = () => {
         >
           Job Applications
         </NavLink>
+        <NavLink to="/dashboard/admin/contacts" className="list-group-item">
+          Contact Submissions
+        </NavLink>
       </div>
     </div>
   );
