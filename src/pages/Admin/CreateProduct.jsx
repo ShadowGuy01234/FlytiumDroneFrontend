@@ -227,11 +227,15 @@ const CreateProduct = () => {
                     <Package className="w-8 h-8 text-indigo-400" />
                   </div>
                   <div>
-                    <h1 className="text-5xl font-black text-white mb-2">Create Product</h1>
-                    <p className="text-xl text-slate-400">Add new products to inventory</p>
+                    <h1 className="text-5xl font-black text-white mb-2">
+                      Create Product
+                    </h1>
+                    <p className="text-xl text-slate-400">
+                      Add new products to inventory
+                    </p>
                   </div>
                 </div>
-                
+
                 <button
                   onClick={() => {
                     resetForm();
@@ -264,25 +268,37 @@ const CreateProduct = () => {
               <div className="bg-slate-900 border-2 border-slate-800 p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <Package className="w-5 h-5 text-indigo-400" />
-                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Total Products</p>
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">
+                    Total Products
+                  </p>
                 </div>
-                <p className="text-4xl font-black text-white">{products.length}</p>
+                <p className="text-4xl font-black text-white">
+                  {products.length}
+                </p>
               </div>
-              
+
               <div className="bg-slate-900 border-2 border-slate-800 p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <Search className="w-5 h-5 text-cyan-400" />
-                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Filtered</p>
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">
+                    Filtered
+                  </p>
                 </div>
-                <p className="text-4xl font-black text-white">{filteredProducts.length}</p>
+                <p className="text-4xl font-black text-white">
+                  {filteredProducts.length}
+                </p>
               </div>
 
               <div className="bg-slate-900 border-2 border-slate-800 p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <Tag className="w-5 h-5 text-amber-400" />
-                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Categories</p>
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">
+                    Categories
+                  </p>
                 </div>
-                <p className="text-4xl font-black text-white">{categories.length}</p>
+                <p className="text-4xl font-black text-white">
+                  {categories.length}
+                </p>
               </div>
             </div>
 
@@ -291,12 +307,12 @@ const CreateProduct = () => {
               <div className="border-2 border-slate-800 bg-slate-900 p-16 text-center">
                 <Package className="w-24 h-24 mx-auto mb-6 text-slate-700" />
                 <h3 className="text-2xl font-black text-white mb-4">
-                  {searchTerm ? 'No Products Found' : 'No Products Yet'}
+                  {searchTerm ? "No Products Found" : "No Products Yet"}
                 </h3>
                 <p className="text-slate-400 max-w-md mx-auto mb-8">
-                  {searchTerm 
-                    ? 'Try adjusting your search criteria' 
-                    : 'Start by adding your first product'}
+                  {searchTerm
+                    ? "Try adjusting your search criteria"
+                    : "Start by adding your first product"}
                 </p>
                 {!searchTerm && (
                   <button
@@ -330,13 +346,22 @@ const CreateProduct = () => {
                       </h3>
                       <div className="flex items-center justify-between mb-4">
                         <div>
-                          <p className="text-xs text-slate-500 font-bold uppercase mb-1">Price</p>
-                          <p className="text-2xl font-black text-white">₹{product.price}</p>
+                          <p className="text-xs text-slate-500 font-bold uppercase mb-1">
+                            Price
+                          </p>
+                          <p className="text-2xl font-black text-white">
+                            ₹{product.price}
+                          </p>
                         </div>
                         {product.discountedPrice && (
                           <div className="px-3 py-1 bg-emerald-500/10 border-2 border-emerald-500">
                             <p className="text-xs font-black text-emerald-400">
-                              {Math.round(((product.price - product.discountedPrice) / product.price) * 100)}% OFF
+                              {Math.round(
+                                ((product.price - product.discountedPrice) /
+                                  product.price) *
+                                  100
+                              )}
+                              % OFF
                             </p>
                           </div>
                         )}
@@ -382,7 +407,7 @@ const CreateProduct = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
-                    Product Name
+                    Product Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -398,10 +423,12 @@ const CreateProduct = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
-                      Regular Price
+                      Regular Price (₹) <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 font-bold">
+                        ₹
+                      </span>
                       <input
                         type="number"
                         name="price"
@@ -418,10 +445,13 @@ const CreateProduct = () => {
 
                   <div>
                     <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
-                      Discounted Price (Optional)
+                      Discounted Price (₹){" "}
+                      <span className="text-slate-500 text-xs">(Optional)</span>
                     </label>
                     <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 font-bold">
+                        ₹
+                      </span>
                       <input
                         type="number"
                         name="discountedPrice"
@@ -477,13 +507,17 @@ const CreateProduct = () => {
                       <label
                         htmlFor="image-upload"
                         className={`flex-1 px-4 py-3 border-2 ${
-                          isUploading 
-                            ? 'border-slate-700 bg-slate-800 text-slate-500 cursor-not-allowed'
-                            : 'border-indigo-600 bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white cursor-pointer'
+                          isUploading
+                            ? "border-slate-700 bg-slate-800 text-slate-500 cursor-not-allowed"
+                            : "border-indigo-600 bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white cursor-pointer"
                         } font-bold transition-all flex items-center justify-center gap-2`}
                       >
                         <Upload className="w-5 h-5" />
-                        {isUploading ? 'Uploading...' : formData.image ? "Change Image" : "Upload Image"}
+                        {isUploading
+                          ? "Uploading..."
+                          : formData.image
+                          ? "Change Image"
+                          : "Upload Image"}
                       </label>
                       {imagePreview && !isUploading && (
                         <button
@@ -534,8 +568,8 @@ const CreateProduct = () => {
                     type="submit"
                     className={`flex-1 px-6 py-3 border-2 font-bold transition-all flex items-center justify-center gap-2 ${
                       isUploading
-                        ? 'border-slate-700 bg-slate-800 text-slate-500 cursor-not-allowed'
-                        : 'border-indigo-600 bg-indigo-600 hover:bg-transparent text-white'
+                        ? "border-slate-700 bg-slate-800 text-slate-500 cursor-not-allowed"
+                        : "border-indigo-600 bg-indigo-600 hover:bg-transparent text-white"
                     }`}
                     disabled={isUploading}
                   >
