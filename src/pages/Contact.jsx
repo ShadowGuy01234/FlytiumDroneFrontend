@@ -104,8 +104,8 @@ const Contact = () => {
                       <div>
                         <h3 className="text-sm font-bold uppercase tracking-wider text-gray-600 mb-2">Location</h3>
                         <p className="text-lg text-gray-900 font-medium">
-                          Drone and IoT Lab, MMMUT<br />
-                          Gorakhpur, Uttar Pradesh<br />
+                          Flytium Drones<br />
+                          H. N0 - 49C Near Paidleganj,Gorakhpur, Uttar Pradesh<br />
                           India
                         </p>
                       </div>
@@ -120,7 +120,7 @@ const Contact = () => {
                       <div>
                         <h3 className="text-sm font-bold uppercase tracking-wider text-gray-600 mb-2">Phone</h3>
                         <p className="text-lg text-gray-900 font-medium">
-                          +91 XXX XXX XXXX
+                          +91 9236993440
                         </p>
                         <p className="text-sm text-gray-600 mt-1">Mon-Sat: 9AM - 6PM</p>
                       </div>
