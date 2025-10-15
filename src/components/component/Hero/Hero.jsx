@@ -1,116 +1,170 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Hero.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import axios from "axios";
-import { API_URL } from "../../../api";
 
 const Hero = ({ handleOrderPopup }) => {
-  const [heroSlides, setHeroSlides] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const heroRef = useRef(null);
 
   useEffect(() => {
-    fetchHeroSlides();
+    const handleMouseMove = (e) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: (e.clientX - rect.left - rect.width / 2) / rect.width,
+          y: (e.clientY - rect.top - rect.height / 2) / rect.height,
+        });
+      }
+    };
+
+    const hero = heroRef.current;
+    if (hero) {
+      hero.addEventListener('mousemove', handleMouseMove);
+      return () => hero.removeEventListener('mousemove', handleMouseMove);
+    }
   }, []);
 
-  const fetchHeroSlides = async () => {
-    try {
-      const { data } = await axios.get(`${API_URL}/api/hero`);
-      if (data.success) {
-        setHeroSlides(data.heros);
-      }
-    } catch (error) {
-      console.error("Error fetching hero slides:", error);
-    } finally {
-      setLoading(false);
+  const scrollToShop = () => {
+    const shopSection = document.getElementById('shop');
+    if (shopSection) {
+      shopSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  const settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    speed: 800,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    cssEase: "cubic-bezier(0.87, 0, 0.13, 1)",
-    pauseOnHover: false,
-    pauseOnFocus: true,
-    customPaging: () => (
-      <div className="w-3 h-3 bg-gray-300 rounded-full mt-8 hover:bg-blue-600 transition-colors"></div>
-    ),
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="relative overflow-hidden min-h-[650px] bg-gradient-to-b from-gray-50 to-white">
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
-
-      <div className="container mx-auto px-4">
-        <Slider {...settings}>
-          {heroSlides.map((data) => (
-            <div key={data._id} className="outline-none">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-12">
-                {/* Content Section */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="space-y-8"
-                >
-                  <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                    {data.title}
-                  </h1>
-                  <p className="text-lg text-gray-600 max-w-lg">
-                    {data.description}
-                  </p>
-                  <div className="flex gap-4">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={handleOrderPopup}
-                      className="px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
-                    >
-                      {data.buttonText}
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-8 py-4 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
-                    >
-                      Learn More
-                    </motion.button>
-                  </div>
-                </motion.div>
-
-                {/* Image Section */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="relative"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur-3xl"></div>
-                  <img
-                    src={data.image}
-                    alt={data.title}
-                    className="relative w-full h-[400px] object-contain transform hover:scale-105 transition-transform duration-500"
-                  />
-                </motion.div>
-              </div>
-            </div>
-          ))}
-        </Slider>
+    <section ref={heroRef} className="relative min-h-screen bg-white overflow-hidden flex items-center justify-center">
+      
+      {/* Animated Background Mesh Gradient */}
+      <div className="absolute inset-0">
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: `
+              radial-gradient(at ${50 + mousePosition.x * 10}% ${50 + mousePosition.y * 10}%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+              radial-gradient(at ${50 - mousePosition.x * 10}% ${50 - mousePosition.y * 10}%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+              radial-gradient(at ${50 + mousePosition.y * 10}% ${50 - mousePosition.x * 10}%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)
+            `,
+            transition: 'all 0.3s ease-out'
+          }}
+        />
       </div>
-    </div>
+
+      {/* Main Content Container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-5">
+        
+        {/* Typography First Design */}
+        <div className="text-center mb-16">
+          
+          {/* Minimalist Badge */}
+          <div className="inline-block mb-2">
+            <div className="flex items-center gap-3 px-4 py-2 border border-gray-900/10 rounded-full backdrop-blur-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-medium tracking-wider uppercase text-gray-600">
+                Flytium Drones
+              </span>
+            </div>
+          </div>
+
+          {/* Hero Typography - Ultra Large & Bold */}
+          <div className="relative mb-12">
+            <h1 className="font-display font-black leading-[0.85] tracking-tighter">
+              {/* First Line */}
+              <div 
+                className="text-[12vw] md:text-[10vw] lg:text-[9rem] text-gray-900"
+                style={{
+                  transform: `translateX(${mousePosition.x * 20}px)`,
+                  transition: 'transform 0.3s ease-out'
+                }}
+              >
+                ELEVATE
+              </div>
+              
+              {/* Second Line - Italic with gradient */}
+              <div 
+                className="text-[12vw] md:text-[10vw] lg:text-[9rem] italic relative"
+                style={{
+                  transform: `translateX(${-mousePosition.x * 20}px)`,
+                  transition: 'transform 0.3s ease-out'
+                }}
+              >
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600">
+                  YOUR VISION
+                </span>
+              </div>
+            </h1>
+
+            {/* Decorative Line */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+              <div className="w-1 h-1 rounded-full bg-gray-400" />
+              <div className="h-px w-16 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+            </div>
+          </div>
+
+          {/* Tagline */}
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
+            Precision engineering meets extraordinary design.<br className="hidden md:block" />
+            Professional aerial technology for the modern era.
+          </p>
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24">
+            <button 
+              onClick={scrollToShop}
+              className="group relative px-10 py-5 bg-gray-900 text-white overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-3 font-medium">
+                Explore Collection
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            </button>
+            
+            <button className="px-10 py-5 border border-gray-200 text-gray-900 font-medium hover:border-gray-900 transition-colors">
+              View Specs
+            </button>
+          </div>
+        </div>
+
+        {/* Product Showcase - Large Image */}
+        <div className="relative">
+          <div 
+            className="relative mx-auto max-w-4xl"
+            style={{
+              transform: `perspective(1000px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * 5}deg)`,
+              transition: 'transform 0.1s ease-out'
+            }}
+          >
+            {/* Main Product Image */}
+            {/* <div className="relative">
+              <img
+                src="/003.jpg"
+                alt="Flytium Drone"
+                className="w-full h-auto object-contain"
+                style={{
+                  filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.2))',
+                }}
+              />
+            </div> */}
+
+            {/* Subtle Glow */}
+            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-emerald-500/10 via-blue-500/10 to-transparent blur-3xl" />
+          </div>
+
+          
+        </div>
+
+      </div>
+
+      {/* Minimal Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="flex flex-col items-center gap-3 text-gray-400">
+          <div className="text-xs font-medium tracking-widest uppercase">Scroll</div>
+          <div className="w-px h-12 bg-gradient-to-b from-gray-400 to-transparent hero-scroll-indicator" />
+        </div>
+      </div>
+
+    </section>
   );
 };
 

@@ -1,0 +1,345 @@
+
+/* ========================================
+   INFINITE SCROLL ANIMATION
+   ======================================== */
+@keyframes infinite-scroll {
+	0% {
+		transform: translate3d(0, 0, 0);
+	}
+	100% {
+		transform: translate3d(-50%, 0, 0);
+	}
+}
+
+.animate-infinite-scroll {
+	animation: infinite-scroll 15s linear infinite;
+	will-change: transform;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	-webkit-font-smoothing: subpixel-antialiased;
+	transform: translateZ(0);
+}
+
+/* ========================================
+   BACKGROUND ANIMATIONS
+   ======================================== */
+@keyframes spin-slow {
+	0% { transform: rotate(0deg) scale(1); }
+	50% { transform: rotate(180deg) scale(1.1); }
+	100% { transform: rotate(360deg) scale(1); }
+}
+
+.animate-spin-slow {
+	animation: spin-slow 20s ease-in-out infinite;
+}
+
+@keyframes spin-slow-reverse {
+	0% { transform: rotate(360deg) scale(1); }
+	50% { transform: rotate(180deg) scale(1.1); }
+	100% { transform: rotate(0deg) scale(1); }
+}
+
+.animate-spin-slow-reverse {
+	animation: spin-slow-reverse 25s ease-in-out infinite;
+}
+
+/* ========================================
+   FADE & SLIDE ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fade-in-up {
+	animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.animate-fade-in {
+	animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes slide-in-right {
+	from {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.animate-slide-in-right {
+	animation: slide-in-right 0.3s ease-out;
+}
+
+@keyframes slide-down {
+	from {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.animate-slide-down {
+	animation: slide-down 0.3s ease-out;
+}
+
+@keyframes loading-bar {
+	0% {
+		transform: translateX(-100%);
+	}
+	50% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+.animate-loading-bar {
+	animation: loading-bar 1.5s ease-in-out infinite;
+}
+
+/* Hero Section Animations */
+@keyframes float-slow {
+	0%, 100% {
+		transform: translate(0, 0) scale(1);
+	}
+	50% {
+		transform: translate(30px, -30px) scale(1.05);
+	}
+}
+
+.animate-float-slow {
+	animation: float-slow 20s ease-in-out infinite;
+}
+
+@keyframes float {
+	0%, 100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+.animate-float {
+	animation: float 3s ease-in-out infinite;
+}
+
+/* ========================================
+   PULSE & GLOW EFFECTS
+   ======================================== */
+@keyframes pulse-glow {
+	0%, 100% {
+		box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+	}
+	50% {
+		box-shadow: 0 0 40px rgba(16, 185, 129, 0.5);
+	}
+}
+
+.animate-pulse-glow {
+	animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ========================================
+   SMOOTH SCROLLBAR (FOR WEBKIT BROWSERS)
+   ======================================== */
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+	background: #10b981;
+	border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+	background: #059669;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.line-clamp-2 {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.line-clamp-3 {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* GPU Acceleration */
+.gpu-accelerate {
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	perspective: 1000px;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   GLASS MORPHISM EFFECTS
+   ======================================== */
+.glass-effect {
+	background: rgba(255, 255, 255, 0.8);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-effect-dark {
+	background: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   SHADOW UTILITIES
+   ======================================== */
+.shadow-soft {
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-soft-lg {
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-emerald {
+	box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+}
+
+/* ========================================
+   HOVER EFFECTS
+   ======================================== */
+.hover-lift {
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.hover-scale {
+	transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+	transform: scale(1.05);
+}
+
+/* ========================================
+   GRADIENT TEXT
+   ======================================== */
+.gradient-text {
+	background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* ========================================
+   IMAGE UTILITIES
+   ======================================== */
+.category-image-container {
+	position: relative;
+	background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+}
+
+.category-image {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	object-position: center;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: crisp-edges;
+}
+
+/* Ensure images load smoothly */
+img {
+	image-rendering: -webkit-optimize-contrast;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+@media (max-width: 768px) {
+	.animate-infinite-scroll {
+		animation-duration: 20s;
+	}
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+	
+	.animate-infinite-scroll {
+		animation: none;
+	}
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+	outline: 2px solid #10b981;
+	outline-offset: 2px;
+}

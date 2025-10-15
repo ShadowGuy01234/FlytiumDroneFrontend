@@ -24,13 +24,14 @@ const Navbar = () => {
     localStorage.removeItem("auth");
     toast.success("Logged out successfully", {
       style: {
-        border: "1px solid #713200",
+        border: "1px solid #059669",
         padding: "16px",
-        color: "#713200",
+        color: "#059669",
+        backgroundColor: "#f0fdf4",
       },
       iconTheme: {
-        primary: "#713200",
-        secondary: "#FFFAEE",
+        primary: "#059669",
+        secondary: "#f0fdf4",
       },
     });
   };
@@ -71,18 +72,19 @@ const Navbar = () => {
   return (
     <nav
       ref={navbarRef}
-      className={`bg-white backdrop-blur-md bg-opacity-80 p-4 shadow-sm transition-all duration-300 ease-in-out transform ${
+      className={`bg-white/95 backdrop-blur-md border-b border-gray-200 transition-all duration-300 ease-in-out transform ${
         isSticky
           ? `${
               isVisible ? "translate-y-0" : "-translate-y-full"
-            } fixed top-0 left-0 w-full z-50`
-          : "relative z-50"
+            } fixed top-0 left-0 w-full z-50 shadow-lg`
+          : "relative z-50 shadow-sm"
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <div className="flex items-center space-x-2">
-          <img src="/logo.png" alt="Logo" className="h-16 w-auto" />
-          <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+        <div className="flex items-center space-x-3">
+          <img src="/logo.png" alt="Flytium Logo" className="h-12 w-auto" />
+          <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent">
             FLYTIUM
           </span>
         </div>
@@ -94,8 +96,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-sm font-medium transition-colors duration-200 ${
                   isActive
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    ? "text-emerald-600"
+                    : "text-gray-700 hover:text-emerald-600"
                 }`
               }
             >
@@ -108,8 +110,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-sm font-medium transition-colors duration-200 ${
                   isActive
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    ? "text-emerald-600"
+                    : "text-gray-700 hover:text-emerald-600"
                 }`
               }
             >
@@ -122,22 +124,23 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-sm font-medium transition-colors duration-200 ${
                   isActive
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    ? "text-emerald-600"
+                    : "text-gray-700 hover:text-emerald-600"
                 }`
               }
             >
               SERVICES
             </NavLink>
           </li>
+          
           <li>
             <NavLink
               to="/store"
               className={({ isActive }) =>
                 `text-sm font-medium transition-colors duration-200 ${
                   isActive
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    ? "text-emerald-600"
+                    : "text-gray-700 hover:text-emerald-600"
                 }`
               }
             >
@@ -146,17 +149,45 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
+              to="/career"
+              className={({ isActive }) =>
+                `text-sm font-medium transition-colors duration-200 ${
+                  isActive
+                    ? "text-emerald-600"
+                    : "text-gray-700 hover:text-emerald-600"
+                }`
+              }
+            >
+              CAREER
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `text-sm font-medium transition-colors duration-200 ${
+                  isActive
+                    ? "text-emerald-600"
+                    : "text-gray-700 hover:text-emerald-600"
+                }`
+              }
+            >
+              CONTACT
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/cartpage"
               className={({ isActive }) =>
                 `flex items-center space-x-1 text-sm font-medium transition-colors duration-200 ${
                   isActive
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    ? "text-emerald-600"
+                    : "text-gray-700 hover:text-emerald-600"
                 }`
               }
             >
               <ShoppingCartIcon className="h-5 w-5" />
-              <span className="bg-blue-600 text-white rounded-full px-2 py-0.5 text-xs">
+              <span className="bg-emerald-600 text-white rounded-full px-2 py-0.5 text-xs">
                 {cart?.length || 0}
               </span>
             </NavLink>
@@ -166,7 +197,7 @@ const Navbar = () => {
             <li>
               <NavLink
                 to="/login"
-                className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
+                className="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-emerald-700 transition-colors duration-200"
               >
                 Login
               </NavLink>
@@ -175,7 +206,7 @@ const Navbar = () => {
             <li className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
-                className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                className="flex items-center space-x-2 text-gray-700 hover:text-emerald-600 transition-colors duration-200"
               >
                 <UserIcon className="h-5 w-5" />
               </button>
@@ -228,7 +259,7 @@ const Navbar = () => {
         </ul>
 
         <button
-          className="md:hidden text-gray-700 hover:text-blue-600 transition-colors duration-200"
+          className="md:hidden text-gray-700 hover:text-emerald-600 transition-colors duration-200"
           onClick={() => setShowMobileMenu(!showMobileMenu)}
         >
           {showMobileMenu ? (
@@ -271,7 +302,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/"
-                  className="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                  className="block py-2 text-gray-700 hover:text-emerald-600 transition-colors duration-200"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   HOME
@@ -280,7 +311,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/about"
-                  className="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                  className="block py-2 text-gray-700 hover:text-emerald-600 transition-colors duration-200"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   ABOUT US
@@ -289,7 +320,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/services"
-                  className="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                  className="block py-2 text-gray-700 hover:text-emerald-600 transition-colors duration-200"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   SERVICES
@@ -297,8 +328,17 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
+                  to="/career"
+                  className="block py-2 text-gray-700 hover:text-emerald-600 transition-colors duration-200"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  CAREERS
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/store"
-                  className="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                  className="block py-2 text-gray-700 hover:text-emerald-600 transition-colors duration-200"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   STORE
@@ -310,13 +350,13 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     `flex items-center space-x-1 text-sm font-medium transition-colors duration-200 ${
                       isActive
-                        ? "text-blue-600"
-                        : "text-gray-700 hover:text-blue-600"
+                        ? "text-emerald-600"
+                        : "text-gray-700 hover:text-emerald-600"
                     }`
                   }
                 >
                   <ShoppingCartIcon className="h-5 w-5" />
-                  <span className="bg-blue-600 text-white rounded-full px-2 py-0.5 text-xs">
+                  <span className="bg-emerald-600 text-white rounded-full px-2 py-0.5 text-xs">
                     {cart?.length || 0}
                   </span>
                 </NavLink>
@@ -326,7 +366,7 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/login"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
+                    className="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-emerald-700 transition-colors duration-200"
                   >
                     Login
                   </NavLink>
@@ -335,7 +375,7 @@ const Navbar = () => {
                 <li className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setShowDropdown(!showDropdown)}
-                    className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                    className="flex items-center space-x-2 text-gray-700 hover:text-emerald-600 transition-colors duration-200"
                   >
                     <UserIcon className="h-5 w-5" />
                   </button>
@@ -388,7 +428,7 @@ const Navbar = () => {
             </ul>
 
             <button
-              className="md:hidden text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              className="md:hidden text-gray-700 hover:text-emerald-600 transition-colors duration-200"
               onClick={() => setShowMobileMenu(!showMobileMenu)}
             >
               {showMobileMenu ? (
@@ -424,6 +464,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
+      </div>
     </nav>
   );
 };

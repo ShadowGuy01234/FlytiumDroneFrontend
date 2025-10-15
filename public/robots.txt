@@ -1,0 +1,46 @@
+# robots.txt for FlytiumDrone E-commerce Platform
+
+# Allow all search engines to crawl public pages
+User-agent: *
+Allow: /
+Allow: /store
+Allow: /product/*
+Allow: /category/*
+Allow: /about
+Allow: /contact
+
+# Block private and user-specific pages
+Disallow: /admin/*
+Disallow: /dashboard/*
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /api/*
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile/*
+Disallow: /orders/*
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/*
+Disallow: /dashboard/*
+Disallow: /api/*
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/*
+Disallow: /dashboard/*
+Disallow: /api/*
+
+# Crawl-delay for well-behaved bots (optional)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://www.flytiumdrones.com/sitemap.xml
+
+# Host directive (preferred domain)
+Host: https://www.flytiumdrones.com

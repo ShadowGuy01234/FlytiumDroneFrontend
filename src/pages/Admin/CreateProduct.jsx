@@ -4,7 +4,6 @@ import AdminMenu from "../../components/Layout/AdminMenu";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { API_URL } from "../../api";
-import { motion } from "framer-motion";
 import {
   Search,
   Plus,
@@ -14,6 +13,9 @@ import {
   X,
   Save,
   Image as ImageIcon,
+  Package,
+  DollarSign,
+  Tag,
 } from "lucide-react";
 
 const CreateProduct = () => {
@@ -210,110 +212,182 @@ const CreateProduct = () => {
 
   return (
     <Layout>
-      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 px-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="lg:w-1/4">
+      <div className="min-h-screen bg-slate-950">
+        <div className="flex flex-col lg:flex-row">
+          <div className="lg:w-1/5 bg-slate-900 border-r-2 border-slate-800">
             <AdminMenu />
           </div>
 
-          <div className="lg:w-3/4 space-y-6">
-            {/* Header Section */}
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-gray-900">Products</h2>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setIsModalOpen(true)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors"
-              >
-                <Plus className="w-5 h-5" />
-                Add Product
-              </motion.button>
+          <div className="flex-1 p-8">
+            {/* Header */}
+            <div className="mb-12 pb-8 border-b-2 border-slate-800">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 border-2 border-indigo-600 bg-indigo-600/10">
+                    <Package className="w-8 h-8 text-indigo-400" />
+                  </div>
+                  <div>
+                    <h1 className="text-5xl font-black text-white mb-2">Create Product</h1>
+                    <p className="text-xl text-slate-400">Add new products to inventory</p>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => {
+                    resetForm();
+                    setIsModalOpen(true);
+                  }}
+                  className="group relative px-6 py-4 bg-indigo-600 border-2 border-indigo-600 hover:bg-transparent text-white font-bold overflow-hidden flex items-center gap-3 w-fit"
+                >
+                  <Plus className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">Add Product</span>
+                </button>
+              </div>
             </div>
 
             {/* Search Bar */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
+            <div className="mb-8">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-14 pr-6 py-4 bg-slate-900 border-2 border-slate-800 focus:border-indigo-600 text-white placeholder-slate-500 font-medium outline-none transition-colors"
+                />
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-slate-900 border-2 border-slate-800 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Package className="w-5 h-5 text-indigo-400" />
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Total Products</p>
+                </div>
+                <p className="text-4xl font-black text-white">{products.length}</p>
+              </div>
+              
+              <div className="bg-slate-900 border-2 border-slate-800 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Search className="w-5 h-5 text-cyan-400" />
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Filtered</p>
+                </div>
+                <p className="text-4xl font-black text-white">{filteredProducts.length}</p>
+              </div>
+
+              <div className="bg-slate-900 border-2 border-slate-800 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Tag className="w-5 h-5 text-amber-400" />
+                  <p className="text-sm font-bold uppercase tracking-wider text-slate-400">Categories</p>
+                </div>
+                <p className="text-4xl font-black text-white">{categories.length}</p>
+              </div>
             </div>
 
             {/* Products Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => (
-                <motion.div
-                  key={product._id}
-                  whileHover={{ y: -5 }}
-                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
-                >
-                  <div className="aspect-square overflow-hidden rounded-t-xl">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-4 space-y-2">
-                    <h3 className="font-semibold text-gray-900">
-                      {product.name}
-                    </h3>
-                    <p className="text-blue-600 font-bold">₹{product.price}</p>
-                    <div className="flex justify-between items-center pt-2">
-                      <button
-                        onClick={() => handleEditProduct(product)}
-                        className="text-gray-600 hover:text-blue-600 transition-colors"
-                      >
-                        <Edit2 className="w-5 h-5" />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteProduct(product._id)}
-                        className="text-gray-600 hover:text-red-600 transition-colors"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
+            {filteredProducts.length === 0 ? (
+              <div className="border-2 border-slate-800 bg-slate-900 p-16 text-center">
+                <Package className="w-24 h-24 mx-auto mb-6 text-slate-700" />
+                <h3 className="text-2xl font-black text-white mb-4">
+                  {searchTerm ? 'No Products Found' : 'No Products Yet'}
+                </h3>
+                <p className="text-slate-400 max-w-md mx-auto mb-8">
+                  {searchTerm 
+                    ? 'Try adjusting your search criteria' 
+                    : 'Start by adding your first product'}
+                </p>
+                {!searchTerm && (
+                  <button
+                    onClick={() => {
+                      resetForm();
+                      setIsModalOpen(true);
+                    }}
+                    className="inline-block px-8 py-4 bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
+                  >
+                    Add First Product
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredProducts.map((product) => (
+                  <div
+                    key={product._id}
+                    className="group bg-slate-900 border-2 border-slate-800 hover:border-indigo-600 transition-all"
+                  >
+                    <div className="aspect-square overflow-hidden border-b-2 border-slate-800 bg-slate-800">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-black text-white mb-3 line-clamp-2">
+                        {product.name}
+                      </h3>
+                      <div className="flex items-center justify-between mb-4">
+                        <div>
+                          <p className="text-xs text-slate-500 font-bold uppercase mb-1">Price</p>
+                          <p className="text-2xl font-black text-white">₹{product.price}</p>
+                        </div>
+                        {product.discountedPrice && (
+                          <div className="px-3 py-1 bg-emerald-500/10 border-2 border-emerald-500">
+                            <p className="text-xs font-black text-emerald-400">
+                              {Math.round(((product.price - product.discountedPrice) / product.price) * 100)}% OFF
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex gap-3 pt-4 border-t-2 border-slate-800">
+                        <button
+                          onClick={() => handleEditProduct(product)}
+                          className="flex-1 p-3 border-2 border-cyan-500 bg-cyan-500/10 hover:bg-cyan-500 text-cyan-400 hover:text-white transition-all flex items-center justify-center gap-2"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteProduct(product._id)}
+                          className="flex-1 p-3 border-2 border-red-500 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white transition-all flex items-center justify-center gap-2"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         {/* Modal Form */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-white rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
-            >
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">
+          <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 overflow-y-auto">
+            <div className="bg-slate-900 border-2 border-slate-800 p-8 w-full max-w-2xl my-8">
+              <div className="flex justify-between items-center mb-8 pb-6 border-b-2 border-slate-800">
+                <h3 className="text-3xl font-black text-white">
                   {updateId ? "Update Product" : "Create Product"}
                 </h3>
                 <button
                   onClick={() => setIsModalOpen(false)}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="p-2 border-2 border-slate-700 hover:border-red-500 text-slate-400 hover:text-red-400 transition-colors"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Form fields */}
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
                     Product Name
                   </label>
                   <input
                     type="text"
                     name="name"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-700 focus:border-indigo-600 text-white placeholder-slate-500 font-medium outline-none transition-colors"
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter product name"
@@ -323,46 +397,52 @@ const CreateProduct = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                    <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
                       Regular Price
                     </label>
-                    <input
-                      type="number"
-                      name="price"
-                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      value={formData.price}
-                      onChange={handleInputChange}
-                      placeholder="Enter regular price"
-                      required
-                      min="0"
-                      step="0.01"
-                    />
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <input
+                        type="number"
+                        name="price"
+                        className="w-full pl-12 pr-4 py-3 bg-slate-800 border-2 border-slate-700 focus:border-indigo-600 text-white placeholder-slate-500 font-medium outline-none transition-colors"
+                        value={formData.price}
+                        onChange={handleInputChange}
+                        placeholder="0.00"
+                        required
+                        min="0"
+                        step="0.01"
+                      />
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                    <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
                       Discounted Price (Optional)
                     </label>
-                    <input
-                      type="number"
-                      name="discountedPrice"
-                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      value={formData.discountedPrice}
-                      onChange={handleInputChange}
-                      placeholder="Enter discounted price"
-                      min="0"
-                      step="0.01"
-                    />
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <input
+                        type="number"
+                        name="discountedPrice"
+                        className="w-full pl-12 pr-4 py-3 bg-slate-800 border-2 border-slate-700 focus:border-indigo-600 text-white placeholder-slate-500 font-medium outline-none transition-colors"
+                        value={formData.discountedPrice}
+                        onChange={handleInputChange}
+                        placeholder="0.00"
+                        min="0"
+                        step="0.01"
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
                     Description
                   </label>
                   <textarea
                     name="description"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-700 focus:border-indigo-600 text-white placeholder-slate-500 font-medium outline-none transition-colors resize-none"
                     value={formData.description}
                     onChange={handleInputChange}
                     placeholder="Enter product description"
@@ -372,12 +452,12 @@ const CreateProduct = () => {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
                     Product Image
                   </label>
                   <div className="space-y-4">
                     {(imagePreview || formData.image) && (
-                      <div className="w-full h-48 rounded-lg overflow-hidden bg-gray-100">
+                      <div className="w-full h-48 border-2 border-slate-800 bg-slate-800 overflow-hidden">
                         <img
                           src={imagePreview || formData.image}
                           alt="Preview"
@@ -385,28 +465,34 @@ const CreateProduct = () => {
                         />
                       </div>
                     )}
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center gap-3">
                       <input
                         type="file"
                         accept="image/*"
                         onChange={handleImageUpload}
                         className="hidden"
                         id="image-upload"
+                        disabled={isUploading}
                       />
                       <label
                         htmlFor="image-upload"
-                        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                        className={`flex-1 px-4 py-3 border-2 ${
+                          isUploading 
+                            ? 'border-slate-700 bg-slate-800 text-slate-500 cursor-not-allowed'
+                            : 'border-indigo-600 bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white cursor-pointer'
+                        } font-bold transition-all flex items-center justify-center gap-2`}
                       >
-                        {formData.image ? "Change Image" : "Upload Image"}
+                        <Upload className="w-5 h-5" />
+                        {isUploading ? 'Uploading...' : formData.image ? "Change Image" : "Upload Image"}
                       </label>
-                      {imagePreview && (
+                      {imagePreview && !isUploading && (
                         <button
                           type="button"
                           onClick={() => {
                             setImagePreview("");
                             setFormData((prev) => ({ ...prev, image: "" }));
                           }}
-                          className="px-4 py-2 text-red-600 hover:text-red-700 transition-colors duration-200"
+                          className="px-4 py-3 border-2 border-red-500 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white font-bold transition-all"
                         >
                           Remove
                         </button>
@@ -416,12 +502,12 @@ const CreateProduct = () => {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
                     Category
                   </label>
                   <select
                     name="category"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-slate-800 border-2 border-slate-700 focus:border-indigo-600 text-white font-medium outline-none transition-colors"
                     value={formData.category}
                     onChange={handleInputChange}
                     required
@@ -435,18 +521,22 @@ const CreateProduct = () => {
                   </select>
                 </div>
 
-                <div className="flex justify-end gap-4 pt-4">
+                <div className="flex gap-3 pt-4">
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                    className="flex-1 px-6 py-3 border-2 border-slate-700 hover:border-slate-600 text-slate-400 hover:text-white font-bold transition-colors"
                     disabled={isUploading}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 disabled:bg-blue-300 flex items-center gap-2"
+                    className={`flex-1 px-6 py-3 border-2 font-bold transition-all flex items-center justify-center gap-2 ${
+                      isUploading
+                        ? 'border-slate-700 bg-slate-800 text-slate-500 cursor-not-allowed'
+                        : 'border-indigo-600 bg-indigo-600 hover:bg-transparent text-white'
+                    }`}
                     disabled={isUploading}
                   >
                     {isUploading ? (
@@ -468,7 +558,7 @@ const CreateProduct = () => {
                   </button>
                 </div>
               </form>
-            </motion.div>
+            </div>
           </div>
         )}
       </div>

@@ -3,9 +3,13 @@ import stylesgrid from "./ProductGrid.module.css";
 import styles from "./ProductCard.module.css";
 import toast from "react-hot-toast";
 import { useCart } from "../../../Context/cart";
+import { useAuth } from "../../../Context/auth";
+import { useNavigate } from "react-router-dom";
 
 const ProductGrid = ({ products, isLoading, error }) => {
-  const { cart, setCart } = useCart();
+  const { addToCart, canAccessCart } = useCart();
+  const { auth } = useAuth();
+  const navigate = useNavigate();
 
   console.log(products);
 
@@ -20,26 +24,34 @@ const ProductGrid = ({ products, isLoading, error }) => {
       </div>
     );
   }
-  const AddtoCart = (product) => () => {
-    console.log(product);
 
-    try {
-      setCart([...cart, product]);
-      localStorage.setItem("cart", JSON.stringify([...cart, product]));
-      toast.success("Product Added to Cart", {
-        style: {
-          border: '1px solid #713200',
-          padding: '16px',
-          color: '#713200',
-        },
-        iconTheme: {
-          primary: '#713200',
-          secondary: '#FFFAEE',
-        },
-      });
-    } catch (error) {
-      console.log(error);
-      toast.error("Error adding product to cart");
+  const handleAddToCart = (product) => () => {
+    console.log("Adding product to cart:", product);
+
+    const accessResult = canAccessCart();
+    if (accessResult === null) {
+      toast.error("Please wait, loading...");
+      return;
+    }
+    if (accessResult === false) {
+      toast.error("Please login to add items to cart");
+      navigate("/login");
+      return;
+    }
+
+    // Convert product format to match our cart system
+    const cartProduct = {
+      _id: product.id || product._id,
+      name: product.name,
+      price: product.discount || product.price,
+      image: product.image,
+      description: product.description || "",
+      quantity: 1
+    };
+
+    const success = addToCart(cartProduct, 1);
+    if (!success) {
+      console.error("Failed to add product to cart");
     }
   };
 
@@ -90,7 +102,7 @@ const ProductGrid = ({ products, isLoading, error }) => {
           </div>
 
           <div className={styles.buttons}>
-            <button className={styles.buyButton} onClick={AddtoCart(product)}>
+            <button className={styles.buyButton} onClick={handleAddToCart(product)}>
               Add to Cart
             </button>
             <button

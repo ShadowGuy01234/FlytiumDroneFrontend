@@ -1,127 +1,250 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Clock, Check } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import axios from "axios";
 import { API_URL } from "../../../api";
 import toast from "react-hot-toast";
 
 const ProductAdCard = () => {
-  const [product, setProduct] = useState(null); // State for product data
+  const [ads, setAds] = useState([]);
+  const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const getProduct = async () => {
+  const getAds = async () => {
     try {
       const { data } = await axios.get(`${API_URL}/api/ad/get-ads`);
-      if (data?.success) {
-        setProduct(data.ads[0]);  // Assuming you want the first ad
+      if (data?.success && data.ads?.length > 0) {
+        setAds(data.ads);
       }
     } catch (error) {
       console.error(error);
-      toast.error("Failed to load product");
+      toast.error("Failed to load ads");
     }
   };
 
+  const handleNext = () => {
+    if (isTransitioning || ads.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentAdIndex((prev) => (prev + 1) % ads.length);
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  const handlePrev = () => {
+    if (isTransitioning || ads.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentAdIndex((prev) => (prev === 0 ? ads.length - 1 : prev - 1));
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  // Auto-change ads every 6 seconds
   useEffect(() => {
-    getProduct();
+    if (ads.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentAdIndex((prev) => (prev + 1) % ads.length);
+      }, 6000);
+      return () => clearInterval(interval);
+    }
+  }, [ads.length]);
+
+  // Load ads on component mount
+  useEffect(() => {
+    getAds();
   }, []);
 
-  if (!product) {
-    return (
-      <div className="min-h-[400px] flex items-center justify-center">
-        <div className="animate-pulse text-gray-500">Loading...</div>
-      </div>
-    );
-  }
+  // Don't render if no ads
+  if (!ads.length) return null;
+
+  const currentAd = ads[currentAdIndex];
 
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white py-12 sm:py-24">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden"
-        >
-          <div className="grid md:grid-cols-2 gap-8 p-6 sm:p-8 lg:p-12">
-            {/* Content Section */}
-            <div className="space-y-6 order-2 md:order-1">
-              <div className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-medium">
-                <Clock className="w-4 h-4 mr-2" />
-                Limited Time Offer
+    <section className="py-20 bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header with navigation */}
+        <div className="mb-16">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="relative">
+              {/* Large number background */}
+              <div className="absolute -left-4 -top-8 text-[180px] font-black text-gray-100 leading-none select-none pointer-events-none z-0">
+                {String(currentAdIndex + 1).padStart(2, '0')}
               </div>
-
-              <div className="space-y-3">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-                {product.title}
-                </h2>
-                <p className="text-2xl sm:text-3xl font-bold text-blue-600">
-                ₹{product.price}
-                </p>
-              </div>
-
-              <p className="text-base sm:text-lg text-gray-600">
-                {product.description}
-              </p>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Key Features
-                </h3>
-                <div className="grid sm:grid-cols-2 gap-3">
-                {Array.isArray(product.features) && product.features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center text-yellow-700 bg-yellow-100 p-3 rounded-lg"
-                    >
-                      <Check className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0" />
-                      <span className="text-sm sm:text-base">{feature}</span>
-                    </div>
-                  ))}
+              
+              <div className="relative z-20">
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <div className="h-px w-12 bg-gray-900"></div>
+                  <span className="text-sm font-medium tracking-[0.2em] uppercase text-gray-600">
+                    {currentAd.badge || "Featured"}
+                  </span>
                 </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                <motion.a
-                  href="/learn-more"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-6 sm:px-8 py-3 sm:py-4 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors text-center"
-                >
-                  Learn More
-                </motion.a>
-                <motion.a
-                  href="/order-now"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-                >
-                  Order Now
-                  <ArrowRight className="w-5 h-5" />
-                </motion.a>
+                <h2 className="text-6xl lg:text-7xl font-black text-gray-900 tracking-tight">
+                  Offers
+                </h2>
               </div>
             </div>
 
-            {/* Image Section */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="relative order-1 md:order-2"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur-3xl"></div>
-              <motion.div className="relative aspect-square sm:aspect-[4/3] md:aspect-square lg:aspect-[4/3] w-full max-w-lg mx-auto">
-                <motion.img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-full object-contain"
-                  whileHover={{ scale: 1.05, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                />
-              </motion.div>
-            </motion.div>
+            {/* Navigation with counter */}
+            {ads.length > 1 && (
+              <div className="flex items-center gap-6 relative z-50 pointer-events-auto">
+                <div className="text-right pointer-events-none">
+                  <div className="text-4xl font-bold text-gray-900">
+                    {String(currentAdIndex + 1).padStart(2, '0')}
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    / {String(ads.length).padStart(2, '0')}
+                  </div>
+                </div>
+                <div className="flex gap-2 pointer-events-auto">
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    disabled={isTransitioning}
+                    className="w-14 h-14 border-2 border-gray-900 text-gray-900 flex items-center justify-center hover:bg-gray-900 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed group cursor-pointer relative z-50"
+                    aria-label="Previous"
+                  >
+                    <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5 pointer-events-none" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    disabled={isTransitioning}
+                    className="w-14 h-14 bg-gray-900 text-white flex items-center justify-center hover:bg-gray-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed group cursor-pointer relative z-50"
+                    aria-label="Next"
+                  >
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 pointer-events-none" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Main Content */}
+        <div className="relative">
+          {ads.map((ad, index) => (
+            <div
+              key={ad._id || index}
+              className={`transition-all duration-700 ${
+                index === currentAdIndex
+                  ? 'opacity-100 relative'
+                  : 'opacity-0 absolute inset-0 pointer-events-none'
+              }`}
+            >
+              <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                {/* Content Side */}
+                <div className="lg:col-span-5 space-y-8">
+                  {/* Title with accent line */}
+                  <div>
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className="flex-shrink-0 w-1 h-24 bg-gradient-to-b from-emerald-500 via-blue-500 to-purple-500"></div>
+                      <h3 className="text-4xl lg:text-5xl font-black text-gray-900 leading-[0.95] tracking-tight">
+                        {ad.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  {ad.description && (
+                    <p className="text-lg text-gray-600 leading-relaxed font-light">
+                      {ad.description}
+                    </p>
+                  )}
+
+                  {/* Features */}
+                  {Array.isArray(ad.features) && ad.features.length > 0 && (
+                    <div className="space-y-4 pt-4">
+                      {ad.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-start gap-4 group">
+                          <div className="flex-shrink-0 mt-2">
+                            <div className="w-6 h-px bg-gray-900 group-hover:w-12 transition-all duration-300"></div>
+                          </div>
+                          <span className="text-gray-700 font-medium">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Discount Badge */}
+                  {ad.discount && (
+                    <div className="inline-block border-2 border-gray-900 px-6 py-3">
+                      <span className="text-2xl font-black text-gray-900">
+                        {ad.discount}% OFF
+                      </span>
+                    </div>
+                  )}
+
+                  {/* CTA Button */}
+                  <div className="pt-4">
+                    <button className="group relative px-10 py-5 bg-gray-900 text-white font-bold tracking-wider uppercase text-sm overflow-hidden">
+                      <span className="relative z-10 flex items-center gap-3">
+                        {ad.buttonText || "Shop Now"}
+                        <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Image Side */}
+                <div className="lg:col-span-7 relative group">
+                  <div className="relative">
+                    {/* Decorative corner elements */}
+                    <div className="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2 border-gray-900 z-10"></div>
+                    <div className="absolute -bottom-4 -right-4 w-12 h-12 border-r-2 border-b-2 border-gray-900 z-10"></div>
+                    
+                    <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
+                      <img
+                        src={ad.image}
+                        alt={ad.title}
+                        className="w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      
+                      {/* Gradient overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Progress Bars */}
+        {ads.length > 1 && (
+          <div className="mt-16 space-y-3">
+            {ads.map((ad, index) => (
+              <div key={index} className="flex items-center gap-4 group">
+                <button
+                  onClick={() => {
+                    if (!isTransitioning) {
+                      setIsTransitioning(true);
+                      setCurrentAdIndex(index);
+                      setTimeout(() => setIsTransitioning(false), 700);
+                    }
+                  }}
+                  disabled={isTransitioning}
+                  className="text-sm font-bold text-gray-400 hover:text-gray-900 transition-colors disabled:cursor-not-allowed"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </button>
+                <div className="flex-1 h-px bg-gray-200 relative overflow-hidden">
+                  <div 
+                    className={`absolute inset-y-0 left-0 bg-gray-900 transition-all duration-1000 ${
+                      index === currentAdIndex ? 'w-full' : 'w-0'
+                    }`}
+                  />
+                </div>
+                <div className="text-xs text-gray-400 uppercase tracking-wider max-w-[200px] truncate">
+                  {ad.title}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
       </div>
-    </div>
+    </section>
   );
 };
 
