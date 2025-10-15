@@ -2,11 +2,11 @@ import { Helmet } from "react-helmet-async";
 import PropTypes from "prop-types";
 
 const SEO = ({
-  title = "Flytium Drones | Drone Training, Workshops, Repair & E-Commerce",
-  description = "Flytium Drones offers professional drone training, DGCA drone pilot workshops, drone repair services, and e-commerce for drone & IoT components in India.",
-  keywords = "drone training, DGCA certified, drone workshop, drone repair, buy drones India",
-  image = "https://res.cloudinary.com/dhkpwi9ga/image/upload/v1735826340/gs8gxkiomuxgn6ndjjys.png",
-  url = "https://flytiumdrones.com",
+  title = "FlytiumDrone - Premium Drone Store",
+  description = "Your premier destination for high-quality drones, parts, and accessories. Shop the latest drone technology.",
+  keywords = "drones, quadcopters, drone parts, FPV drones, camera drones",
+  image = "https://www.flytiumdrones.com/og-image.jpg",
+  url = "https://www.flytiumdrones.com",
   type = "website",
   author = "Flytium Drones Pvt Ltd",
   twitterHandle = "@FlytiumDrone",
@@ -16,7 +16,7 @@ const SEO = ({
   tags = [],
   noIndex = false,
 }) => {
-  const baseUrl = "https://flytiumdrones.com";
+  const baseUrl = "https://www.flytiumdrones.com";
   const canonicalUrl = url.startsWith("http") ? url : `${baseUrl}${url}`;
 
   // Generate structured data for organization

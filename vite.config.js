@@ -7,24 +7,19 @@ export default defineConfig({
 
   // Build optimization for SEO and performance
   build: {
-    // Enable minification
-    minify: "esbuild",
-
-    // Code splitting for better caching
+    outDir: "dist",
+    sourcemap: false, // Disable source maps in production
+    minify: "terser",
     rollupOptions: {
       output: {
         manualChunks: {
-          "react-vendor": ["react", "react-dom", "react-router-dom"],
-          "ui-vendor": ["framer-motion", "@mui/material"],
+          vendor: ["react", "react-dom", "react-router-dom"],
+          ui: ["framer-motion", "react-icons", "react-hot-toast"],
         },
       },
     },
-
     // Chunk size warnings
     chunkSizeWarningLimit: 1000,
-
-    // Source maps for debugging (disable in production)
-    sourcemap: false,
   },
 
   // Server configuration

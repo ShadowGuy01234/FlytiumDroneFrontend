@@ -6,7 +6,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://flytiumdrones.com/</loc>
+    <loc>https://www.flytiumdrones.com/</loc>
     <lastmod>2025-10-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
   <!-- Store Page -->
   <url>
-    <loc>https://flytiumdrones.com/store</loc>
+    <loc>https://www.flytiumdrones.com/store</loc>
     <lastmod>2025-10-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -22,7 +22,7 @@
 
   <!-- About Page -->
   <url>
-    <loc>https://flytiumdrones.com/about</loc>
+    <loc>https://www.flytiumdrones.com/about</loc>
     <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -30,10 +30,26 @@
 
   <!-- Contact Page -->
   <url>
-    <loc>https://flytiumdrones.com/contact</loc>
+    <loc>https://www.flytiumdrones.com/contact</loc>
     <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- Services Page -->
+  <url>
+    <loc>https://www.flytiumdrones.com/services</loc>
+    <lastmod>2025-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Career Page -->
+  <url>
+    <loc>https://www.flytiumdrones.com/career</loc>
+    <lastmod>2025-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <!-- Note: Product pages will be dynamically added via backend API -->
