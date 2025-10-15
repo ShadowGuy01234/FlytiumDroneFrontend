@@ -316,7 +316,7 @@ const ManageHero = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-bold text-slate-300 mb-2">
-                    Button Text
+                    Text on Button
                   </label>
                   <input
                     type="text"
@@ -336,7 +336,7 @@ const ManageHero = () => {
                     value={formData.buttonLink}
                     onChange={(e) => setFormData({ ...formData, buttonLink: e.target.value })}
                     className="w-full px-4 py-3 bg-slate-950 border-2 border-slate-800 text-white placeholder-slate-500 focus:border-indigo-600 focus:outline-none transition-colors"
-                    placeholder="/products"
+                    placeholder="Link to the destination page"
                   />
                 </div>
               </div>
