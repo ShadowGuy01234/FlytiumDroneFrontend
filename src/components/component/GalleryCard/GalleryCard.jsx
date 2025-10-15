@@ -9,7 +9,7 @@ const GalleryCard = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [loading, setLoading] = useState(true);
-  
+
   const containerRef = useRef(null);
 
   // Fetch hero data from API
@@ -22,10 +22,10 @@ const GalleryCard = () => {
       const { data } = await axios.get(`${API_URL}/api/hero`);
       if (data.success && data.heros?.length > 0) {
         const activeHeroes = data.heros
-          .filter(hero => hero.isActive)
+          .filter((hero) => hero.isActive)
           .sort((a, b) => a.order - b.order);
-        
-        const transformedData = activeHeroes.map(hero => ({
+
+        const transformedData = activeHeroes.map((hero) => ({
           id: hero._id,
           src: hero.image,
           category: hero.category,
@@ -34,9 +34,9 @@ const GalleryCard = () => {
           buttonText: hero.buttonText,
           buttonLink: hero.buttonLink,
           features: hero.features,
-          stats: hero.stats
+          stats: hero.stats,
         }));
-        
+
         setExperiences(transformedData);
       }
     } catch (error) {
@@ -51,7 +51,7 @@ const GalleryCard = () => {
     setIsTransitioning(true);
     setCurrentIndex((prev) => {
       const next = (prev + 1) % experiences.length;
-      console.log('Next clicked - Current:', prev, 'Next:', next);
+      console.log("Next clicked - Current:", prev, "Next:", next);
       return next;
     });
     setTimeout(() => setIsTransitioning(false), 700);
@@ -62,7 +62,7 @@ const GalleryCard = () => {
     setIsTransitioning(true);
     setCurrentIndex((prev) => {
       const previous = prev === 0 ? experiences.length - 1 : prev - 1;
-      console.log('Prev clicked - Current:', prev, 'Previous:', previous);
+      console.log("Prev clicked - Current:", prev, "Previous:", previous);
       return previous;
     });
     setTimeout(() => setIsTransitioning(false), 700);
@@ -71,7 +71,7 @@ const GalleryCard = () => {
   const goToSlide = (index) => {
     if (isTransitioning || index === currentIndex) return;
     setIsTransitioning(true);
-    console.log('Go to slide:', index);
+    console.log("Go to slide:", index);
     setCurrentIndex(index);
     setTimeout(() => setIsTransitioning(false), 700);
   };
@@ -79,7 +79,7 @@ const GalleryCard = () => {
   // Auto-play functionality
   useEffect(() => {
     if (experiences.length <= 1) return;
-    
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % experiences.length);
     }, 6000);
@@ -112,16 +112,19 @@ const GalleryCard = () => {
   }
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
     >
       {/* Subtle geometric patterns */}
       <div className="absolute inset-0 opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+          }}
+        />
       </div>
 
       <Container>
@@ -131,9 +134,9 @@ const GalleryCard = () => {
             <div className="relative z-10">
               {/* Large number background */}
               <div className="absolute -left-4 -top-8 text-[180px] font-black text-gray-100 leading-none select-none pointer-events-none z-0">
-                {String(currentIndex + 1).padStart(2, '0')}
+                {String(currentIndex + 1).padStart(2, "0")}
               </div>
-              
+
               <div className="relative z-20">
                 <div className="inline-flex items-center gap-3 mb-4">
                   <div className="h-px w-12 bg-gray-900"></div>
@@ -152,10 +155,10 @@ const GalleryCard = () => {
               <div className="flex items-center gap-6 relative z-50 pointer-events-auto">
                 <div className="text-right pointer-events-none">
                   <div className="text-4xl font-bold text-gray-900">
-                    {String(currentIndex + 1).padStart(2, '0')}
+                    {String(currentIndex + 1).padStart(2, "0")}
                   </div>
                   <div className="text-sm text-gray-400">
-                    / {String(experiences.length).padStart(2, '0')}
+                    / {String(experiences.length).padStart(2, "0")}
                   </div>
                 </div>
                 <div className="flex gap-2 pointer-events-auto">
@@ -198,8 +201,8 @@ const GalleryCard = () => {
               key={experience.id}
               className={`transition-all duration-700 ${
                 index === currentIndex
-                  ? 'opacity-100 relative'
-                  : 'opacity-0 absolute inset-0 pointer-events-none'
+                  ? "opacity-100 relative"
+                  : "opacity-0 absolute inset-0 pointer-events-none"
               }`}
             >
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
@@ -210,15 +213,15 @@ const GalleryCard = () => {
                     {/* Decorative corner elements */}
                     <div className="absolute -top-4 -left-4 w-12 h-12 border-l-2 border-t-2 border-gray-900 z-10"></div>
                     <div className="absolute -bottom-4 -right-4 w-12 h-12 border-r-2 border-b-2 border-gray-900 z-10"></div>
-                    
-                    <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
+
+                    <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative flex items-center justify-center">
                       <img
                         src={experience.src}
                         alt={experience.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
                       />
-                      
+
                       {/* Gradient overlay on hover */}
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
@@ -297,7 +300,9 @@ const GalleryCard = () => {
                           <div className="flex-shrink-0 mt-2">
                             <div className="w-6 h-px bg-gray-900 group-hover:w-12 transition-all duration-300"></div>
                           </div>
-                          <span className="text-gray-700 font-medium">{feature}</span>
+                          <span className="text-gray-700 font-medium">
+                            {feature}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -335,12 +340,12 @@ const GalleryCard = () => {
                   disabled={isTransitioning}
                   className="text-sm font-bold text-gray-400 hover:text-gray-900 transition-colors disabled:cursor-not-allowed"
                 >
-                  {String(index + 1).padStart(2, '0')}
+                  {String(index + 1).padStart(2, "0")}
                 </button>
                 <div className="flex-1 h-px bg-gray-200 relative overflow-hidden">
-                  <div 
+                  <div
                     className={`absolute inset-y-0 left-0 bg-gray-900 transition-all duration-1000 ${
-                      index === currentIndex ? 'w-full' : 'w-0'
+                      index === currentIndex ? "w-full" : "w-0"
                     }`}
                   />
                 </div>
