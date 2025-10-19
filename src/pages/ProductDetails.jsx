@@ -252,13 +252,7 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 border-l-4 border-gray-900 pl-4 py-2">
-                <ShieldCheck className="w-6 h-6 flex-shrink-0 mt-1" />
-                <div>
-                  <p className="font-bold text-gray-900">30-Day Returns</p>
-                  <p className="text-sm text-gray-600">Hassle-free return policy</p>
-                </div>
-              </div>
+              
 
               <div className="flex items-start gap-4 border-l-4 border-gray-900 pl-4 py-2">
                 <Package className="w-6 h-6 flex-shrink-0 mt-1" />

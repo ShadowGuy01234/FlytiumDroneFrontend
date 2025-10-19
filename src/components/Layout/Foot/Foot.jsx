@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Logo and Name */}
           <div className="flex items-center mb-4 md:mb-0">
             <img src="/logo.png" alt="Logo" className="h-10 w-10 mr-3" />
-            <span className="text-xl font-bold">Flytium</span>
+            <span className="text-xl font-bold">Flytium Drones</span>
           </div>
 
           {/* Links */}
@@ -50,7 +50,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-blue-600 transition-colors"
                   >
-                    Github
+                    Instagram
                   </a>
                 </li>
                 <li>
@@ -101,18 +101,10 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="mt-6 border-t pt-4 flex flex-col md:flex-row justify-between items-center text-gray-500">
-          <p>© {new Date().getFullYear()} Flytium™. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Flytium Drones™. All rights reserved.</p>
 
           {/* Social Media Icons */}
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
-            <a
-              href="https://facebook.com/flytium"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 transition-colors"
-            >
-              <Facebook className="w-5 h-5" />
-            </a>
             <a
               href="https://instagram.com/flytium"
               target="_blank"
@@ -129,14 +121,7 @@ const Footer = () => {
             >
               <Twitter className="w-5 h-5" />
             </a>
-            <a
-              href="https://github.com/flytium"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 transition-colors"
-            >
-              <Github className="w-5 h-5" />
-            </a>
+            
             <a
               href="https://linkedin.com/company/flytium"
               target="_blank"

@@ -3,6 +3,7 @@ import Container from '../../ui/Container';
 
 const ImageSlider = () => {
   const scrollerRef = useRef(null);
+  const [isPaused, setIsPaused] = React.useState(false);
 
   const cards = [
     {
@@ -75,7 +76,12 @@ const ImageSlider = () => {
       </Container>
 
       {/* Infinite Scrolling Cards */}
-      <div className="relative w-full overflow-hidden" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
+      <div 
+        className="relative w-full overflow-hidden" 
+        style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         <div
           ref={scrollerRef}
           className="flex gap-6 py-6 animate-infinite-scroll"
@@ -85,6 +91,7 @@ const ImageSlider = () => {
             width: 'fit-content',
             minWidth: '100vw',
             willChange: 'transform',
+            animationPlayState: isPaused ? 'paused' : 'running',
           }}
         >
           {duplicatedCards.map((card, index) => (

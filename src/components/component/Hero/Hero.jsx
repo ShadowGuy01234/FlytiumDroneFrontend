@@ -121,7 +121,7 @@ const Hero = ({ handleOrderPopup }) => {
             </button>
             
             <button className="px-10 py-5 border border-gray-200 text-gray-900 font-medium hover:border-gray-900 transition-colors">
-              View Specs
+              View Products
             </button>
           </div>
         </div>
