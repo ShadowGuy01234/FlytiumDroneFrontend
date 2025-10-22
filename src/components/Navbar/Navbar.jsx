@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../Context/auth";
 import { useCart } from "../../Context/cart";
 import { motion, AnimatePresence } from "framer-motion";
@@ -20,6 +20,7 @@ const Navbar = () => {
   const { auth, setAuth } = useAuth();
   const { getCartCount, canAccessCart } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     setAuth({
@@ -61,16 +62,55 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-              >
-                {item.name}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="relative px-4 py-2 group"
+                >
+                  <span className={`relative z-10 font-medium transition-colors duration-300 ${
+                    isActive ? 'text-white' : 'text-gray-700 group-hover:text-blue-600'
+                  }`}>
+                    {item.name}
+                  </span>
+                  
+                  {/* Animated background for active state */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="navbar-active-bg"
+                      className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg shadow-lg"
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 350, 
+                        damping: 30 
+                      }}
+                    />
+                  )}
+                  
+                  {/* Hover effect for non-active items */}
+                  {!isActive && (
+                    <motion.div
+                      className="absolute inset-0 bg-gray-100 rounded-lg opacity-0 group-hover:opacity-100"
+                      transition={{ duration: 0.2 }}
+                    />
+                  )}
+                  
+                  {/* Animated underline indicator */}
+                  <motion.div
+                    className="absolute -bottom-1 left-1/2 h-0.5 bg-blue-600"
+                    initial={false}
+                    animate={{
+                      width: isActive ? "70%" : "0%",
+                      x: "-50%",
+                    }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  />
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right Side - Cart, User Menu, Mobile Menu */}
@@ -220,17 +260,61 @@ const Navbar = () => {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden border-t border-gray-200"
             >
-              <div className="py-4 space-y-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+              <div className="py-4 space-y-1 px-2">
+                {navItems.map((item) => {
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <motion.div
+                      key={item.name}
+                      initial={false}
+                      animate={{
+                        scale: isActive ? 1 : 1,
+                      }}
+                      className="relative overflow-hidden rounded-lg"
+                    >
+                      <Link
+                        to={item.path}
+                        className={`relative block px-4 py-3 transition-all duration-300 ${
+                          isActive 
+                            ? 'text-white font-semibold' 
+                            : 'text-gray-700 hover:text-blue-600'
+                        }`}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <span className="relative z-10">{item.name}</span>
+                        
+                        {/* Active background with gradient */}
+                        {isActive && (
+                          <motion.div
+                            layoutId="mobile-navbar-active"
+                            className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg"
+                            initial={false}
+                            transition={{ 
+                              type: "spring", 
+                              stiffness: 300, 
+                              damping: 30 
+                            }}
+                          />
+                        )}
+                        
+                        {/* Hover background for non-active */}
+                        {!isActive && (
+                          <div className="absolute inset-0 bg-gray-50 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-200" />
+                        )}
+                        
+                        {/* Left accent bar for active */}
+                        {isActive && (
+                          <motion.div
+                            initial={{ height: 0 }}
+                            animate={{ height: "100%" }}
+                            className="absolute left-0 top-0 w-1 bg-white rounded-r"
+                            transition={{ duration: 0.3 }}
+                          />
+                        )}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
                 
                 {!auth?.user && (
                   <div className="px-4 py-2 space-y-2">

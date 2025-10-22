@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Play, Pause, Volume2, VolumeX, ArrowRight } from "lucide-react";
 import Container from "../../ui/Container";
+import { Link } from "react-router-dom";
 
 const VideoCard = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -136,6 +137,7 @@ const VideoCard = () => {
 
             {/* CTA Button */}
             <div className="pt-4">
+            <Link to="/store">
               <button className="group relative px-8 py-4 bg-gray-900 text-white font-bold tracking-wider uppercase text-sm overflow-hidden">
                 <span className="relative z-10 flex items-center gap-3">
                   View Products
@@ -143,6 +145,7 @@ const VideoCard = () => {
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
               </button>
+            </Link>
             </div>
           </div>
 
