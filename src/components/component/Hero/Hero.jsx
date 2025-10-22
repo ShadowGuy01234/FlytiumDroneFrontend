@@ -119,10 +119,6 @@ const Hero = ({ handleOrderPopup }) => {
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             </button>
-            
-            <button className="px-10 py-5 border border-gray-200 text-gray-900 font-medium hover:border-gray-900 transition-colors">
-              View Products
-            </button>
           </div>
         </div>
 

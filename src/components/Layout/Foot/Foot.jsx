@@ -45,7 +45,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="https://github.com/flytium"
+                    href="https://www.instagram.com/flytiumdrones?igsh=MTdyNTJoMWZranprNA=="
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-blue-600 transition-colors"
@@ -55,7 +55,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="https://linkedin.com/company/flytium"
+                    href="https://www.linkedin.com/company/105167305/admin/settings/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-blue-600 transition-colors"
@@ -106,7 +106,7 @@ const Footer = () => {
           {/* Social Media Icons */}
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <a
-              href="https://instagram.com/flytium"
+              href="https://www.instagram.com/flytiumdrones?igsh=MTdyNTJoMWZranprNA=="
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue-600 transition-colors"
@@ -114,16 +114,7 @@ const Footer = () => {
               <Instagram className="w-5 h-5" />
             </a>
             <a
-              href="https://twitter.com/flytium"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 transition-colors"
-            >
-              <Twitter className="w-5 h-5" />
-            </a>
-            
-            <a
-              href="https://linkedin.com/company/flytium"
+              href="https://www.linkedin.com/company/flytium-drone/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue-600 transition-colors"

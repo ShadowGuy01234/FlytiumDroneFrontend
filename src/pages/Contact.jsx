@@ -135,7 +135,7 @@ const Contact = () => {
                       <div>
                         <h3 className="text-sm font-bold uppercase tracking-wider text-gray-600 mb-2">Email</h3>
                         <p className="text-lg text-gray-900 font-medium">
-                          info@flytiumdrones.com
+                          flytiumdrones@gmail.com
                         </p>
                         <p className="text-sm text-gray-600 mt-1">We'll respond within 24 hours</p>
                       </div>

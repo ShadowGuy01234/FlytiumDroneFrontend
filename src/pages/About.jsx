@@ -54,7 +54,7 @@ const About = () => {
             <div className="lg:col-span-8 space-y-12">
               <div className="space-y-6">
                 <p className="text-3xl font-light text-gray-900 leading-relaxed border-l-2 border-gray-900 pl-8">
-                  Flytium Drone is not just a company—<br />
+                  FlytiumDrones is not just a company—<br />
                   it's a movement.
                 </p>
 

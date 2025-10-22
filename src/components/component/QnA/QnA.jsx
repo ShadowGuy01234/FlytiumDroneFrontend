@@ -42,22 +42,22 @@ const FAQSection = () => {
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      info: "+91 6307193440",
-      action: "https://wa.me/916307193440",
+      info: "+91 9236993440",
+      action: "https://wa.me/9236993440",
       color: "emerald"
     },
     {
       icon: Phone,
       title: "Call Us",
-      info: "+91 6307193440",
-      action: "tel:+916307193440",
+      info: "+91 9236993440",
+      action: "tel:+919236993440",
       color: "blue"
     },
     {
       icon: Mail,
       title: "Email",
-      info: "support@flytium.com",
-      action: "mailto:support@flytium.com",
+      info: "flytiumdrones@gmail.com",
+      action: "mailto:flytiumdrones@gmail.com",
       color: "purple"
     }
   ];
