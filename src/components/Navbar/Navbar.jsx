@@ -46,13 +46,17 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 flex justify-center px-4 pt-4 pointer-events-none">
-      <div className="w-full max-w-6xl rounded-[2.5rem] border border-white/15 bg-slate-950/40 px-4 py-3 shadow-[0_18px_45px_rgba(8,47,73,0.35)] backdrop-blur-2xl transition-all duration-300 supports-[backdrop-filter]:bg-slate-950/55 pointer-events-auto">
-        <div className="flex min-h-[64px] items-center justify-between gap-4 md:gap-6">
+    <nav className="fixed left-0 right-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-4 sm:pt-4 pointer-events-none">
+      <div className="w-full max-w-6xl rounded-[2rem] border border-white/15 bg-slate-950/50 px-3 py-2 shadow-[0_18px_45px_rgba(8,47,73,0.35)] backdrop-blur-2xl transition-all duration-300 supports-[backdrop-filter]:bg-slate-950/60 pointer-events-auto sm:rounded-[2.5rem] sm:px-4 sm:py-3">
+        <div className="flex min-h-[56px] items-center justify-between gap-3 md:min-h-[64px] md:gap-6">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <img src="/logo.png" alt="Flytium Drones" className="h-10 w-auto" />
-            <span className="text-xl font-semibold tracking-wide text-white drop-shadow">
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
+            <img
+              src="/logo.png"
+              alt="Flytium Drones"
+              className="h-8 w-auto sm:h-10"
+            />
+            <span className="text-lg font-semibold tracking-wide text-white drop-shadow sm:text-xl">
               Flytium Drones
             </span>
           </Link>
@@ -114,7 +118,7 @@ const Navbar = () => {
           </div>
 
           {/* Right Side - Cart, User Menu, Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Cart Icon */}
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -225,7 +229,7 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="hidden items-center space-x-2 sm:flex">
                 <Link
                   to="/login"
                   className="font-medium text-slate-100/80 transition-colors hover:text-white"
@@ -244,7 +248,7 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden rounded-full p-2 text-slate-100/80 transition-colors hover:bg-white/10 hover:text-white"
+              className="flex rounded-full p-2 text-slate-100/90 transition-colors hover:bg-white/10 hover:text-white md:hidden"
             >
               {isOpen ? (
                 <FiX className="w-6 h-6" />
@@ -262,7 +266,7 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-3 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 px-2 py-3 backdrop-blur-2xl supports-[backdrop-filter]:bg-slate-900/60"
+              className="md:hidden mt-3 overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-900/75 px-2 py-3 backdrop-blur-2xl supports-[backdrop-filter]:bg-slate-900/65"
             >
               <div className="space-y-1">
                 {navItems.map((item) => {
