@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import PropTypes from "prop-types";
 
 const SEO = ({
-  title = "FlytiumDrone - Premium Drone Store",
+  title = "Flytium Drones",
   description = "Your premier destination for high-quality drones, parts, and accessories. Shop the latest drone technology.",
   keywords = "drones, quadcopters, drone parts, FPV drones, camera drones",
   image = "https://www.flytiumdrones.com/og-image.jpg",
@@ -49,7 +49,7 @@ const SEO = ({
   return (
     <Helmet>
       {/* Primary Meta Tags */}
-      <title>{title}</title>
+      <title>{title || "Flytium Drones"}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
