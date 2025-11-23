@@ -11,7 +11,7 @@ import {
   FiMenu,
   FiX,
   FiHeart,
-  FiPackage
+  FiPackage,
 } from "react-icons/fi";
 
 const Navbar = () => {
@@ -46,17 +46,17 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
+    <nav className="fixed left-0 right-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-4 sm:pt-4 pointer-events-none">
+      <div className="w-full max-w-6xl rounded-[2rem] border border-white/15 bg-slate-950/50 px-3 py-2 shadow-[0_18px_45px_rgba(8,47,73,0.35)] backdrop-blur-2xl transition-all duration-300 supports-[backdrop-filter]:bg-slate-950/60 pointer-events-auto sm:rounded-[2.5rem] sm:px-4 sm:py-3">
+        <div className="flex min-h-[56px] items-center justify-between gap-3 md:min-h-[64px] md:gap-6">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
             <img
               src="/logo.png"
               alt="Flytium Drones"
-              className="h-10 w-auto"
+              className="h-8 w-auto sm:h-10"
             />
-            <span className="text-xl font-bold text-gray-800">
+            <span className="text-lg font-semibold tracking-wide text-white drop-shadow sm:text-xl">
               Flytium Drones
             </span>
           </Link>
@@ -71,36 +71,40 @@ const Navbar = () => {
                   to={item.path}
                   className="relative px-4 py-2 group"
                 >
-                  <span className={`relative z-10 font-medium transition-colors duration-300 ${
-                    isActive ? 'text-white' : 'text-gray-700 group-hover:text-blue-600'
-                  }`}>
+                  <span
+                    className={`relative z-10 font-medium tracking-wide transition-colors duration-300 ${
+                      isActive
+                        ? "text-white"
+                        : "text-slate-100/80 group-hover:text-white"
+                    }`}
+                  >
                     {item.name}
                   </span>
-                  
+
                   {/* Animated background for active state */}
                   {isActive && (
                     <motion.div
                       layoutId="navbar-active-bg"
-                      className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg shadow-lg"
-                      transition={{ 
-                        type: "spring", 
-                        stiffness: 350, 
-                        damping: 30 
+                      className="absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-500/80 to-cyan-400/80 shadow-[0_10px_30px_rgba(16,185,129,0.35)]"
+                      transition={{
+                        type: "spring",
+                        stiffness: 350,
+                        damping: 30,
                       }}
                     />
                   )}
-                  
+
                   {/* Hover effect for non-active items */}
                   {!isActive && (
                     <motion.div
-                      className="absolute inset-0 bg-gray-100 rounded-lg opacity-0 group-hover:opacity-100"
+                      className="absolute inset-0 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100"
                       transition={{ duration: 0.2 }}
                     />
                   )}
-                  
+
                   {/* Animated underline indicator */}
                   <motion.div
-                    className="absolute -bottom-1 left-1/2 h-0.5 bg-blue-600"
+                    className="absolute -bottom-1 left-1/2 h-0.5 bg-emerald-400"
                     initial={false}
                     animate={{
                       width: isActive ? "70%" : "0%",
@@ -114,7 +118,7 @@ const Navbar = () => {
           </div>
 
           {/* Right Side - Cart, User Menu, Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Cart Icon */}
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -135,14 +139,14 @@ const Navbar = () => {
                     navigate("/login");
                   }
                 }}
-                className="p-2 text-gray-700 hover:text-blue-600 transition-colors relative"
+                className="relative rounded-full p-2 text-white/80 transition-colors hover:text-white"
               >
                 <FiShoppingCart className="w-6 h-6" />
                 {cartCount > 0 && (
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium"
+                    className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400 text-xs font-semibold text-slate-900"
                   >
                     {cartCount > 99 ? "99+" : cartCount}
                   </motion.span>
@@ -157,7 +161,7 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center space-x-2 p-2 text-gray-700 hover:text-blue-600 transition-colors"
+                  className="flex items-center space-x-2 rounded-full bg-white/5 px-3 py-2 text-slate-100/80 transition-colors hover:bg-white/10 hover:text-white"
                 >
                   <FiUser className="w-6 h-6" />
                   <span className="hidden md:block font-medium">
@@ -181,7 +185,7 @@ const Navbar = () => {
                           {auth.user.email}
                         </p>
                       </div>
-                      
+
                       <Link
                         to="dashboard/user/orders"
                         className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
@@ -212,7 +216,7 @@ const Navbar = () => {
                       )}
 
                       <hr className="my-2" />
-                      
+
                       <button
                         onClick={handleLogout}
                         className="flex items-center space-x-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left"
@@ -225,16 +229,16 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="hidden items-center space-x-2 sm:flex">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                  className="font-medium text-slate-100/80 transition-colors hover:text-white"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="rounded-full bg-emerald-400 px-4 py-2 font-semibold text-slate-900 transition-colors hover:bg-emerald-300"
                 >
                   Sign Up
                 </Link>
@@ -244,9 +248,13 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-gray-700 hover:text-blue-600 transition-colors"
+              className="flex rounded-full p-2 text-slate-100/90 transition-colors hover:bg-white/10 hover:text-white md:hidden"
             >
-              {isOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
+              {isOpen ? (
+                <FiX className="w-6 h-6" />
+              ) : (
+                <FiMenu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -258,9 +266,9 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-gray-200"
+              className="md:hidden mt-3 overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-900/75 px-2 py-3 backdrop-blur-2xl supports-[backdrop-filter]:bg-slate-900/65"
             >
-              <div className="py-4 space-y-1 px-2">
+              <div className="space-y-1">
                 {navItems.map((item) => {
                   const isActive = location.pathname === item.path;
                   return (
@@ -274,40 +282,40 @@ const Navbar = () => {
                     >
                       <Link
                         to={item.path}
-                        className={`relative block px-4 py-3 transition-all duration-300 ${
-                          isActive 
-                            ? 'text-white font-semibold' 
-                            : 'text-gray-700 hover:text-blue-600'
+                        className={`group relative block px-4 py-3 transition-all duration-300 ${
+                          isActive
+                            ? "font-semibold text-white"
+                            : "text-slate-100/80 hover:text-white"
                         }`}
                         onClick={() => setIsOpen(false)}
                       >
                         <span className="relative z-10">{item.name}</span>
-                        
+
                         {/* Active background with gradient */}
                         {isActive && (
                           <motion.div
                             layoutId="mobile-navbar-active"
-                            className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg"
+                            className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-500/80 to-cyan-400/80"
                             initial={false}
-                            transition={{ 
-                              type: "spring", 
-                              stiffness: 300, 
-                              damping: 30 
+                            transition={{
+                              type: "spring",
+                              stiffness: 300,
+                              damping: 30,
                             }}
                           />
                         )}
-                        
+
                         {/* Hover background for non-active */}
                         {!isActive && (
-                          <div className="absolute inset-0 bg-gray-50 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-200" />
+                          <div className="absolute inset-0 rounded-xl bg-white/5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                         )}
-                        
+
                         {/* Left accent bar for active */}
                         {isActive && (
                           <motion.div
                             initial={{ height: 0 }}
                             animate={{ height: "100%" }}
-                            className="absolute left-0 top-0 w-1 bg-white rounded-r"
+                            className="absolute left-0 top-0 w-1 rounded-r bg-white/80"
                             transition={{ duration: 0.3 }}
                           />
                         )}
@@ -315,19 +323,19 @@ const Navbar = () => {
                     </motion.div>
                   );
                 })}
-                
+
                 {!auth?.user && (
                   <div className="px-4 py-2 space-y-2">
                     <Link
                       to="/login"
-                      className="block w-full text-center border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="block w-full rounded-full border border-white/20 bg-white/5 py-2 text-center text-slate-100/80 transition-colors hover:bg-white/10 hover:text-white"
                       onClick={() => setIsOpen(false)}
                     >
                       Login
                     </Link>
                     <Link
                       to="/signup"
-                      className="block w-full text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                      className="block w-full rounded-full bg-emerald-400 py-2 text-center font-semibold text-slate-900 transition-colors hover:bg-emerald-300"
                       onClick={() => setIsOpen(false)}
                     >
                       Sign Up

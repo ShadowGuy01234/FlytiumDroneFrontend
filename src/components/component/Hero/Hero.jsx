@@ -1,165 +1,57 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import "./Hero.css";
 import { ArrowRight } from "lucide-react";
 
 const Hero = ({ handleOrderPopup }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const heroRef = useRef(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: (e.clientX - rect.left - rect.width / 2) / rect.width,
-          y: (e.clientY - rect.top - rect.height / 2) / rect.height,
-        });
-      }
-    };
-
-    const hero = heroRef.current;
-    if (hero) {
-      hero.addEventListener('mousemove', handleMouseMove);
-      return () => hero.removeEventListener('mousemove', handleMouseMove);
-    }
-  }, []);
-
-  const scrollToShop = () => {
-    const shopSection = document.getElementById('shop');
-    if (shopSection) {
-      shopSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
-    <section ref={heroRef} className="relative min-h-screen bg-white overflow-hidden flex items-center justify-center">
-      
-      {/* Animated Background Mesh Gradient */}
-      <div className="absolute inset-0">
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `
-              radial-gradient(at ${50 + mousePosition.x * 10}% ${50 + mousePosition.y * 10}%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
-              radial-gradient(at ${50 - mousePosition.x * 10}% ${50 - mousePosition.y * 10}%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-              radial-gradient(at ${50 + mousePosition.y * 10}% ${50 - mousePosition.x * 10}%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)
-            `,
-            transition: 'all 0.3s ease-out'
-          }}
+    <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-black text-white">
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      >
+        <source
+          src="https://res.cloudinary.com/dzqtx9kms/video/upload/f_auto,q_auto/Drone_Forest_Chase_Hyper_Realistic_Action_jc5zse.mp4"
+          type="video/mp4"
         />
-      </div>
+      </video>
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/75 to-slate-950/95 backdrop-blur-sm" />
 
-      {/* Main Content Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-5">
-        
-        {/* Typography First Design */}
-        <div className="text-center mb-16">
-          
-          {/* Minimalist Badge */}
-          <div className="inline-block mb-2">
-            <div className="flex items-center gap-3 px-4 py-2 border border-gray-900/10 rounded-full backdrop-blur-sm">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-medium tracking-wider uppercase text-gray-600">
-                Flytium Drones
-              </span>
-            </div>
-          </div>
-
-          {/* Hero Typography - Ultra Large & Bold */}
-          <div className="relative mb-12">
-            <h1 className="font-display font-black leading-[0.85] tracking-tighter">
-              {/* First Line */}
-              <div 
-                className="text-[12vw] md:text-[10vw] lg:text-[9rem] text-gray-900"
-                style={{
-                  transform: `translateX(${mousePosition.x * 20}px)`,
-                  transition: 'transform 0.3s ease-out'
-                }}
-              >
-                ELEVATE
-              </div>
-              
-              {/* Second Line - Italic with gradient */}
-              <div 
-                className="text-[12vw] md:text-[10vw] lg:text-[9rem] italic relative"
-                style={{
-                  transform: `translateX(${-mousePosition.x * 20}px)`,
-                  transition: 'transform 0.3s ease-out'
-                }}
-              >
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600">
-                  YOUR VISION
-                </span>
-              </div>
-            </h1>
-
-            {/* Decorative Line */}
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <div className="h-px w-16 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-              <div className="w-1 h-1 rounded-full bg-gray-400" />
-              <div className="h-px w-16 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-            </div>
-          </div>
-
-          {/* Tagline */}
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-            Precision engineering meets extraordinary design.<br className="hidden md:block" />
-            Professional aerial technology for the modern era.
-          </p>
-
-          {/* CTA */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24">
-            <button 
-              onClick={scrollToShop}
-              className="group relative px-10 py-5 bg-gray-900 text-white overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center gap-3 font-medium">
-                Explore Collection
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-            </button>
-          </div>
-        </div>
-
-        {/* Product Showcase - Large Image */}
-        <div className="relative">
-          <div 
-            className="relative mx-auto max-w-4xl"
-            style={{
-              transform: `perspective(1000px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * 5}deg)`,
-              transition: 'transform 0.1s ease-out'
-            }}
+      <div className="relative z-10 mx-auto max-w-4xl px-6 py-24 text-center sm:px-8 md:px-12">
+        <p className="text-xs uppercase tracking-[0.4em] text-emerald-300 drop-shadow">
+          Flytium Drones
+        </p>
+        <h1 className="mt-6 text-4xl font-bold leading-tight text-white drop-shadow-[0_10px_25px_rgba(0,0,0,0.7)] sm:text-5xl md:text-6xl">
+          A New Chapter in Aerial Innovation
+        </h1>
+        <p className="mt-6 text-base text-slate-100/90 drop-shadow sm:text-lg md:text-xl">
+          Experience next-generation unmanned systems engineered for precision,
+          performance, and mission success.
+        </p>
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href="/store"
+            className="inline-flex items-center gap-2 rounded-full bg-white/90 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-slate-900 transition hover:bg-white"
           >
-            {/* Main Product Image */}
-            {/* <div className="relative">
-              <img
-                src="/003.jpg"
-                alt="Flytium Drone"
-                className="w-full h-auto object-contain"
-                style={{
-                  filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.2))',
-                }}
-              />
-            </div> */}
-
-            {/* Subtle Glow */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-emerald-500/10 via-blue-500/10 to-transparent blur-3xl" />
-          </div>
-
-          
-        </div>
-
-      </div>
-
-      {/* Minimal Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-        <div className="flex flex-col items-center gap-3 text-gray-400">
-          <div className="text-xs font-medium tracking-widest uppercase">Scroll</div>
-          <div className="w-px h-12 bg-gradient-to-b from-gray-400 to-transparent hero-scroll-indicator" />
+            Shop Now
+            <ArrowRight className="h-4 w-4" />
+          </a>
+          <a
+            href="/services"
+            className="inline-flex items-center justify-center rounded-full border border-white/70 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white hover:bg-white/10"
+          >
+            Explore Services
+          </a>
         </div>
       </div>
 
+      <div className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/60 sm:flex">
+        <span className="text-[11px] uppercase tracking-[0.3em]">Scroll</span>
+        <span className="h-12 w-px bg-gradient-to-b from-white via-white/40 to-transparent" />
+      </div>
     </section>
   );
 };
