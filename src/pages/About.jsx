@@ -172,25 +172,48 @@ const About = () => {
             {/* Left: The Story */}
             <div className="space-y-12">
               <div>
-                <span className="text-sm font-bold tracking-[0.3em] uppercase text-gray-400">
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.7, delay: 0.1 }}
+                  className="text-sm font-bold tracking-[0.3em] uppercase text-gray-400"
+                >
                   Chapter Two
-                </span>
-                <h2 className="text-6xl lg:text-7xl font-black text-gray-900 mt-4 mb-8">
+                </motion.span>
+                <motion.h2
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-6xl lg:text-7xl font-black text-gray-900 mt-4 mb-8"
+                >
                   The Story
-                </h2>
+                </motion.h2>
               </div>
 
               <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-                <p className="text-2xl font-light text-gray-900">
+                <motion.p
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="text-2xl font-light text-gray-900"
+                >
                   In a world rapidly evolving through technology, Flytium Drone
                   was born from a simple yet powerful idea — to
                   <span className="font-bold">
                     {" "}
                     redefine what's possible in the sky.
                   </span>
-                </p>
+                </motion.p>
 
-                <p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.4 }}
+                >
                   Founded by{" "}
                   <span className="font-semibold text-gray-900">
                     Ankit Kumar
@@ -198,37 +221,70 @@ const About = () => {
                   , Flytium emerged from years of research, innovation, and an
                   unwavering belief in the transformative power of aerial
                   technology.
-                </p>
+                </motion.p>
 
-                <p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.5 }}
+                >
                   What began as a vision has grown into a movement shaping
                   India’s drone ecosystem. We are not merely building drones —
                   we’re crafting tools of empowerment for dreamers, innovators,
                   and engineers who dare to push boundaries.
-                </p>
+                </motion.p>
 
                 {/* Visual Quote */}
-                <div className="border-l-4 border-gray-900 pl-6 py-4 my-8">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.6 }}
+                  className="border-l-4 border-gray-900 pl-6 py-4 my-8"
+                >
                   <p className="text-xl italic text-gray-900">
                     "Technology should elevate humanity, not complicate it."
                   </p>
                   <p className="text-sm text-gray-500 mt-2">
                     — Our Founding Principle
                   </p>
-                </div>
+                </motion.div>
               </div>
             </div>
 
             {/* Right: Founder Image with Creative Frame */}
-            <div className="relative">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative"
+            >
               <div className="relative z-10">
                 {/* Corner brackets */}
-                <div className="absolute -top-6 -left-6 w-24 h-24 border-l-4 border-t-4 border-gray-900"></div>
-                <div className="absolute -bottom-6 -right-6 w-24 h-24 border-r-4 border-b-4 border-gray-900"></div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="absolute -top-6 -left-6 w-24 h-24 border-l-4 border-t-4 border-gray-900"
+                ></motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="absolute -bottom-6 -right-6 w-24 h-24 border-r-4 border-b-4 border-gray-900"
+                ></motion.div>
 
                 {/* Image */}
                 <div className="aspect-[1:1] overflow-hidden bg-gray-100">
-                  <img
+                  <motion.img
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
                     src="https://res.cloudinary.com/dsg5tzzdg/image/upload/v1759421026/ankit_sir_kfgxxo.png"
                     alt="Ankit Kumar - Founder"
                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
@@ -236,14 +292,20 @@ const About = () => {
                 </div>
 
                 {/* Caption */}
-                <div className="mt-6 border-t-2 border-gray-900 pt-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="mt-6 border-t-2 border-gray-900 pt-4"
+                >
                   <p className="text-sm font-bold tracking-[0.2em] uppercase text-gray-900">
                     Ankit Kumar
                   </p>
                   <p className="text-sm text-gray-600">Founder & Visionary</p>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -255,16 +317,28 @@ const About = () => {
             Chapter Three
           </span>
           <div className="mb-20">
-            <h2 className="text-5xl font-black text-gray-900 py-2">
+            <motion.h2
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="text-5xl font-black text-gray-900 py-2"
+            >
               What We Stand For
-            </h2>
+            </motion.h2>
             <div className="w-32 h-1 bg-gradient-to-r from-emerald-600 to-blue-600 mt-6"></div>
           </div>
 
           {/* Three Column Grid */}
           <div className="grid md:grid-cols-3 gap-0 border-2 border-gray-900">
             {/* Mission */}
-            <div className="p-12 border-r-2 border-gray-900 hover:bg-white transition-colors group">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="p-12 border-r-2 border-gray-900 hover:bg-white transition-colors group"
+            >
               <div className="space-y-6">
                 <div className="text-7xl font-black text-gray-200 group-hover:text-emerald-600 transition-colors">
                   01
@@ -276,10 +350,16 @@ const About = () => {
                   leaders.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Vision */}
-            <div className="p-12 border-r-2 border-gray-900 hover:bg-white transition-colors group">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="p-12 border-r-2 border-gray-900 hover:bg-white transition-colors group"
+            >
               <div className="space-y-6">
                 <div className="text-7xl font-black text-gray-200 group-hover:text-blue-600 transition-colors">
                   02
@@ -291,10 +371,16 @@ const About = () => {
                   product.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Values */}
-            <div className="p-12 hover:bg-white transition-colors group">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="p-12 hover:bg-white transition-colors group"
+            >
               <div className="space-y-6">
                 <div className="text-7xl font-black text-gray-200 group-hover:text-purple-600 transition-colors">
                   03
@@ -305,7 +391,7 @@ const About = () => {
                   and customer satisfaction in everything we do.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -318,14 +404,20 @@ const About = () => {
           </span>
           <div className="grid lg:grid-cols-2 gap-20 items-start">
             {/* Left: Title */}
-            <div className="lg:sticky lg:top-32">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="lg:sticky lg:top-32"
+            >
               <h2 className="text-6xl font-black text-gray-900 leading-tight py-2">
                 Why Choose
                 <br />
                 Flytium Drones?
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-emerald-600 to-blue-600 mt-8"></div>
-            </div>
+            </motion.div>
 
             {/* Right: List */}
             <div className="space-y-8">
@@ -355,7 +447,14 @@ const About = () => {
                     "Join 50,000+ innovators, creators, and dreamers who trust Flytium for their aerial needs.",
                 },
               ].map((item, index) => (
-                <div key={index} className="flex gap-6 group">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.15 * index }}
+                  className="flex gap-6 group"
+                >
                   <div className="flex-shrink-0">
                     <div className="text-3xl font-black text-gray-200 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-600 group-hover:to-blue-600 transition-all">
                       {item.number}
@@ -369,7 +468,7 @@ const About = () => {
                       {item.description}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

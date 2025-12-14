@@ -159,14 +159,31 @@ const Career = () => {
         {/* Hero */}
         <section className="pt-8 pb-8 border-b-2 border-gray-900">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="w-20 h-1 bg-gradient-to-r from-emerald-600 to-blue-600 mb-4"></div>
-            <h1 className="text-6xl lg:text-7xl font-black text-gray-900 leading-tight mb-6">
+            <motion.div
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: "auto" }}
+              transition={{ duration: 0.8 }}
+              className="w-20 h-1 bg-gradient-to-r from-emerald-600 to-blue-600 mb-4"
+            ></motion.div>
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-6xl lg:text-7xl font-black text-gray-900 leading-tight mb-6"
+            >
               Join the Team
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl text-gray-600 max-w-2xl"
+            >
               Build the future of drone technology with us. Explore
               opportunities and meet the people behind FlightDrone.
-            </p>
+            </motion.p>
           </div>
         </section>
 
@@ -174,16 +191,28 @@ const Career = () => {
         <section className="py-16 border-b-2 border-gray-900">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex items-center justify-between mb-12">
-              <h2 className="text-4xl font-black text-gray-900">
+              <motion.h2
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+                className="text-4xl font-black text-gray-900"
+              >
                 Open Positions
-              </h2>
+              </motion.h2>
               {jobs.length > 0 && (
-                <div className="flex items-center gap-2 border-2 border-gray-900 px-4 py-2">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="flex items-center gap-2 border-2 border-gray-900 px-4 py-2"
+                >
                   <Briefcase className="w-5 h-5" />
                   <span className="font-bold">
                     {jobs.length} {jobs.length === 1 ? "Opening" : "Openings"}
                   </span>
-                </div>
+                </motion.div>
               )}
             </div>
 
@@ -194,36 +223,70 @@ const Career = () => {
             ) : jobs.length > 0 ? (
               <div className="space-y-6">
                 {jobs.map((job, index) => (
-                  <div
+                  <motion.div
                     key={job._id}
+                    initial={{ opacity: 0, scale: 0.98, y: 20 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.05 }}
                     className="border-2 border-gray-900 p-8 hover:bg-gray-50 transition-colors group"
                   >
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                       <div className="flex-1">
-                        <h3 className="text-2xl font-black text-gray-900 mb-4">
+                        <motion.h3
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.45 }}
+                          className="text-2xl font-black text-gray-900 mb-4"
+                        >
                           {job.title}
-                        </h3>
+                        </motion.h3>
 
                         <div className="flex flex-wrap gap-3 mb-4">
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.35, delay: 0.05 }}
+                            className="flex items-center gap-2 text-sm text-gray-600"
+                          >
                             <MapPin className="w-4 h-4" />
                             <span>{job.location}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                          </motion.div>
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.35, delay: 0.08 }}
+                            className="flex items-center gap-2 text-sm text-gray-600"
+                          >
                             <Briefcase className="w-4 h-4" />
                             <span>{job.jobType}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                          </motion.div>
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.35, delay: 0.11 }}
+                            className="flex items-center gap-2 text-sm text-gray-600"
+                          >
                             <Clock className="w-4 h-4" />
                             <span>{job.experience}</span>
-                          </div>
+                          </motion.div>
                           {job.applicationDeadline && (
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <motion.div
+                              initial={{ opacity: 0, y: 8 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.35, delay: 0.12 }}
+                              className="flex items-center gap-2 text-sm text-gray-600"
+                            >
                               <Calendar className="w-4 h-4" />
                               <span>
                                 Apply by {formatDate(job.applicationDeadline)}
                               </span>
-                            </div>
+                            </motion.div>
                           )}
                         </div>
 
@@ -249,7 +312,7 @@ const Career = () => {
                         <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-500"></div>
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             ) : (

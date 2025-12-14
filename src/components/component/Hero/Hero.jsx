@@ -59,22 +59,12 @@ const Hero = ({ handleOrderPopup }) => {
           className="mt-6 text-4xl font-bold leading-tight text-white drop-shadow-[0_10px_25px_rgba(0,0,0,0.7)] sm:text-5xl md:text-6xl"
         >
           {displayedText}
-          <motion.span
-            animate={{ opacity: [1, 0] }}
-            transition={{
-              duration: 0.8,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          >
-            |
-          </motion.span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{
-            duration: 0.8,
+            duration: 0.4,
             delay: 2,
             ease: "easeOut",
             type: "spring",

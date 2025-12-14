@@ -102,6 +102,7 @@ const FAQSection = () => {
               type: "spring",
               stiffness: 100,
             }}
+            className="text-5xl md:text-6xl font-display font-bold text-gray-900 mb-6 leading-tight"
           >
             Questions &<br />
             <span className="text-gray-400">Answers</span>
@@ -123,8 +124,12 @@ const FAQSection = () => {
           <div className="lg:col-span-7">
             <div className="space-y-2">
               {faqs.map((faq, index) => (
-                <div
+                <motion.div
                   key={index}
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.05 }}
                   className={`
                     border-l-2 transition-all duration-200
                     ${
@@ -149,7 +154,8 @@ const FAQSection = () => {
                           {faq.category}
                         </span>
                       </div>
-                      <h3
+                      <motion.h3
+                        layout
                         className={`font-semibold text-base transition-colors ${
                           activeIndex === index
                             ? "text-gray-900"
@@ -157,7 +163,7 @@ const FAQSection = () => {
                         }`}
                       >
                         {faq.question}
-                      </h3>
+                      </motion.h3>
                     </div>
 
                     <div
@@ -178,16 +184,25 @@ const FAQSection = () => {
                     </div>
                   </button>
 
-                  {activeIndex === index && (
-                    <div className="px-6 pb-6">
-                      <div className="pl-8">
-                        <p className="text-gray-600 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  <AnimatePresence initial={false}>
+                    {activeIndex === index && (
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="px-6 pb-6 overflow-hidden"
+                      >
+                        <div className="pl-8">
+                          <p className="text-gray-600 leading-relaxed">
+                            {faq.answer}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               ))}
             </div>
           </div>

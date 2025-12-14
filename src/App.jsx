@@ -44,6 +44,7 @@ import ManageJobs from "./pages/Admin/ManageJobs";
 import JobApplications from "./pages/Admin/JobApplications";
 import ManageContacts from "./pages/Admin/ManageContacts";
 import { LenisProvider } from "./components/LenisProvider";
+import ScrollToTop from "./components/ScrollToTop";
 
 const AppContent = () => {
   const location = useLocation();
@@ -105,6 +106,7 @@ function App() {
         <Router>
           <Navbar />
           <AppContent />
+          <ScrollToTop />
         </Router>
       </LenisProvider>
     </>
