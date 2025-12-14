@@ -16,7 +16,7 @@ const Hero = ({ handleOrderPopup }) => {
       } else {
         clearInterval(timer);
       }
-    }, 50);
+    }, 30);
 
     return () => clearInterval(timer);
   }, []);
