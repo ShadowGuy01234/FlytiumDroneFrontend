@@ -117,9 +117,15 @@ const ProductAdCard = () => {
                   <div className="text-4xl font-bold text-gray-900">
                     {String(currentAdIndex + 1).padStart(2, "0")}
                   </div>
-                  <div className="text-sm text-gray-400">
+                  <motion.div
+                    className="text-sm text-gray-400"
+                    initial={{ opacity: 0, y: 6 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.15, ease: "easeIn" }}
+                  >
                     / {String(ads.length).padStart(2, "0")}
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="flex gap-2 pointer-events-auto">
                   <button

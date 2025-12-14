@@ -131,12 +131,22 @@ const ImageSlider = () => {
           }}
         >
           {duplicatedCards.map((card, index) => (
-            <div
+            <motion.div
               key={`${card.id}-${index}`}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: (index % 6) * 0.05 }}
+              whileHover={{ scale: 1.02 }}
               className="group relative flex-shrink-0 w-[300px] lg:w-[340px]"
             >
               {/* Card */}
-              <div className="relative bg-white border-2 border-gray-900 h-[420px] p-6 overflow-hidden transition-all duration-300 hover:shadow-2xl">
+              <motion.div
+                className="relative bg-white border-2 border-gray-900 h-[420px] p-6 overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                initial={{ y: 6 }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
                 {/* Decorative corner */}
                 <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-gray-200"></div>
 
@@ -200,8 +210,8 @@ const ImageSlider = () => {
                     />
                   </svg>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>
